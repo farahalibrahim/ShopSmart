@@ -1,0 +1,29 @@
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+input[type="text"] {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px 0 0 4px;
+    font-size: 16px;
+    outline: none;
+}
+button[type="submit"] {
+    padding: 8px 20px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    border-radius: 0 4px 4px 0;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+button[type="submit"]:hover {
+    background-color: #e0e0e0;
+}
+table {
+    background-image: url(/pics/signup.jpg);
+    margin-top: 100px;
+}
