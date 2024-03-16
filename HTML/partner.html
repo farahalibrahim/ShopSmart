@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supermarket Partnership</title>
+</head>
+
+<body>
+    <table align="center" border="2px">
+
+        <td colspan="2">
+            <h2>Add Your Supermarket Info</h2>
+        </td>
+
+        <tr align="center">
+            <th>Name</th>
+            <td><input type="text" name="super_name" id="super_name"></td>
+        </tr>
+        <tr align="center">
+            <th>Email</th>
+            <td><input type="text" name="super_email" id="super_email"></td>
+        </tr>
+        <tr align="center" id="add_branch">
+            <td colspan="2"><button onclick="add_supermarket()">Add Branch</button></td>
+        </tr>
+        <script>
+            // var branch_nb = 1;
+            function add_supermarket(branch_nb = 1) {
+                var new_branch = document.createElement('tr');
+                var nb = document.createElement('th');
+                nb.textContent = "Branch " + branch_nb;
+                new_branch.appendChild(nb);
+
+                var branch_details = document.createElement('table');/*details for a single branch*/
+
+                // phone number row
+                var phone_row = document.createElement('tr');
+                var phone_title = document.createElement('th');
+                phone_title.textContent = 'Phone';
+                var input = document.createElement("input").setAttribute("id", "branch_phone" + branch_nb).setAttribute("type", "tel").setAttribute("name", "branch_phone" + branch_nb);
+                var phone = document.createElement('td');
+                phone.appendChild(input);
+                phone_row.appendChild(phone_title);
+                phone_row.appendChild(phone);
+                branch_details.appendChild(phone_row);
+
+                // location row
+                var loc_row = document.createElement('tr');
+                var loc_title = document.createElement('th');
+                loc_title.textContent = 'Phone';
+                input = document.createElement("input").setAttribute("id", "branch_loc" + branch_nb).setAttribute("type", "text").setAttribute("name", "branch_loc" + branch_nb);
+                var location = document.createElement('td');
+                location.appendChild(input);
+                loc_row.appendChild(loc_title);
+                loc_row.appendChild(location);
+                branch_details.appendChild(loc_row);
+
+                var addBranchButton = document.getElementById("add_branch");
+                // addBranchButton.insertAdjacentElement("beforebegin", branch_details);
+                branch_nb++;
+
+                addBranchButton.parentNode.insertBefore(branch_details, addBranchButton.nextSibling);
+            }
+        </script>
+
+        <!-- <label for="super_loc">Location:<input type="text" name="super_loc" id="super_loc"><br></input></label> -->
+
+    </table>
+</body>
+
+</html>
