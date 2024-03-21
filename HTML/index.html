@@ -8,17 +8,84 @@
     <link rel="stylesheet" href="CSS/normalize.css">
     <link rel="stylesheet" href="CSS/senior.css">
     <title>Supermarkets</title>
+    <!--icons source-->
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20,300,0,-25" />
+    <link rel="stylesheet" href="../CSS/style.css">
 </head>
 
 <body>
-    <div>
-        <h1>Supermarkets</h1>
+    <header>
+        <span class="material-symbols-rounded menu-icon">menu</span> <!-- retractable menu icon, opens  sidebar -->
+        <img class="logo" alt="logo" src="../pics/logo/White_Logo_Brand_horizontal.png" width="120">
+        <div class="search_location"><!-- search bar and location display -->
+            <div class="search_container"> <!--search bar-->
+                <form action="#" method="get">
+                    <input type="text" name="search" id="searchbar" placeholder="Search for a product...">
+                    <button type="submit" id="searchbtn">
+                        <span class="material-symbols-rounded search-icon">search</span>
+                    </button>
+                </form>
+            </div>
+            <div class="location"><!--location-->
+                <span class="material-symbols-rounded location">location_on</span><!-- location icon -->
+                <span>location</span> <!--location stored in user preferences-->
+            </div>
+        </div>
+        <div class="user_list">
+            <!-- shopping list -->
+            <a href="#"><span class="material-symbols-rounded list-icon">checklist_rtl</span></a>
+            <!-- user profile -->
+            <a href="#"><span class="material-symbols-rounded user-icon">person</span></a>
+        </div>
+
+    </header>
+
+    <!-- categories of products -->
+    <div class="categories">
+        categories go here...
     </div>
-    <div class="search-container">
-        <input type="text" placeholder="Search Here ..">
-        <button type="submit">Search</button>
+    <!--sections: weekly offers-->
+    <div class="weekoffer">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Weekly Offers..</h2>
+                <span class="details">Here for a limited time!</span>
+            </div>
+            <a href="#"><span class="material-symbols-rounded expand-icon">chevron_right</span></a>
+        </div>
+
+        item cards go here...
+
     </div>
-    <hr>
+    <!-- sections: recommendations-->
+    <div class="recommend">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Recommended for you..</h2>
+                <!-- <span class="details">Here for a limited time!</span> -->
+            </div>
+            <a href="#"><span class="material-symbols-rounded expand-icon">chevron_right</span></a>
+        </div>
+
+        item cards go here... <br>
+        to be retrieved using recommendation AI model
+
+    </div>
+    <!-- sections: inventory check-->
+    <div class="inventory">
+        <div class="section-header">
+            <div class="section-title">
+                <h2>Purchase Again..</h2>
+                <span class="details">You may have ran out</span>
+            </div>
+            <a href="#"><span class="material-symbols-rounded expand-icon">chevron_right</span></a>
+        </div>
+
+        item cards go here... <br>
+        uses previous orders data, based on expiry date
+
+    </div>
 </body>
 
 </html>

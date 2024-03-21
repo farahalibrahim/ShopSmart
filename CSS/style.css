@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+:root {
+    /* define color palette. use with: var(--highlight)*/
+    --primary: #116f0d;
+    --secondary: #fff314;
+    --tertiary: #7ce200;
+    --background: #fcfaf4;
+    --text: #000;
+    --emphasis: #4c4c4c;
+}
+
+* {
+    font-family: "Varela Round", sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: #000 solid thin;
+}
+
+body,
+input {
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.1);
+    background-color: var(--background);
+}
+
+header {
+    background-color: var(--primary);
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0.1%;
+    color: var(--background);
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: 5px solid var(--secondary);
+    margin-bottom: 20px;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.1);
+}
+
+.material-symbols-rounded {
+    color: var(--background);
+    background-color: transparent;
+    cursor: pointer;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.5);
+
+}
+
+.logo {
+    background-color: transparent;
+    margin-right: 30px;
+    order: 2;
+    cursor: pointer;
+}
+
+.user_list {
+    padding: 2%;
+    order: 4;
+    margin-left: auto;
+}
+
+.user_list a {
+    padding-inline: 3px;
+}
+
+.user_list .menu {
+    order: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.search_location {
+    order: 3;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    width: max-content;
+}
+
+.location {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding-left: 5px;
+    text-shadow: 0px 1px rgba(0, 0, 0, 0.5);
+}
+
+.search_container {
+    background: #000;
+    border-radius: 25px;
+    position: relative;
+    width: 170%;
+}
+
+.search-icon {
+    color: black;
+    background-color: transparent;
+}
+
+#searchbar {
+    width: 100%;
+    height: 100%;
+    border: #4c4c4c solid thin;
+    display: block;
+    border-radius: 20px;
+    padding: 7px 10px;
+}
+
+#searchbar::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#searchbar:focus {
+    outline: none;
+}
+
+#searchbtn {
+    position: absolute;
+    top: 0;
+    right: 8px;
+    width: 30px;
+    height: 100%;
+    cursor: pointer;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+
+}
+
+.expand-icon {
+    color: black;
+    margin-left: auto;
+    margin-right: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-block: 7px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.details {
+    font-size: 11px;
+    color: var(--emphasis);
+    padding: 0;
+}
+
+.weekoffer,
+.recommend,
+.inventory {
+    margin-top: 10px;
+    padding: 10px;
+    /* text-shadow: 0px 1px rgba(0, 0, 0, 0.5); */
+}
