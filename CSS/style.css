@@ -15,7 +15,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: #000 solid thin;
+    /* border: #000 solid thin; */
 }
 
 body,
@@ -156,4 +156,52 @@ header {
     margin-top: 10px;
     padding: 10px;
     /* text-shadow: 0px 1px rgba(0, 0, 0, 0.5); */
+}
+
+.mainbtn {
+    background-color: var(--primary);
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    border-radius: 28px;
+    cursor: pointer;
+}
+
+.mainbtn:hover {
+    background-color: transparent;
+    padding: 8px 16px;
+    border: 2px solid var(--primary);
+
+    cursor: pointer;
+    color: black;
+
+}
+
+.alternative {
+    font-size: 11px;
+}
+
+.signup-input-label {
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.signup-input {
+    padding: 4px 8px;
+    font-size: 14px;
+    border: none;
+    border-bottom: 2px solid var(--secondary);
+    background-color: rgb(244, 244, 235);
+}
+
+.signup-input::placeholder {
+    color: rgba(0, 0, 0, 0.326);
+    font-size: 11px;
+}
+
+.signup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10%;
 }
