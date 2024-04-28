@@ -1,3 +1,5 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "phpserver.phpConfigPath": "C:\\xampp\\php\\php.ini",
+    "phpserver.phpPath": "C:\\xampp\\php\\php.exe"
 }
