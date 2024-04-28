@@ -1,0 +1,75 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap'); */
+
+:root {
+    --green-color: #11770E;
+    --LIGHT-GREEN: #7CE200;
+    --yellow: #FFF314;
+    --text-color: #4C4C4C;
+    --background: #eee;
+}
+
+img {
+    width: 100%;
+}
+
+* {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+body {
+    color: var(--text-color);
+}
+
+.productcard {
+    display: inline-block;
+    width: 170px;
+    height: 220px;
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    text-align: center;
+}
+
+.productcard img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+}
+
+.productcard h2 {
+    font-size: 1.2em;
+    margin: 0;
+    text-align: left;
+}
+
+.productcard .product_details {
+    margin-top: 0.1em;
+}
+
+.productcard .product_details p {
+    font-size: 1em;
+    margin: 0;
+    color: darkslategray;
+    text-align: left;
+}
+
+.productcard a {
+    text-decoration: none;
+    color: black;
+}
+
+#catarrow {
+    font-size: 1.5em;
+    /* text-align: right; */
+}

@@ -49,7 +49,7 @@ try {
         ':tag' => $tag
     );
     $stmt = DatabaseHelper::runQuery($conn, $sql, $params);
-    // echo $stmt->fetchAll;
+    header("Location: admin.php?add_product=success");
 } catch (PDOException $e) {
     die($e->getMessage());
 }

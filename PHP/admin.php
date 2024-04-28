@@ -19,14 +19,14 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             <?php
-            // if($_GET[] == 'add_product'){
-            //     echo 'document.querySelector(".add_product").classList.remove("hidden");';
-            // } else if($_GET[] == 'add_supermarket'){
-            //     echo 'document.querySelector(".add_supermarket").classList.remove("hidden");';
-            // } else 
-            if ($_GET['add_tag'] == 'success') {
+            if ($_GET['add_product'] == 'success') {
+                echo 'document.querySelector(".add_product.form").classList.toggle("hidden");';
+                echo 'alert("Product added successfully");';
+                // } else if($_GET[] == 'add_supermarket'){
+                //     echo 'document.querySelector(".add_supermarket").classList.remove("hidden");';
+            } else if ($_GET['add_tag'] == 'success') {
                 $_GET['add_tag'] == '';
-                echo 'document.querySelector(".add_tag.form").classList.remove("hidden");';
+                echo 'document.querySelector(".add_tag.form").classList.toggle("hidden");';
                 echo 'alert("Tag added successfully");';
             }
             // } else if($_GET[] == 'add_user'){
@@ -166,7 +166,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
                 ?>
             </select>
         </label><br>
-        <label for="add_tag_input">Tag:<input type="text" name="tag" id="add_tag_input" maxlength="5" placeholder="xxxxx" pattern="^\d{5}$" title="must be 5 digits or less" required></label><br>
+        <label for="add_tag_input">Tag:<input type="text" name="tag" id="add_tag_input" minlength="3" maxlength="5" placeholder="xxxxx" pattern="^\d{3,5}$" title="must be 3-5 digits" required></label><br>
         <label for="add_tag_name_input">Tag name:<input type="text" name="tag_name" id="add_tag_name_input"></label><br>
         <button class="add_tag btn" name="add_tag" type="submit">Add</button>
 

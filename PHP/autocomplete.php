@@ -12,15 +12,15 @@ if (!empty($query)) {
     switch ($type) {
         case 'product-barcode':
             $sql = "SELECT DISTINCT barcode, product_name FROM Product WHERE barcode LIKE ?";
-            $params = [$query . '%'];
+            $params = ['%' . $query . '%'];
             break;
         case 'product-name':
-            $sql = "SELECT DISTINCT product_name FROM Product WHERE product_name LIKE ?";
-            $params = [$query . '%'];
+            $sql = "SELECT DISTINCT barcode, product_name FROM Product WHERE product_name LIKE ?";
+            $params = ['%' . $query . '%'];
             break;
         case 'product-manuf':
             $sql = "SELECT DISTINCT manufacturer FROM Product WHERE manufacturer LIKE ?";
-            $params = [$query . '%'];
+            $params = ['%' . $query . '%'];
             break;
     }
     $stmt = DatabaseHelper::runQuery($conn, $sql, $params);

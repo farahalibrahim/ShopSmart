@@ -41,6 +41,8 @@ function setupAutocomplete(inputFieldId, autocompleteUrl, autocompleteType) {
                                         $(inputFieldId).val(result.barcode);
                                     } else if (autocompleteType == 'product-name') {
                                         $(inputFieldId).val(result.product_name);
+                                        // Set the barcode field value to the clicked result's barcode
+                                        $('#product_barcode_input').val(result.barcode);
                                     } else if (autocompleteType == 'product-manuf') {
                                         $(inputFieldId).val(result.manufacturer);
                                     }
