@@ -14,6 +14,8 @@ $category = str_replace('_', ' & ', $_GET['category']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php $category ?></title>
+    <!-- header and footer's css -->
+    <link rel="stylesheet" href="../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
@@ -22,18 +24,56 @@ $category = str_replace('_', ' & ', $_GET['category']);
 </head>
 
 <body>
+    <!-- header -->
+    <?php include_once '../PHP/header.php'; ?>
+
+
     <div class="container">
         <h1><?php echo $category ?></h1>
         <?php
-        $sql = "SELECT product.*, supermarket.name as supermarket_name 
-            FROM product 
-            INNER JOIN supermarket ON product.supermarket_id = supermarket.id 
-            WHERE product.category = :category";
+        // $sql = "SELECT product.*, supermarket.name as supermarket_name 
+        //     FROM product 
+        //     INNER JOIN supermarket ON product.supermarket_id = supermarket.id 
+        //     WHERE product.category = :category";
+
+        // $stmt = DatabaseHelper::runQuery($conn, $sql, ['category' => $category]);
+        // // $stmt = $conn->prepare($sql);
+        // // $stmt->bindParam(':category', $category);
+        // // $stmt->execute();
+        // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // // foreach ($results as $result) {
+        // //     print_r(array_keys($result));
+        // //     echo '<br>';
+        // //     // rest of your code...
+        // // }
+
+        // foreach ($results as $result) {
+        //     $finfo = new finfo(FILEINFO_MIME_TYPE);
+        //     $mimeType = $finfo->buffer($result['product_image']);
+
+        //     $imageData = base64_encode($result['product_image']);
+        //     $src = 'data:' . $mimeType . ';base64,' . $imageData;
+
+        // echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><div class="productcard">';
+        // echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
+        // echo '<h2>' . $result['product_name'] . '</h2>';
+        // echo '<div class="product_details"><p>' . $result['supermarket_name'] . '</p>';
+        // echo '<p> $' . $result['price'] . '</p></div></a>';
+        // echo '<a href="addtocart.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+        // echo '</div>';
+        // }
+
+        // $sql = "SELECT * FROM product WHERE category = :category GROUP BY barcode";
+        // $sql = "SELECT * FROM product WHERE category = :category";
+
+
+        $sql = "SELECT barcode, product_name, product_image,quantity, quantity_type, MIN(price) as min_price, MAX(price) as max_price 
+        FROM product 
+        WHERE category = :category 
+        GROUP BY barcode, product_name";
 
         $stmt = DatabaseHelper::runQuery($conn, $sql, ['category' => $category]);
-        // $stmt = $conn->prepare($sql);
-        // $stmt->bindParam(':category', $category);
-        // $stmt->execute();
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         // foreach ($results as $result) {
@@ -42,6 +82,17 @@ $category = str_replace('_', ' & ', $_GET['category']);
         //     // rest of your code...
         // }
 
+        // foreach ($results as $result) {
+        //     foreach ($result as $key => $value) {
+        //         if ($key != 'product_image') {
+        //             echo $key . ': ' . $value . '<br>';
+        //         }
+        //     }
+        //     echo '<br>';
+        //     // rest of your code...
+        // }
+
+
         foreach ($results as $result) {
             $finfo = new finfo(FILEINFO_MIME_TYPE);
             $mimeType = $finfo->buffer($result['product_image']);
@@ -49,17 +100,40 @@ $category = str_replace('_', ' & ', $_GET['category']);
             $imageData = base64_encode($result['product_image']);
             $src = 'data:' . $mimeType . ';base64,' . $imageData;
 
-            echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><div class="productcard">';
+            echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><div class="productcard">';
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
-            echo '<h2>' . $result['product_name'] . '</h2>';
-            echo '<div class="product_details"><p>' . $result['supermarket_name'] . '</p>';
-            echo '<p> $' . $result['price'] . '</p></div></a>';
-            echo '<a href="addtocart.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+            echo '<h3>' . $result['product_name'] . '</h3>';
+            echo '<div class="product_details">';
+            if ($result['quantity_type'] == 'weight') {
+                if ($result['quantity'] >= 1000) {
+                    echo '<p>' . $result['quantity'] / 1000 . ' kg </p></div></a>';
+                } else if ($result['quantity'] < 1000) {
+                    echo '<p>' . $result['quantity'] . ' g </p></div></a>';
+                }
+            } else if ($result['quantity_type'] == 'piece') {
+                echo '<p>' . $result['quantity']  . ' pieces</p></div></a>';
+            } else if ($result['quantity_type'] == 'liquid') {
+                if ($result['quantity'] >= 1000) {
+                    echo '<p>' . $result['quantity'] / 1000  . ' l</p></div></a>';
+                } else if ($result['quantity'] < 1000) {
+                    echo '<p>' . $result['quantity'] . ' ml </p></div></a>';
+                }
+            }
+            if ($result['min_price'] == $result['max_price']) { // only one supermarket selling product OR multiple at same price => no price range
+                echo '<p> $' . $result['min_price'] . '</p>';
+            } else { // there is a price range => multiple supermarkets selling same product
+                echo '<p> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
+            }
+            // echo '<p>' . $result['quantity'] . ' - $' . $result['max_price'] . '</p></div></a>';
+
+            echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div>';
         }
         ?>
     </div>
 
+    <!--Footer Section-->
+    <?php include_once '../PHP/footer.php'; ?>
 </body>
 
 </html>

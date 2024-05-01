@@ -12,7 +12,7 @@ if (!empty($query)) {
     switch ($type) {
         case 'product-barcode':
             $sql = "SELECT DISTINCT barcode, product_name FROM Product WHERE barcode LIKE ?";
-            $params = ['%' . $query . '%'];
+            $params = [$query . '%'];
             break;
         case 'product-name':
             $sql = "SELECT DISTINCT barcode, product_name FROM Product WHERE product_name LIKE ?";

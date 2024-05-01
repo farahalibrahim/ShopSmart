@@ -2,6 +2,43 @@
 include_once('../PHP/connection.inc.php');
 include_once('../PHP/dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
+
+// for testing, assume that logged in user's email is: pede.sagittis@protonmail.couk
+$email = 'pede.sagittis@protonmail.couk';
+// $password = 'TVH78DVJ8OU';
+// $id = 101;
+
+
+
+$sql = "SELECT id,name FROM user WHERE email = :email";
+$stmt = DatabaseHelper::runQuery($conn, $sql, ['email' => $email]);
+
+$row = $stmt->fetch(PDO::FETCH_ASSOC);
+$user_id = $row['id'];
+$user_name = $row['name'];
+
+setcookie('user_id', $user_id, time() + 86400, '/');
+setcookie('user_name', $user_name, time() + 86400, '/');
+// time() + 86400, '/' : current unix timestamp + 24hours. '/' states that cookie is accessable thogh all the domain
+
+// for testing, delete cookies
+// setcookie('user_id', "", time() - 3600, '/');
+// setcookie('user_name', "", time() - 3600, '/');
+
+
+
+// // for password hashing and verification, to be moved to login/signup page after complete
+// // hashing, PASSWORD_DEFAULT is constant
+// $password = "userpassword";
+// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+// // verification
+// if (password_verify($password, $hashed_password)) {
+//     echo 'Password is valid!';
+// } else {
+//     echo 'Invalid password.';
+// }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +47,10 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=s, initial-scale=1.0">
     <title>Document</title>
+    <!-- body css -->
     <link rel="stylesheet" href="../CSS/test.css">
+    <!-- header and footer's css -->
+    <link rel="stylesheet" href="../CSS/header_footer.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!--link to box icons-->
@@ -20,31 +60,9 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 </head>
 
 <body>
-    <header class="header">
-        <a href="#" class="logo"><span class="material-symbols-outlined">
-                shopping_cart
-            </span> Shop Smart</a>
-        <div><span class="material-symbols-outlined" id="menuicon">
-                menu
-            </span></div>
-        <nav class="navbar">
-            <a href="#home">Home</a>
-            <a href="#categories">Categories</a>
-            <a href="#products">Products</a>
-            <a href="#about">About</a>
+    <!-- header -->
+    <?php include_once '../PHP/header.php'; ?>
 
-        </nav>
-        <!-- <div class="profile">
-            <img src="../pics/pngwing.com.png" alt="">
-            <span>Profile</span>
-            <span class="material-symbols-outlined">
-                arrow_drop_down
-                </span>
-        </div>-->
-        <div class="profile">
-            <a href="../HTML/login.html" target="_blank">Login</a>
-        </div>
-    </header>
     <!--Home Page-->
     <section class="home" id="home">
         <div class="swiper-wrapper">
@@ -86,133 +104,30 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
         </div>
         <!--Categories Container-->
         <div class="categories-container">
-            <!--Box 1-->
-            <div class="box box1">
-                <img src="../pics/Fruits & Vegetables.png" alt="">
-                <h2>Fruits & Vegetables</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Fruits & Vegetables'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
+            <?php
+            $sql = "SELECT DISTINCT category FROM product";
+            $stmt = DatabaseHelper::runQuery($conn, $sql);
+            $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Fruits_Vegetables"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
+            foreach ($categories as $category) {
+                $categoryName = $category['category'];
 
-            <!--Box 2-->
-            <div class="box box1">
-                <img src="../pics/Bakery.png" alt="">
-                <h2>Bakery</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Bakery'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Bakery"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 3-->
-            <div class="box box1">
-                <img src="../pics/Dairy.png" alt="">
-                <h2>Dairy</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Dairy'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Dairy"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 4-->
-            <div class="box box1">
-                <img src="../pics/Meat & Chicken.png" alt="">
-                <h2>Meat & Chicken</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Meat & Chicken'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Meat_Chicken"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 5-->
-            <div class="box box1">
-                <img src="../pics/Snacks.png" alt="">
-                <h2>Snacks</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Snacks'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Snacks"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 6-->
-            <div class="box box1">
-                <img src="../pics/Beverages.png" alt="">
-                <h2>Baverages</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Baverages'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Beverages"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 7-->
-            <div class="box box1">
-                <img src="../pics/Personal Care.png" alt="">
-                <h2>Personal Care</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Personal Care'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Personal Care"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
-
-            <!--Box 8-->
-            <div class="box box1">
-                <img src="../pics/Cleaning Supplies.png" alt="">
-                <h2>Cleaning Supplies</h2>
-                <span><?php
-                        $sql = "SELECT COUNT(*) FROM product WHERE category = 'Cleaning Supplies'";
-                        $stmt = DatabaseHelper::runQuery($conn, $sql);
-                        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                        echo $result['COUNT(*)'];
-
-                        ?> Items</span>
-                <a href="../PHP/products.php?category=Cleaning Supplies"><span class="material-symbols-outlined" id="catarrow">
-                        arrow_forward
-                    </span></a>
-            </div>
+                $sql = "SELECT COUNT(*) FROM product WHERE category = :category";
+                $category_stmt = DatabaseHelper::runQuery($conn, $sql, array(":category" => $categoryName));
+                $result = $category_stmt->fetch(PDO::FETCH_ASSOC);
+                $count = $result['COUNT(*)'];
+            ?>
+                <div class="box box1">
+                    <img src="../pics/<?php echo $categoryName; ?>.png" alt="">
+                    <h2><?php echo $categoryName; ?></h2>
+                    <span><?php echo $count; ?> Items</span>
+                    <a href="../PHP/products.php?category=<?php echo str_replace(' & ', '_', $categoryName); ?>"><span class="material-symbols-outlined" id="catarrow">
+                            arrow_forward
+                        </span></a>
+                </div>
+            <?php
+            }
+            ?>
         </div>
 
     </section>
@@ -229,41 +144,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
     </section>
 
     <!--Footer Section-->
-
-    <section class="footer" id="footer">
-        <div class="footer-container">
-            <div class="footer-box">
-                <a href="#" class="logo"><span class="material-symbols-outlined">
-                        shopping_cart
-                    </span> Shop Smart</a>
-                <p>Our Social Media Platforms <br>Follow Us !! </p>
-                <div class="social">
-                    <a href="#"><i class="bx bxl-facebook"></i></a>
-                    <a href="#"><i class="bx bxl-instagram"></i></a>
-                    <a href="#"><i class="bx bxl-youtube"></i></a>
-                    <a href="#"><i class="bx bxl-whatsapp"></i></a>
-                </div>
-            </div>
-            <div class="footer-box">
-                <h2>Categories</h2>
-                <a href="#">Fruits & Vegetables</a>
-                <a href="#">Bakery</a>
-                <a href="#">Personal Care</a>
-                <a href="#">Cleaning Supplies</a>
-            </div>
-            <div class="footer-box">
-                <h2>To partner with us</h2>
-                <p>Submit your email for partnerships <br>Here</p>
-                <form action="">
-                    <i class="bx bx-envelope"></i>
-                    <input type="email" placeholder="Enter your email">
-                    <i class="bx bx-right-arrow-alt"></i>
-                </form>
-            </div>
-        </div>
-
-        </div>
-    </section>
+    <?php include_once '../PHP/footer.php'; ?>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

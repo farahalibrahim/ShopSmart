@@ -44,7 +44,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
     <button class="add_user btn nav">Add User</button>
 
     <!-- add product from -->
-    <form action="addproduct.php" method="post" enctype="multipart/form_data" class="add_product form hidden">
+    <form action="addproduct.php" method="post" enctype="multipart/form-data" class="add_product form hidden">
 
         <!-- product barcode and autocomplete fields -->
         <label for="product_barcode_input">Product Barcode:<input type="text" name="barcode" id="product_barcode_input" maxlength="12" pattern="^\d{12}$" title="Barcode must be exactly 12 digits" required></label>
@@ -106,6 +106,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
         <label for="measure_type">How is the product measured?
             <input type="radio" name="quantity_type" id="weight" value="weight" required>by weight
             <input type="radio" name="quantity_type" id="piece" value="piece" required>by piece
+            <input type="radio" name="quantity_type" id="liquid" value="liquid" required>liquid(ml/l)
         </label>
         <div id="quantity_info" class="hidden">
             <label for="product_quantity" id="weight_piece_label">Quantity:</label>
@@ -115,6 +116,9 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
         <!-- price  -->
         <br><label for="unit_price">Unit Price:</label>
         <input type="number" step=".01" name="price" id="unit_price" min="0" max="99999999.99" required><br>
+        <label for="expiry_date">Expiry date:
+            <input type="date" name="expiry_date" id="expiry_date" placeholder="YYYY-MM-DD" pattern="\d{4}-\d{2}-\d{2}" title="Please enter a valid date in the format YYYY-MM-DD" required min="<?php echo date('Y-m-d'); ?>" max="<?php echo date('Y-m-d', strtotime('+2 year')); ?>">
+        </label><br>
 
         <!-- product tag, filled from db using php -->
         <label for="product_select_tag"> Product tag:

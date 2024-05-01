@@ -26,12 +26,19 @@ if ($img_src  == "url") {
 $quantity_type = $_POST['quantity_type'];
 $quantity = $_POST['quantity'];
 $price = $_POST['price'];
+
+//date field in form accepts dates as MM-DD-YYYY format, db accepts as YYYY-MM-DD
+$expiry_date = $_POST['expiry_date'];
+echo $expiry_date;
+// $date = DateTime::createFromFormat('m-d-Y', $expiry_date);
+// $formatted_date = $date->format('Y-m-d');
+
 $category = $_POST['category'];
 $tag = $_POST['tag'];
 try {
 
-    $sql = "INSERT INTO `Product` (`barcode`, `supermarket_id`, `product_name`, `manufacturer`, `product_image`, `quantity`, `quantity_type`, `price`, `category`, `tag`)
-    VALUES (:barcode, :supermarket_id, :product_name, :manufacturer, :product_image, :quantity, :quantity_type, :price, :category, :tag);";
+    $sql = "INSERT INTO `Product` (`barcode`, `supermarket_id`, `product_name`, `manufacturer`, `product_image`, `quantity`, `quantity_type`, `price`, `expiry_date`, `category`, `tag`)
+    VALUES (:barcode, :supermarket_id, :product_name, :manufacturer, :product_image, :quantity, :quantity_type, :price, :expiry, :category, :tag);";
 
     // Set the values for the parameters
     $params = array(
@@ -45,6 +52,7 @@ try {
         ':quantity' => $quantity,
         ':quantity_type' => $quantity_type,
         ':price' => $price,
+        ':expiry' => $expiry_date,
         ':category' => $category,
         ':tag' => $tag
     );
