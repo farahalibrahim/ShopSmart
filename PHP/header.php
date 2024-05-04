@@ -40,6 +40,13 @@ if (isset($_COOKIE['user_id'])) {
             <a href="#" id="shopping_list"><i class='bx bx-list-check'></i></a>
             <a href="http://localhost:3000/PHP/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
             | <!-- seperator between account and the others icons -->
+            <?php $userName = '';
+            if (isset($_COOKIE['user_name'])) {
+                $userName = $_COOKIE['user_name'];
+                $userName = explode(' ', $userName)[0];
+            }
+
+            echo '<a href="#" id="account">' . $userName . '</a>'; ?>
             <a href="#" id="account"><i class='bx bx-user'></i></a></span>
     </div>
 </header>

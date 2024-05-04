@@ -3,10 +3,9 @@ include_once('../PHP/connection.inc.php');
 include_once('../PHP/dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
-// for testing, assume that logged in user's email is: pede.sagittis@protonmail.couk
-$email = 'pede.sagittis@protonmail.couk';
-// $password = 'TVH78DVJ8OU';
-// $id = 101;
+// for testing, assume that logged in user's email is: sed.neque@outlook.edu
+$email = 'sed.neque@outlook.edu';
+// $id = 1;
 
 
 
@@ -21,7 +20,7 @@ setcookie('user_id', $user_id, time() + 86400, '/');
 setcookie('user_name', $user_name, time() + 86400, '/');
 // time() + 86400, '/' : current unix timestamp + 24hours. '/' states that cookie is accessable thogh all the domain
 
-// for testing, delete cookies
+// // for testing, delete cookies
 // setcookie('user_id', "", time() - 3600, '/');
 // setcookie('user_name', "", time() - 3600, '/');
 
