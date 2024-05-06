@@ -163,6 +163,14 @@ $barcode = $_GET['barcode'];
 
     <script src="../JS/addtocart.js"></script>
 
+    <input type="hidden" class="click_product" data-barcode="<?= $barcode ?>">
+    <script src="../JS/track_click.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.click_product').trigger('click');
+        });
+    </script>
+
     <!--Footer Section-->
     <?php include_once '../PHP/footer.php'; ?>
 </body>

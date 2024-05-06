@@ -20,6 +20,8 @@ $category = str_replace('_', ' & ', $_GET['category']);
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <link rel="stylesheet" href="../CSS/products.css">
 </head>
 
@@ -104,21 +106,18 @@ $category = str_replace('_', ' & ', $_GET['category']);
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
             echo '<h3>' . $result['product_name'] . '</h3>';
             echo '<div class="product_details">';
-            if ($result['quantity_type'] == 'weight') {
-                if ($result['quantity'] >= 1000) {
-                    echo '<p>' . $result['quantity'] / 1000 . ' kg </p></div></a>';
-                } else if ($result['quantity'] < 1000) {
-                    echo '<p>' . $result['quantity'] . ' g </p></div></a>';
-                }
-            } else if ($result['quantity_type'] == 'piece') {
-                echo '<p>' . $result['quantity']  . ' pieces</p></div></a>';
-            } else if ($result['quantity_type'] == 'liquid') {
-                if ($result['quantity'] >= 1000) {
-                    echo '<p>' . $result['quantity'] / 1000  . ' l</p></div></a>';
-                } else if ($result['quantity'] < 1000) {
-                    echo '<p>' . $result['quantity'] . ' ml </p></div></a>';
-                }
+            $quantity = $result['quantity'];
+            $quantity_type = $result['quantity_type'];
+            $unit = '';
+
+            if ($quantity >= 1000) {
+                $quantity /= 1000;
+                $unit = ($quantity_type == 'weight') ? 'kg' : (($quantity_type == 'liquid') ? 'L' : 'pieces');
+            } else {
+                $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
             }
+            echo "<p>{$quantity} {$unit}</p>";
+
             if ($result['min_price'] == $result['max_price']) { // only one supermarket selling product OR multiple at same price => no price range
                 echo '<p> $' . $result['min_price'] . '</p>';
             } else { // there is a price range => multiple supermarkets selling same product
@@ -126,11 +125,15 @@ $category = str_replace('_', ' & ', $_GET['category']);
             }
             // echo '<p>' . $result['quantity'] . ' - $' . $result['max_price'] . '</p></div></a>';
 
+
             echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div>';
         }
         ?>
     </div>
+
+
+    </script>
 
     <!--Footer Section-->
     <?php include_once '../PHP/footer.php'; ?>

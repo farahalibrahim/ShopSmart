@@ -254,21 +254,18 @@ session_start();
             // echo "<a href='viewproduct.php?barcode=" . $product['barcode'] . "'><div class='productcard'>";
             echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
             echo "<div class='productdetails'><h3>$productName</h3>";
-            if ($product['quantity_type'] == 'weight') {
-                if ($product['product_quantity'] >= 1000) {
-                    echo '<p>' . $product['product_quantity'] / 1000 . ' kg </p>';
-                } else if ($product['product_quantity'] < 1000) {
-                    echo '<p>' . $product['product_quantity'] . ' g </p>';
-                }
-            } else if ($product['quantity_type'] == 'piece') {
-                echo '<p>' . $product['product_quantity']  . ' pieces</p>';
-            } else if ($product['quantity_type'] == 'liquid') {
-                if ($product['product_quantity'] >= 1000) {
-                    echo '<p>' . $product['product_quantity'] / 1000  . ' l</p>';
-                } else if ($product['product_quantity'] < 1000) {
-                    echo '<p>' . $product['product_quantity'] . ' ml </p>';
-                }
+            $quantity = $offer['quantity'];
+            $quantity_type = $offer['quantity_type'];
+            $unit = '';
+
+            if ($quantity >= 1000) {
+                $quantity /= 1000;
+                $unit = ($quantity_type == 'weight') ? 'kg' : (($quantity_type == 'liquid') ? 'L' : 'pieces');
+            } else {
+                $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
             }
+            echo "<p>{$quantity} {$unit}</p>";
+
             echo "<p>Price: $$productPrice</p>";
             echo "<input type='number' value='$productQuantity' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId' class='quantity-input'>";
             echo "<button class='delete-button' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId'><i class='bx bx-trash-alt'></i></button>";
