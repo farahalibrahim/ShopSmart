@@ -7,6 +7,8 @@
     <title>Login-SignUp</title>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../CSS/login.css">
+    <!--link for icons-->
+    <script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>   
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
@@ -16,75 +18,81 @@
 
 <body>
     <div class="container">
-        <div class="login-signup">
-            <form action="" class="login-form">
-                <h2 class="title">Login</h2>
-                <div class="input-field">
-                    <span class="material-symbols-outlined">
-                        person
-                    </span>
-                    <input type="text" placeholder="Username">
+        <div class="form-box">
+            <h1 id="title">Sign Up</h1>
+            <form action="">
+                <div class="input-group">
+                   <div class="input-field">
+                        <i class="fa-solid fa-envelope"></i>
+                        <input type="email" placeholder="name@example.com">
+                   </div>
+                   <div class="input-field" id="namefield">
+                        <i class="fa-solid fa-user"></i>
+                        <input type="text" placeholder="username">
                 </div>
-                <div class="input-field">
-                    <span class="material-symbols-outlined">
-                        lock
-                    </span>
-                    <input type="password" placeholder="Password">
+                   <div class="input-field">
+                        <i class="fa-solid fa-lock"></i>
+                        <input type="password" placeholder="password">
+                   </div>
+                    <div class="input-field" id="phone">
+                        <i class="fa-solid fa-phone"></i>
+                        <input type="text" placeholder="phone">
+                    </div>
+                
+
+             
+                   <div class="input-field" id="streetname">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <input type="text" placeholder="street_address">
+                   </div>
+                
+
+                
+                    <div class="input-field" id="cityname">
+                        <i class="fa-solid fa-city"></i>
+                        <input type="text" placeholder="city">
+                    </div>
                 </div>
-                <input type="submit" value="Login" class="logbtn">
-            </form>
-            <form action="" class="signup-form">
-                <h2 class="title">signup</h2>
-                <div class="input-field">
-                    <span class="material-symbols-outlined">
-                        person
-                    </span>
-                    <input type="text" placeholder="Username">
-                </div>
-                <div class="input-field">
-                    <span class="material-symbols-outlined">
-                        mail
-                    </span>
-                    <input type="text" placeholder="Email">
-                </div>
-                <div class="input-field">
-                    <span class="material-symbols-outlined">
-                        lock
-                    </span>
-                    <input type="password" placeholder="Password">
-                </div>
-                <input type="submit" value="sign up" class="logbtn">
-                <p class="social-text">Or Sign up with social platform</p>
-                <div class="social-media">
-
-                    <a href="#"><i class="bx bxl-facebook"></i></a>
-
-
-                    <a href="#"><i class="bx bxl-google"></i></a>
-
-
+                <div class="btn-field" >
+                    <button type="button" id="signupBtn">Sign Up</button>
+                    <button type="button" id="loginBtn" class="disable">Login</button>
                 </div>
             </form>
-            <div class="panels-container">
-                <div class="panel left-panel">
-                    <div class="content">
-                        <h3>Already a customer ?</h3>
-                        <p>Login with your account</p>
-                        <button class="logbtn">Login</button>
-                    </div>
-                    <img src="../pics/undraw_Sign_in_re_o58h.png" alt="" class="image">
-                </div>
-                <div class="panel right-panel">
-                    <div class="content">
-                        <h3>New customer ?</h3>
-                        <p>Sign up for a new account</p>
-                        <button class="logbtn">Login</button>
-                    </div>
-                    <img src="../pics/undraw_undraw_sign_up_ln1s_(1)_s4bc.png" alt="" class="image">
-                </div>
-            </div>
         </div>
     </div>
+
+
+
+
+    <script>
+
+        let signupBtn = document.getElementById("signupBtn");
+        let loginBtn = document.getElementById("loginBtn");
+        let namefield = document.getElementById("namefield");
+        let title = document.getElementById("title");
+
+        loginBtn.onclick = function(){
+            namefield.style.maxHeight = '0';
+            phone.style.maxHeight = '0';
+            streetname.style.maxHeight = '0';
+            cityname.style.maxHeight = '0';
+            title.innerHTML = "Login" ;
+            signupBtn.classList.add("disable");
+            loginBtn.classList.remove("disable");
+        }
+
+        signupBtn.onclick = function(){
+            namefield.style.maxHeight = '65px';
+            phone.style.maxHeight = '65px';
+            streetname.style.maxHeight = '65px';
+            cityname.style.maxHeight = '65px';
+            title.innerHTML = "Sign Up" ;
+            signupBtn.classList.remove("disable");
+            loginBtn.classList.add("disable");
+        }
+
+
+    </script>
 </body>
 
 </html>

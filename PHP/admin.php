@@ -13,6 +13,10 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
         .hidden {
             display: none;
         }
+        .form .label {
+            font-size: 20px;
+
+        }
     </style>
     <!-- for use of AJAX and JQuery for autocomplete  -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

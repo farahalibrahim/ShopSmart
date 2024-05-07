@@ -35,6 +35,54 @@ body {
     font-weight: 500;
 }
 
+<<<<<<< Updated upstream
+=======
+.profile img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+.profile span   {
+    font-size: 13px;
+    font-weight: 500;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    column-gap: 0.5rem;
+}
+.logo span{
+    font-size: 24px;
+    color: var(--green-color)
+}
+nav a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+}
+nav a:hover {
+    background: var(--green-color);
+    transition: var(--background) 0.5s;
+    border-radius: 5rem;
+    color: var(--background);
+    font-size: 1.1rem;
+}
+#menuicon {
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 10001;
+    display: none;
+}
+
+
+
+>>>>>>> Stashed changes
 .container {
     position: relative;
     width: 100%;

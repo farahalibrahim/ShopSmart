@@ -30,6 +30,10 @@ session_start();
             justify-content: space-around;
             margin: 20px;
         } */
+        .Container-for-all {
+            margin: 30px 60px 30px 30px;
+            padding: 30px;
+        }
 
         .relatedcard {
             display: flex;
@@ -80,7 +84,7 @@ session_start();
         }
 
         .supermarket_card {
-            margin: 5px;
+
             margin: 20px;
             padding: 10px 20px;
             border-radius: 20px;
@@ -89,18 +93,34 @@ session_start();
 
         .productcard {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding-left: 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 100px;
+            background: green;
+        }
+
+        .productcard .productdetails {
+            margin: 10px;
+            align-items: center;
+            display: flex;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            justify-content: space-between;
+        }
+
+        .productcard .productdetails .weight {
+            padding-left: 20px;
+            align-items: flex;
+            margin: 20px;
+            font-weight: 20%;
         }
 
         .productimg {
-            width: 200px;
-            height: 200px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            margin-right: 10px;
+            border-radius: 20px;
             /* box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
             border-radius: 20px; */
         }
@@ -145,165 +165,167 @@ session_start();
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once '../PHP/header.php';
-    ?>
-    <?php
-    $sql = "SELECT COUNT(*) as count FROM cart WHERE user_id = :user_id";
-    $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    if ($result['count'] == 0) {
-        echo "<div class='empty_cart'>";
-        echo "<span class='material-symbols-outlined empty_cart_icon'>shopping_cart_off </span>";
-        echo "<h1>Your cart is empty</h1>";
-        echo "<a href='http://localhost:3000/HTML/test.php#categories' class='shop_btn'>Go shopping</a>";
-        exit();
-    } else {
-        echo "<h1>Your Cart</h1>";
-        echo "<p id='items_count'>(" . $result['count'] . " items)</p>";
+    <div class="Container-for-all">
+        <!-- header -->
+        <?php include_once '../PHP/header.php';
+        ?>
+        <?php
+        $sql = "SELECT COUNT(*) as count FROM cart WHERE user_id = :user_id";
+        $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result['count'] == 0) {
+            echo "<div class='empty_cart'>";
+            echo "<span class='material-symbols-outlined empty_cart_icon'>shopping_cart_off </span>";
+            echo "<h1>Your cart is empty</h1>";
+            echo "<a href='http://localhost:3000/HTML/test.php#categories' class='shop_btn'>Go shopping</a>";
+            exit();
+        } else {
+            echo "<h1>Your Cart</h1>";
+            echo "<p id='items_count'>(" . $result['count'] . " items)</p>";
 
-        // Related items section
-        echo "<div class='related'>";
-        echo "<h2>Related Items</h2>";
+            // Related items section
+            echo "<div class='related'>";
+            echo "<h2>Related Items</h2>";
 
-        $sql = "SELECT DISTINCT product.tag , cart.product_barcode
+            $sql = "SELECT DISTINCT product.tag , cart.product_barcode
         FROM cart 
         INNER JOIN product ON cart.product_barcode = product.barcode 
         WHERE cart.user_id = :user_id";
 
-        $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
+            $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
 
 
 
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        foreach ($results as $result) {
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $result) {
 
 
-            $sql = "SELECT barcode, product_name, product_image, MIN(price) as min_price, MAX(price) as max_price 
+                $sql = "SELECT barcode, product_name, product_image, MIN(price) as min_price, MAX(price) as max_price 
                     FROM product 
                     WHERE tag = :tag AND barcode != :barcode 
                     LIMIT 2;";
 
-            $itemStmt = DatabaseHelper::runQuery($conn, $sql, ['tag' => $result['tag'], 'barcode' => $result['product_barcode']]);
-            $items = $itemStmt->fetchAll(PDO::FETCH_ASSOC);;
+                $itemStmt = DatabaseHelper::runQuery($conn, $sql, ['tag' => $result['tag'], 'barcode' => $result['product_barcode']]);
+                $items = $itemStmt->fetchAll(PDO::FETCH_ASSOC);;
 
-            foreach ($items as $item) {
-                if (!empty($item['barcode'])) { // Check if the barcode is not empty
+                foreach ($items as $item) {
+                    if (!empty($item['barcode'])) { // Check if the barcode is not empty
 
-                    // process product image
-                    $finfo = new finfo(FILEINFO_MIME_TYPE);
-                    $mimeType = $finfo->buffer($item['product_image']);
+                        // process product image
+                        $finfo = new finfo(FILEINFO_MIME_TYPE);
+                        $mimeType = $finfo->buffer($item['product_image']);
 
-                    $imageData = base64_encode($item['product_image']);
-                    $src = 'data:' . $mimeType . ';base64,' . $imageData;
+                        $imageData = base64_encode($item['product_image']);
+                        $src = 'data:' . $mimeType . ';base64,' . $imageData;
 
-                    echo '<div class="relatedcard">';
-                    echo '<img src="' . $src . ' " alt="' . $item['product_name'] . ' ">';
-                    echo ' <div class="card-info">';
-                    echo '<h3>' . $item['product_name'] . '</h3>';
-                    echo '<p>$' . $item['min_price'] . ' - $' . $item['max_price'] . '</p>';
-                    echo '<a href="viewproduct.php?barcode=' . $item['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
-                    echo '</div>';
-                    echo '</div>';
+                        echo '<div class="relatedcard">';
+                        echo '<img src="' . $src . ' " alt="' . $item['product_name'] . ' ">';
+                        echo ' <div class="card-info">';
+                        echo '<h3>' . $item['product_name'] . '</h3>';
+                        echo '<p>$' . $item['min_price'] . ' - $' . $item['max_price'] . '</p>';
+                        echo '<a href="viewproduct.php?barcode=' . $item['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+                        echo '</div>';
+                        echo '</div>';
+                    }
                 }
             }
         }
-    }
 
 
-    // cart products display section
-    $sql = "SELECT DISTINCT cart.*, supermarket.name 
+        // cart products display section
+        $sql = "SELECT DISTINCT cart.*, supermarket.name 
             FROM cart 
             INNER JOIN supermarket ON cart.supermarket_id = supermarket.id
             WHERE cart.user_id = :user_id
             GROUP BY cart.supermarket_id;";
 
 
-    $stmt = DatabaseHelper::runQuery($conn, $sql, ["user_id" => $user_id]);
+        $stmt = DatabaseHelper::runQuery($conn, $sql, ["user_id" => $user_id]);
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        $supermarketName = $row['name'];
-        $supermarketId = $row['supermarket_id'];
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $supermarketName = $row['name'];
+            $supermarketId = $row['supermarket_id'];
 
-        // Create a div for each distinct supermarket
-        echo "<div  class='supermarket_card'>";
-        echo "<h2>$supermarketName</h2>";
+            // Create a div for each distinct supermarket
+            echo "<div  class='supermarket_card'>";
+            echo "<h2>$supermarketName</h2>";
 
-        // Get all items from this supermarket and display them in the table format
-        $itemsSql = "SELECT product.*, product.quantity AS product_quantity, cart.quantity FROM cart 
+            // Get all items from this supermarket and display them in the table format
+            $itemsSql = "SELECT product.*, product.quantity AS product_quantity, cart.quantity FROM cart 
                     INNER JOIN product ON cart.product_barcode = product.barcode AND cart.supermarket_id = product.supermarket_id
                     WHERE cart.user_id = :user_id AND cart.supermarket_id = :supermarket_id
                     ORDER BY product.supermarket_id;";
 
-        $products_stmt = DatabaseHelper::runQuery($conn, $itemsSql, ["user_id" => $user_id, "supermarket_id" => $supermarketId]);
+            $products_stmt = DatabaseHelper::runQuery($conn, $itemsSql, ["user_id" => $user_id, "supermarket_id" => $supermarketId]);
 
-        while ($product = $products_stmt->fetch(PDO::FETCH_ASSOC)) {
-            $productName = $product['product_name'];
-            $productPrice = $product['price'];
-            $productQuantity = $product['quantity'];
+            while ($product = $products_stmt->fetch(PDO::FETCH_ASSOC)) {
+                $productName = $product['product_name'];
+                $productPrice = $product['price'];
+                $productQuantity = $product['quantity'];
 
-            //process product image after retrieve
-            $finfo = new finfo(FILEINFO_MIME_TYPE);
-            $mimeType = $finfo->buffer($product['product_image']);
+                //process product image after retrieve
+                $finfo = new finfo(FILEINFO_MIME_TYPE);
+                $mimeType = $finfo->buffer($product['product_image']);
 
-            $imageData = base64_encode($product['product_image']);
-            $src = 'data:' . $mimeType . ';base64,' . $imageData;
+                $imageData = base64_encode($product['product_image']);
+                $src = 'data:' . $mimeType . ';base64,' . $imageData;
 
-            // Create a card for each product
-            echo "<div class='productcard'>";
-            // echo "<a href='viewproduct.php?barcode=" . $product['barcode'] . "'><div class='productcard'>";
-            echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
-            echo "<div class='productdetails'><h3>$productName</h3>";
-            $quantity = $offer['quantity'];
-            $quantity_type = $offer['quantity_type'];
-            $unit = '';
+                // Create a card for each product
+                echo "<div class='productcard'>";
+                // echo "<a href='viewproduct.php?barcode=" . $product['barcode'] . "'><div class='productcard'>";
+                echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
+                echo "<div class='productdetails'><h3>$productName</h3>";
 
-            if ($quantity >= 1000) {
-                $quantity /= 1000;
-                $unit = ($quantity_type == 'weight') ? 'kg' : (($quantity_type == 'liquid') ? 'L' : 'pieces');
-            } else {
-                $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
+                $quantity = $offer['quantity'];
+                $quantity_type = $offer['quantity_type'];
+                $unit = '';
+
+                if ($quantity >= 1000) {
+                    $quantity /= 1000;
+                    $unit = ($quantity_type == 'weight') ? 'kg' : (($quantity_type == 'liquid') ? 'L' : 'pieces');
+                } else {
+                    $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
+                }
+                echo "<p>{$quantity} {$unit}</p>";
+
+                echo "<p>Price: $$productPrice</p>";
+                echo "<input type='number' value='$productQuantity' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId' class='quantity-input'>";
+                echo "<button class='delete-button' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId'><i class='bx bx-trash-alt'></i></button>";
+                // echo "</div></div></a>"; 
+                echo "</div></div>";
             }
-            echo "<p>{$quantity} {$unit}</p>";
 
-            echo "<p>Price: $$productPrice</p>";
-            echo "<input type='number' value='$productQuantity' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId' class='quantity-input'>";
-            echo "<button class='delete-button' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId'><i class='bx bx-trash-alt'></i></button>";
-            // echo "</div></div></a>"; 
-            echo "</div></div>";
+            echo "</div>";
         }
+        ?>
 
-        echo "</div>";
-    }
-    ?>
+        <br>
+        <hr><br>
 
-    <br>
-    <hr><br>
-
-    <!-- accepted payment methods display section -->
-    <div class="payment_methods">
-        <h3>We accept</h3>
-        <div class="payment_icons">
-            <i class='bx bxl-mastercard'></i>
-            <i class='bx bxl-visa'></i>
-            <img src="../pics/cod.png" alt="cash on delivery">
+        <!-- accepted payment methods display section -->
+        <div class="payment_methods">
+            <h3>We accept</h3>
+            <div class="payment_icons">
+                <i class='bx bxl-mastercard'></i>
+                <i class='bx bxl-visa'></i>
+                <img src="../pics/cod.png" alt="cash on delivery">
+            </div>
         </div>
-    </div>
 
-    <!-- cart summary section -->
-    <div class="cart_summary">
-        <h2>Cart Summary</h2>
-        <div class="coupon">
-            <input type="text" name="coupon" id="coupon_input" placeholder="Coupon Code">
-            <button id="apply_coupon">Apply</button>
-            <p id="coupon_status" style="display:none;">Coupon invalid!</p>
+        <!-- cart summary section -->
+        <div class="cart_summary">
+            <h2>Cart Summary</h2>
+            <div class="coupon">
+                <input type="text" name="coupon" id="coupon_input" placeholder="Coupon Code">
+                <button id="apply_coupon">Apply</button>
+                <p id="coupon_status" style="display:none;">Coupon invalid!</p>
+            </div>
+            <input type="hidden" id="user_id" value="<?php echo $user_id ?>"><!-- to be used in ajax request for user_id retrieval -->
+            <!-- <input type="hidden" id="discount"">//to be used in ajax request for user_id retrieval -->
+            <div class="total">
+                <?php include_once('update_cart_summary.php'); ?>
+            </div>
         </div>
-        <input type="hidden" id="user_id" value="<?php echo $user_id ?>"><!-- to be used in ajax request for user_id retrieval -->
-        <!-- <input type="hidden" id="discount"">//to be used in ajax request for user_id retrieval -->
-        <div class="total">
-            <?php include_once('update_cart_summary.php'); ?>
-        </div>
-    </div>
     </div>
 
     <br>
@@ -366,6 +388,7 @@ session_start();
 
     <!-- footer -->
     <?php include_once '../PHP/footer.php'; ?>
+    </div>
 
 </body>
 
