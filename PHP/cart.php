@@ -30,6 +30,10 @@ session_start();
             justify-content: space-around;
             margin: 20px;
         } */
+        .Container-for-all {
+            margin: 30px 60px 30px 30px;
+            padding: 30px;
+        }
 
         .relatedcard {
             display: flex;
@@ -80,7 +84,7 @@ session_start();
         }
 
         .supermarket_card {
-            margin: 5px;
+            
             margin: 20px;
             padding: 10px 20px;
             border-radius: 20px;
@@ -89,18 +93,32 @@ session_start();
 
         .productcard {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            padding-left: 20px;
+            margin: 20px;
+            border: none;
+            border-radius: 100px;
+            background: green;
+        }
+        .productcard .productdetails {
+            margin: 10px;
+            align-items: center;
+            display: flex;
             padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            justify-content: space-between;
+        }
+        .productcard .productdetails .weight {
+            padding-left: 20px;
+            align-items: flex;
+            margin: 20px;
+            font-weight: 20%;
         }
 
         .productimg {
-            width: 200px;
-            height: 200px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
-            margin-right: 10px;
+            border-radius: 20px;
             /* box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
             border-radius: 20px; */
         }
@@ -145,7 +163,8 @@ session_start();
 </head>
 
 <body>
-    <!-- header -->
+    <div class="Container-for-all">
+<!-- header -->
     <?php include_once '../PHP/header.php';
     ?>
     <?php
@@ -254,14 +273,16 @@ session_start();
             // echo "<a href='viewproduct.php?barcode=" . $product['barcode'] . "'><div class='productcard'>";
             echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
             echo "<div class='productdetails'><h3>$productName</h3>";
+            echo "<div class'weight'>";
             if ($product['quantity_type'] == 'weight') {
                 if ($product['product_quantity'] >= 1000) {
                     echo '<p>' . $product['product_quantity'] / 1000 . ' kg </p>';
                 } else if ($product['product_quantity'] < 1000) {
-                    echo '<p>' . $product['product_quantity'] . ' g </p>';
+                    echo '<p >' . $product['product_quantity'] . ' g </p>';
                 }
+                echo "</div>";
             } else if ($product['quantity_type'] == 'piece') {
-                echo '<p>' . $product['product_quantity']  . ' pieces</p>';
+                echo '<p id="quan">' . $product['product_quantity']  . ' pieces</p>';
             } else if ($product['quantity_type'] == 'liquid') {
                 if ($product['product_quantity'] >= 1000) {
                     echo '<p>' . $product['product_quantity'] / 1000  . ' l</p>';
@@ -369,7 +390,8 @@ session_start();
 
     <!-- footer -->
     <?php include_once '../PHP/footer.php'; ?>
-
+    </div>
+    
 </body>
 
 </html>

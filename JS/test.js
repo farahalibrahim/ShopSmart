@@ -15,3 +15,7 @@ var swiper = new Swiper(".home", {
       prevEl: ".swiper-button-prev",
     },
   });
+  let loginform = document.querySelector('.login-form');
+  document.querySelector('#loginbtn').onclick = () => {
+    loginform.classList.toggle('active');
+  }
