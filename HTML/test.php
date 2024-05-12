@@ -45,7 +45,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=s, initial-scale=1.0">
-    <title>Document</title>
+    <title>Shop Smart - Main Page</title>
     <!-- body css -->
     <link rel="stylesheet" href="../CSS/test.css">
     <!-- header and footer's css -->
@@ -56,6 +56,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="../CSS/popular_products.css">
 </head>
 
 <body>
@@ -69,7 +70,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                 <div class="home-text">
                     <span>Shop Smart</span>
                     <h1>Choose Your <br>best Offer <br>NOW !!!</h1>
-                    <a href="#" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
+                    <a href="../PHP/offers.php" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
                             arrow_forward
                         </span></a>
                 </div>
@@ -136,9 +137,15 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <section class="products" id="products">
         <div class="heading">
             <h1>Our Popular <br><span>Products</span></h1>
-            <a href="#" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+            <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
                 </span></a>
+        </div>
+        <!--Products Container-->
+        <div class="product-container">
+            <?php include_once("../PHP/get_popular_products.php");
+            echo get_popular_products($conn, 5);
+            ?>
         </div>
     </section>
 
