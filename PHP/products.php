@@ -120,9 +120,9 @@ $category = str_replace('_', ' & ', $_GET['category']);
                 }
             }
             if ($result['min_price'] == $result['max_price']) { // only one supermarket selling product OR multiple at same price => no price range
-                echo '<p> $' . $result['min_price'] . '</p>';
+                echo '<p > $' . $result['min_price'] . '</p>';
             } else { // there is a price range => multiple supermarkets selling same product
-                echo '<p> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
+                echo '<p class="prodprice"> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
             }
             // echo '<p>' . $result['quantity'] . ' - $' . $result['max_price'] . '</p></div></a>';
 
