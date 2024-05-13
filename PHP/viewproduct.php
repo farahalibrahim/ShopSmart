@@ -33,7 +33,8 @@ $barcode = $_GET['barcode'];
 
 <body>
     <!-- header -->
-    <?php include_once '../PHP/header.php'; ?>
+    <?php //include_once '../PHP/header.php'; 
+    ?>
 
     <div class="product_container">
         <?php
@@ -42,7 +43,8 @@ $barcode = $_GET['barcode'];
         $sql = "SELECT product.*, supermarket.name as supermarket_name 
         FROM product 
         INNER JOIN supermarket ON product.supermarket_id = supermarket.id 
-        WHERE product.barcode = :barcode";
+        WHERE product.barcode = :barcode
+        ORDER BY product.price ASC";
 
         $stmt = DatabaseHelper::runQuery($conn, $sql, ['barcode' => $barcode]);
 
@@ -150,7 +152,7 @@ $barcode = $_GET['barcode'];
 
             echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><div class="frequentcard">';
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
-            echo '<h2>' . $result['product_name'] . '</h2>';
+            echo '<h2 class="product_name">' . $result['product_name'] . '</h2>';
             echo '<div class="product_details"><p> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p></div></a>';
             echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div>';

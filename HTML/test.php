@@ -8,7 +8,7 @@ $email = 'sed.neque@outlook.edu';
 // $id = 1;
 
 
-
+// // 
 $sql = "SELECT id,name FROM user WHERE email = :email";
 $stmt = DatabaseHelper::runQuery($conn, $sql, ['email' => $email]);
 
@@ -20,7 +20,7 @@ setcookie('user_id', $user_id, time() + 86400, '/');
 setcookie('user_name', $user_name, time() + 86400, '/');
 // time() + 86400, '/' : current unix timestamp + 24hours. '/' states that cookie is accessable thogh all the domain
 
-// // for testing, delete cookies
+// for testing, delete cookies
 // setcookie('user_id', "", time() - 3600, '/');
 // setcookie('user_name', "", time() - 3600, '/');
 
@@ -44,7 +44,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=s, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Smart - Main Page</title>
     <!-- body css -->
     <link rel="stylesheet" href="../CSS/test.css">
@@ -55,8 +55,56 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="stylesheet" href="../CSS/popular_products.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!-- <link rel="stylesheet" href="../CSS/popular_products.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.logout').click(function() {
+                $.post('../PHP/logout.php', function() {
+                    window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
+                });
+            });
+        });
+    </script>
+    <style>
+        .popular-container,
+        .recent-container,
+        .recommend-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .productcard {
+            /* flex: 1 0 15%; */
+            /* Grow and shrink, basis is 21% to allow for 5 items per row with some space in between */
+            margin: 1%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 20px;
+            width: 200px;
+            height: 250px;
+        }
+
+        .productcard h2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .productcard img {
+            width: 70%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .productcard:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -142,12 +190,46 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                 </span></a>
         </div>
         <!--Products Container-->
-        <div class="product-container">
+        <div class="popular-container">
             <?php include_once("../PHP/get_popular_products.php");
-            echo get_popular_products($conn, 5);
+            echo get_popular_products($conn, 8);
             ?>
         </div>
     </section>
+
+    <?php if (isset($_COOKIE['user_id'])) : ?> <!-- Displayed only if user logged in -->
+        <!--Buy Again-->
+        <section class="products" id="products">
+            <div class="heading">
+                <h1>Buy <br><span>Again</span></h1>
+                <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+                    arrow_forward
+                </span></a> -->
+            </div>
+            <!--Products Container-->
+            <div class="recent-container">
+                <?php include_once("../PHP/buy_again.php");
+                echo get_recent_products($conn, 8, $user_id);
+                ?>
+            </div>
+        </section>
+
+        <!--You May Also Like-->
+        <section class="products" id="products">
+            <div class="heading">
+                <h1>You May Also <br><span>Like</span></h1>
+                <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+                    arrow_forward
+                </span></a> -->
+            </div>
+            <!--Products Container-->
+            <div class="recommend-container">
+                <?php include_once("../PHP/recommended_products.php");
+                echo $products;
+                ?>
+            </div>
+        </section>
+    <?php endif; ?>
 
     <!--Footer Section-->
     <?php include_once '../PHP/footer.php'; ?>

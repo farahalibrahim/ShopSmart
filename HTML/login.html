@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../CSS/login.css">
     <!--link for icons-->
-    <script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>   
+    <script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
@@ -20,42 +20,38 @@
     <div class="container">
         <div class="form-box">
             <h1 id="title">Sign Up</h1>
-            <form action="">
+            <form action="validate">
                 <div class="input-group">
-                   <div class="input-field">
+                    <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
-                        <input type="email" placeholder="name@example.com">
-                   </div>
-                   <div class="input-field" id="namefield">
+                        <input name="email" type="email" placeholder="name@example.com" required>
+                    </div>
+                    <div class="input-field" id="namefield">
                         <i class="fa-solid fa-user"></i>
-                        <input type="text" placeholder="username">
-                </div>
-                   <div class="input-field">
+                        <input name="name" type="text" placeholder="full name">
+                    </div>
+                    <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
-                        <input type="password" placeholder="password">
-                   </div>
+                        <input name="pass" type="password" placeholder="password" required>
+                    </div>
                     <div class="input-field" id="phone">
                         <i class="fa-solid fa-phone"></i>
-                        <input type="text" placeholder="phone">
+                        <input name="phone" type="text" placeholder="phone">
                     </div>
-                
 
-             
-                   <div class="input-field" id="streetname">
+                    <div class="input-field" id="streetname">
                         <i class="fa-solid fa-location-dot"></i>
-                        <input type="text" placeholder="street_address">
-                   </div>
-                
+                        <input name="street" type="text" placeholder="street_address">
+                    </div>
 
-                
                     <div class="input-field" id="cityname">
                         <i class="fa-solid fa-city"></i>
-                        <input type="text" placeholder="city">
+                        <input name="city" type="text" placeholder="city">
                     </div>
                 </div>
-                <div class="btn-field" >
-                    <button type="button" id="signupBtn">Sign Up</button>
-                    <button type="button" id="loginBtn" class="disable">Login</button>
+                <div class="btn-field">
+                    <button type="submit" id="signupBtn">Sign Up</button>
+                    <button type="submit" id="loginBtn" class="disable">Login</button>
                 </div>
             </form>
         </div>
@@ -71,24 +67,40 @@
         let namefield = document.getElementById("namefield");
         let title = document.getElementById("title");
 
-        loginBtn.onclick = function(){
+        let phone = document.querySelector("input[name='phone']");
+        let email = document.querySelector("input[name='email']");
+        let pass = document.querySelector("input[name='pass']");
+        let street = document.querySelector("input[name='street']");
+        let city = document.querySelector("input[name='city']");
+
+        loginBtn.onclick = function () {
             namefield.style.maxHeight = '0';
             phone.style.maxHeight = '0';
             streetname.style.maxHeight = '0';
             cityname.style.maxHeight = '0';
-            title.innerHTML = "Login" ;
+            title.innerHTML = "Login";
             signupBtn.classList.add("disable");
             loginBtn.classList.remove("disable");
+
+
+            phone.required = false;
+            street.required = false;
+            city.required = false;
+            namefield.required = false;
         }
 
-        signupBtn.onclick = function(){
+        signupBtn.onclick = function () {
             namefield.style.maxHeight = '65px';
             phone.style.maxHeight = '65px';
             streetname.style.maxHeight = '65px';
             cityname.style.maxHeight = '65px';
-            title.innerHTML = "Sign Up" ;
+            title.innerHTML = "Sign Up";
             signupBtn.classList.remove("disable");
             loginBtn.classList.add("disable");
+            phone.required = true;
+            street.required = true;
+            city.required = true;
+            namefield.required = true;
         }
 
 

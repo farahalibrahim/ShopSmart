@@ -276,8 +276,8 @@ session_start();
                 echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
                 echo "<div class='productdetails'><h3>$productName</h3>";
 
-                $quantity = $offer['quantity'];
-                $quantity_type = $offer['quantity_type'];
+                $quantity = $product['quantity'];
+                $quantity_type = $product['quantity_type'];
                 $unit = '';
 
                 if ($quantity >= 1000) {

@@ -8,11 +8,12 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 <head>
     <meta charset="UTF_8">
     <meta name="viewport" content="width=device_width, initial_scale=1.0">
-    <title>Admin</title>
+    <title>Admin Portal</title>
     <style>
         .hidden {
             display: none;
         }
+
         .form .label {
             font-size: 20px;
 
