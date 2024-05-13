@@ -154,7 +154,7 @@ $barcode = $_GET['barcode'];
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
             echo '<h2 class="product_name">' . $result['product_name'] . '</h2>';
             echo '<div class="product_details"><p> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p></div></a>';
-            echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+            echo '<a class="prodarrow" href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div>';
         }
 
