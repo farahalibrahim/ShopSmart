@@ -1,10 +1,11 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 // for testing, assume that logged in user's email is: sed.neque@outlook.edu
-$email = 'sed.neque@outlook.edu';
+// $email = 'sed.neque@outlook.edu';
+$email = 'dolor@outlook.couk';
 // $id = 1;
 
 
@@ -47,9 +48,9 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop Smart - Main Page</title>
     <!-- body css -->
-    <link rel="stylesheet" href="../CSS/test.css">
+    <link rel="stylesheet" href="../../CSS/index.css">
     <!-- header and footer's css -->
-    <link rel="stylesheet" href="../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!--link to box icons-->
@@ -109,7 +110,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
 
 <body>
     <!-- header -->
-    <?php include_once '../PHP/header.php'; ?>
+    <?php include_once '../header.php'; ?>
 
     <!--Home Page-->
     <section class="home" id="home">
@@ -122,7 +123,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                             arrow_forward
                         </span></a>
                 </div>
-                <img src="../pics/Best Offer 3D Text.G03.watermarked.2k.png" alt="">
+                <img src="../../pics/Best Offer 3D Text.G03.watermarked.2k.png" alt="">
             </div>
 
             <!--Slide 2-->
@@ -134,7 +135,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                                     arrow_forward
                                 </span></a>
                 </div>
-                <img src="../pics/Compare Symbol.G03.watermarked.2k.png" alt="">
+                <img src="../../pics/Compare Symbol.G03.watermarked.2k.png" alt="">
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -166,10 +167,10 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                 $count = $result['COUNT(*)'];
             ?>
                 <div class="box box1">
-                    <img src="../pics/<?php echo $categoryName; ?>.png" alt="">
+                    <img src="../../pics/<?php echo $categoryName; ?>.png" alt="">
                     <h2><?php echo $categoryName; ?></h2>
                     <span><?php echo $count; ?> Items</span>
-                    <a href="../PHP/products.php?category=<?php echo str_replace(' & ', '_', $categoryName); ?>"><span class="material-symbols-outlined" id="catarrow">
+                    <a href="../products/products.php?category=<?php echo str_replace(' & ', '_', $categoryName); ?>"><span class="material-symbols-outlined" id="catarrow">
                             arrow_forward
                         </span></a>
                 </div>
@@ -185,13 +186,13 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <section class="products" id="products">
         <div class="heading">
             <h1>Our Popular <br><span>Products</span></h1>
-            <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+            <a href="../popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
                 </span></a>
         </div>
         <!--Products Container-->
         <div class="popular-container">
-            <?php include_once("../PHP/get_popular_products.php");
+            <?php include_once("get_popular_products.php");
             echo get_popular_products($conn, 8);
             ?>
         </div>
@@ -208,7 +209,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             </div>
             <!--Products Container-->
             <div class="recent-container">
-                <?php include_once("../PHP/buy_again.php");
+                <?php include_once("buy_again.php");
                 echo get_recent_products($conn, 8, $user_id);
                 ?>
             </div>
@@ -224,7 +225,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             </div>
             <!--Products Container-->
             <div class="recommend-container">
-                <?php include_once("../PHP/recommended_products.php");
+                <?php include_once("recommended_products.php");
                 echo $products;
                 ?>
             </div>
@@ -232,13 +233,13 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <?php endif; ?>
 
     <!--Footer Section-->
-    <?php include_once '../PHP/footer.php'; ?>
+    <?php include_once '../footer.php'; ?>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!--link to js-->
-    <script src="../JS/test.js">
+    <script src="../../JS/index.js">
 
     </script>
 </body>

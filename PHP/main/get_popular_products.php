@@ -30,7 +30,7 @@ function get_popular_products($conn, $nb_products = 8)
             $products .=  "<p>$" . $result['min_price'] . " - $" .  $result['max_price'] . " </p>";
         }
         $products .=  "</div>";
-        $products .=  '<a href="../PHP/viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined">arrow_forward</span></a>';
+        $products .=  '<a href="../products/viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined">arrow_forward</span></a>';
         $products .=  '</div>';
     }
     return $products;

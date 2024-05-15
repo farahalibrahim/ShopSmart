@@ -1,7 +1,7 @@
 <?php
 
-include_once('connection.inc.php');
-include_once('dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 // $category = 'Fruits & Vegetables'; // for testing purposes, replace with $_GET['category'] when ready
 $category = str_replace('_', ' & ', $_GET['category']);
@@ -15,19 +15,19 @@ $category = str_replace('_', ' & ', $_GET['category']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php $category ?></title>
     <!-- header and footer's css -->
-    <link rel="stylesheet" href="../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="../CSS/products.css">
+    <link rel="stylesheet" href="../../CSS/products.css">
 </head>
 
 <body>
     <!-- header -->
-    <?php include_once '../PHP/header.php'; ?>
+    <?php include_once '../header.php'; ?>
 
 
     <div class="container">
@@ -136,7 +136,7 @@ $category = str_replace('_', ' & ', $_GET['category']);
     </script>
 
     <!--Footer Section-->
-    <?php include_once '../PHP/footer.php'; ?>
+    <?php include_once '../footer.php'; ?>
 </body>
 
 </html>

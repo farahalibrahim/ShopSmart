@@ -1,9 +1,9 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 ?>
-
+<br><br><br><br><br><br>
 <form method="POST" action="update_delivery_status.php">
     <?php
     $sql = "SELECT * FROM `order` WHERE status = 'out_for_delivery' ORDER BY order_date ASC";
@@ -22,6 +22,10 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             while ($shipment = $shipmentStmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
                 <div class="card" style="width: 18rem;">
+                    <?php
+                    include_once('../address_map.php');
+                    echo getAddressMap($shipment['street_address'], $shipment['city'], 'mapid' . $shipment['order_nb']);
+                    ?>
                     <div class="card-body">
                         <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
                         <p class="card-text">

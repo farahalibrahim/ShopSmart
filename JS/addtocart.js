@@ -13,7 +13,7 @@ buttons.each(function () {
         var supermarketId = $(this).data('supermarket-id');
 
         $.ajax({
-            url: '../PHP/addtocart.php',
+            url: '../products/addtocart.php',
             type: 'POST',
             data: {
                 barcode: barcode,

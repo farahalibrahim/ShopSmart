@@ -1,6 +1,6 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 $email = 'placerat@icloud.edu';
@@ -27,12 +27,12 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Packing</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <link rel="stylesheet" href="../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         $(document).ready(function() {
             $('.logout').click(function() {
-                $.post('../PHP/logout.php', function() {
+                $.post('../logout.php', function() {
                     window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
                 });
             });
@@ -165,7 +165,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     }
 
     ?>
-    <script src="../JS/pack_order.js"></script>
+    <script src="../../JS/pack_order.js"></script>
 </body>
 
 </html>

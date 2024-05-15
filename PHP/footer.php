@@ -14,10 +14,10 @@
         </div>
         <div class="footer-box">
             <h2>Categories</h2>
-            <a href="http://localhost:3000/HTML/test.php#">Fruits & Vegetables</a>
-            <a href="http://localhost:3000/HTML/test.php#">Bakery</a>
-            <a href="http://localhost:3000/HTML/test.php#">Personal Care</a>
-            <a href="http://localhost:3000/HTML/test.php#">Cleaning Supplies</a>
+            <a href="http://localhost:3000/PHP/main/index.php#category">Fruits & Vegetables</a>
+            <a href="http://localhost:3000/PHP/main/index.php#category">Bakery</a>
+            <a href="http://localhost:3000/PHP/main/index.php#category">Personal Care</a>
+            <a href="http://localhost:3000/PHP/main/index.php#category">Cleaning Supplies</a>
         </div>
         <div class="footer-box">
             <h2>To partner with us</h2>

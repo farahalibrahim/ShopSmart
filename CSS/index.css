@@ -35,8 +35,6 @@ body {
     font-weight: 500;
 }
 
-<<<<<<< Updated upstream
-=======
 .profile img {
     width: 40px;
     height: 40px;
@@ -44,10 +42,12 @@ body {
     object-position: center;
     border-radius: 50%;
 }
-.profile span   {
+
+.profile span {
     font-size: 13px;
     font-weight: 500;
 }
+
 .logo {
     display: flex;
     align-items: center;
@@ -56,16 +56,19 @@ body {
     color: var(--text-color);
     column-gap: 0.5rem;
 }
-.logo span{
+
+.logo span {
     font-size: 24px;
     color: var(--green-color)
 }
+
 nav a {
     font-size: 1rem;
     font-weight: 500;
     color: var(--text-color);
     padding: 0.5rem 1rem;
 }
+
 nav a:hover {
     background: var(--green-color);
     transition: var(--background) 0.5s;
@@ -73,6 +76,7 @@ nav a:hover {
     color: var(--background);
     font-size: 1.1rem;
 }
+
 #menuicon {
     font-size: 24px;
     cursor: pointer;
@@ -82,7 +86,6 @@ nav a:hover {
 
 
 
->>>>>>> Stashed changes
 .container {
     position: relative;
     width: 100%;

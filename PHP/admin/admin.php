@@ -1,6 +1,6 @@
 <?php
-include_once('connection.inc.php');
-include_once('dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -185,8 +185,8 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
         <button class="add_user btn" name="add_user" type="submit">Add</button>
     </form>
     <!-- JS script that need DOMContentLoaded -->
-    <script src="../JS/autocomplete.js"></script>
-    <script src="../JS/admin.js"></script>
+    <script src="../../JS/autocomplete.js"></script>
+    <script src="../../JS/admin.js"></script>
 </body>
 
 </html>

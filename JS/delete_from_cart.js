@@ -6,7 +6,7 @@ $(document).ready(function () {
         var supermarketId = $(this).data('supermarketId');
 
         $.ajax({
-            url: '../PHP/delete_from_cart.php',
+            url: '../cart_checkout/delete_from_cart.php',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({

@@ -1,7 +1,7 @@
 <?php
 
-include_once('connection.inc.php');
-include_once('dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 // $barcode = '300880128754';
@@ -20,8 +20,8 @@ $barcode = $_GET['barcode'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <!-- header and footer's css -->
-    <link rel="stylesheet" href="../CSS/header_footer.css">
-    <link rel="stylesheet" href="../CSS/viewproduct.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/viewproduct.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <!-- import AJAX jquery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -33,7 +33,7 @@ $barcode = $_GET['barcode'];
 
 <body>
     <!-- header -->
-    <?php //include_once '../PHP/header.php'; 
+    <?php //include_once '../header.php'; 
     ?>
 
     <div class="product_container">
@@ -163,10 +163,10 @@ $barcode = $_GET['barcode'];
     </div>
     </div>
 
-    <script src="../JS/addtocart.js"></script>
+    <script src="../../JS/addtocart.js"></script>
 
     <input type="hidden" class="click_product" data-barcode="<?= $barcode ?>">
-    <script src="../JS/track_click.js"></script>
+    <script src="../../JS/track_click.js"></script>
     <script>
         $(document).ready(function() {
             $('.click_product').trigger('click');
@@ -174,7 +174,7 @@ $barcode = $_GET['barcode'];
     </script>
 
     <!--Footer Section-->
-    <?php include_once '../PHP/footer.php'; ?>
+    <?php include_once '../footer.php'; ?>
 </body>
 
 </html>

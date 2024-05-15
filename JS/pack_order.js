@@ -14,7 +14,7 @@ $(document).ready(function () {
         // Add event listener to the button element
         button.on('click', function () {
             // Send a POST request to 'pack_order.php' with the order data
-            $.post('../PHP/pack_order.php', { order: order.data('order') }, function (response) {
+            $.post('../packing/pack_order.php', { order: order.data('order') }, function (response) {
                 if (response.success) {
                     order.remove(); // Remove the order element if the response is successful
                 } else {

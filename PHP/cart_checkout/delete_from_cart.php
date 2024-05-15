@@ -1,6 +1,6 @@
 <?php
-include_once('connection.inc.php');
-include_once('dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 
 try {
     $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);

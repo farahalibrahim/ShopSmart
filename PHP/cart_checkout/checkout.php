@@ -1,6 +1,6 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 $user_id = $_COOKIE["user_id"];
 ?>
@@ -13,7 +13,7 @@ $user_id = $_COOKIE["user_id"];
     <title>Checkout</title>
 
     <!-- header and footer's css -->
-    <link rel="stylesheet" href="../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
@@ -206,8 +206,8 @@ $user_id = $_COOKIE["user_id"];
             // delete user cart after it becomes an order
             $sql = "DELETE FROM cart WHERE user_id = :user_id";
             $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
-            // header('Location: order.php?order_nb=' . $order_nb); // redirect to order page
-            header('Location: ../HTML/test.php'); // redirect to order page
+            header('Location: ../profile/order.php?order_nb=' . $order_nb); // redirect to order page
+            // header('Location: ../HTML/test.php'); // redirect to order page
         } else {
             // Handle the error
         }
@@ -217,7 +217,7 @@ $user_id = $_COOKIE["user_id"];
 
 
 
-    <?php include_once('../PHP/footer.php'); ?>
+    <?php include_once('../footer.php'); ?>
     <script>
         // used to show card options when card radio is selected and hide when cod radio is selected
         document.getElementById('card_radio').addEventListener('change', function() {
@@ -259,7 +259,7 @@ $user_id = $_COOKIE["user_id"];
     </script>
 
     <!-- to coupon validity using ajax -->
-    <script src="../JS/checkout_check_coupon.js"></script>
+    <script src="../../JS/checkout_check_coupon.js"></script>
     <script>
         $(document).ready(function() {
             $('#coupon_input').val('<?php echo $coupon; ?>').trigger('change');

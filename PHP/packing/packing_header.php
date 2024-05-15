@@ -13,7 +13,7 @@ if (isset($_COOKIE['user_id'])) {
 ?>
 
 <header class="header">
-    <a href="http://localhost:3000/HTML/packing.php" class="logo"><span class="material-symbols-outlined">
+    <a href="http://localhost:3000/PHP/packing/packing.php" class="logo"><span class="material-symbols-outlined">
             shopping_cart
         </span> Shop Smart</a>
     <div><span class="material-symbols-outlined" id="menuicon">

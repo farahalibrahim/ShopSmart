@@ -43,23 +43,23 @@
 
 // echo "Passwords updated successfully.";
 
-// include_once('connection.inc.php');
-// include_once('dbh.class.inc.php');
-// $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
+include_once('connection.inc.php');
+include_once('dbh.class.inc.php');
+$conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
-// // Fetch all products
-// $sql = "SELECT user_id FROM `credit card`";
-// $stmt = DatabaseHelper::runQuery($conn, $sql);
-// $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Fetch all products
+$sql = "SELECT `number` FROM `credit card`";
+$stmt = DatabaseHelper::runQuery($conn, $sql);
+$cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// // Loop through each product
-// foreach ($cards as $card) {
-//     // Generate a random date in the format 'YYYY-MM-DD'
-//     $randomDate = date("Y-m-d", mt_rand(strtotime('2024-06-31'), strtotime('2026-12-31')));
+// Loop through each product
+foreach ($cards as $card) {
+    // Generate a random date in the format 'YYYY-MM-DD'
+    $randomDate = date("Y-m-d", mt_rand(strtotime('2024-06-31'), strtotime('2026-12-31')));
 
-//     // Update the product's expiry_date in the database
-//     $sql = "UPDATE `credit card` SET expiry = :expiry WHERE user_id = :user_id";
-//     $stmt = DatabaseHelper::runQuery($conn, $sql, ['expiry' => $randomDate, 'user_id' => $card['user_id']]);
-// }
+    // Update the product's expiry_date in the database
+    $sql = "UPDATE `credit card` SET expiry = :expiry WHERE `number` = :card";
+    $stmt = DatabaseHelper::runQuery($conn, $sql, ['expiry' => $randomDate, 'card' => $card['number']]);
+}
 
-// echo "Expiry dates updated successfully.";
+echo "Expiry dates updated successfully.";

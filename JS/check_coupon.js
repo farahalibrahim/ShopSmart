@@ -4,7 +4,7 @@ $(document).ready(function () {
         var couponCode = $('#coupon_input').val();
         $.ajax({
             type: 'POST',
-            url: '../PHP/check_coupon.php',
+            url: '../cart_checkout/check_coupon.php',
             data: { coupon: couponCode },
             async: false, // Make the AJAX request synchronous
             success: function (response) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
                     // Send the discount to update_cart_summary.php
                     $.ajax({
                         type: 'POST',
-                        url: '../PHP/update_cart_summary.php', // Replace with the path to your PHP script
+                        url: '../PHP/cart_checkout/update_cart_summary.php', // Replace with the path to your PHP script
                         data: { discount: response },
                         success: function (cartSummary) {
                             // Update the cart summary with the new discount value

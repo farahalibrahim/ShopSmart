@@ -4,7 +4,7 @@ $(document).ready(function () {
         console.log("Product clicked ");
 
         $.ajax({
-            url: '../PHP/track_click.php',
+            url: '../products/track_click.php',
             type: 'POST',
             data: {
                 barcode: product

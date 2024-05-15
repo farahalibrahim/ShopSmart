@@ -1,6 +1,6 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 $user_id = $_COOKIE["user_id"];
 session_start();
@@ -16,7 +16,7 @@ session_start();
             echo $nameParts[0]; ?>'s Cart</title>
 
     <!-- header and footer's css -->
-    <link rel="stylesheet" href="../CSS/header_footer.css">
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
@@ -167,7 +167,7 @@ session_start();
 <body>
     <div class="Container-for-all">
         <!-- header -->
-        <?php include_once '../PHP/header.php';
+        <?php include_once '../header.php';
         ?>
         <?php
         $sql = "SELECT COUNT(*) as count FROM cart WHERE user_id = :user_id";
@@ -177,7 +177,7 @@ session_start();
             echo "<div class='empty_cart'>";
             echo "<span class='material-symbols-outlined empty_cart_icon'>shopping_cart_off </span>";
             echo "<h1>Your cart is empty</h1>";
-            echo "<a href='http://localhost:3000/HTML/test.php#categories' class='shop_btn'>Go shopping</a>";
+            echo "<a href='http://localhost:3000/PHP/main/index.php#products' class='shop_btn'>Go shopping</a>";
             exit();
         } else {
             echo "<h1>Your Cart</h1>";
@@ -308,7 +308,7 @@ session_start();
             <div class="payment_icons">
                 <i class='bx bxl-mastercard'></i>
                 <i class='bx bxl-visa'></i>
-                <img src="../pics/cod.png" alt="cash on delivery">
+                <img src="../../pics/cod.png" alt="cash on delivery">
             </div>
         </div>
 
@@ -331,7 +331,7 @@ session_start();
     <br>
     <button class="checkout_btn">Checkout</button>
     <!-- to update item quantities dynamically using ajax -->
-    <script src="../JS/updatecart.js"></script>
+    <script src="../../JS/updatecart.js"></script>
 
     <script>
         // redirect to checkout page when checkout button is clicked
@@ -363,9 +363,9 @@ session_start();
         // });
     </script>
     <!-- to remove items from cart using ajax -->
-    <script src="../JS/delete_from_cart.js"></script>
+    <script src="../../JS/delete_from_cart.js"></script>
     <!-- to coupon validity using ajax -->
-    <script src="../JS/check_coupon.js"></script>
+    <script src="../../JS/check_coupon.js"></script>
     <!-- <script>
         window.onload = function() {
             var inputs = document.getElementsByClassName('quantity-input');
@@ -387,7 +387,7 @@ session_start();
     </script> -->
 
     <!-- footer -->
-    <?php include_once '../PHP/footer.php'; ?>
+    <?php include_once '../footer.php'; ?>
     </div>
 
 </body>

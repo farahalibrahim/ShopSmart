@@ -1,6 +1,6 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 $email = 'sed.neque@icloud.edu';
@@ -28,17 +28,28 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Delivery</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
+    <!-- OpenStreetMap API -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
     <script>
-        $(document).ready(function() {
-            $("#packed_orders").click(function() {
-                $("#content").load("packed_orders.php");
-            });
-            $("#out_for_delivery_orders").click(function() {
-                $("#content").load("out_for_delivery_orders.php");
-            });
-        });
+        // $(document).ready(function() {
+        //     $("#packed_orders").click(function() {
+        //         $("#content").load("packed_orders.php");
+        //     });
+        //     $("#out_for_delivery_orders").click(function() {
+        //         $("#content").load("out_for_delivery_orders.php");
+        //     });
+        // });
     </script>
     <style>
+        div[id^='mapid'] {
+            height: 200px !important;
+            width: 200px !important;
+            border-radius: 20px !important;
+        }
+
         .modal {
             display: none;
             /* Hidden by default */
@@ -89,8 +100,11 @@ setcookie('user_name', $user_name, time() + 86400, '/');
 </head>
 
 <body>
-    <button id="packed_orders">Packed Orders</button>
-    <button id="out_for_delivery_orders">Out for Delivery Orders</button>
+    <?php
+    include_once 'delivery_header.php';
+    ?>
+    <!-- <button id="packed_orders">Packed Orders</button>
+    <button id="out_for_delivery_orders">Out for Delivery Orders</button> -->
     <div id="content">
         <!-- Content will be loaded here based on button click -->
     </div>
