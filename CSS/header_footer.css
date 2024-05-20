@@ -207,3 +207,17 @@ nav a:hover {
     color: black;
     cursor: pointer;
 }
+nav .search {
+    height: 30px;
+    display: flex;
+    cursor: pointer;
+    padding: 10px 20px;
+    background: var(--background);
+    border-radius: 30px;
+    align-items: center;
+
+}
+.search a .fa-solid {
+    color: green;
+    font-size: 18px;
+}

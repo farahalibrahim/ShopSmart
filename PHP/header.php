@@ -13,19 +13,27 @@ if (isset($_COOKIE['user_id'])) {
 ?>
 
 <header class="header">
-    <a href="http://localhost:3000/PHP/main/index.php" class="logo"><span class="material-symbols-outlined">
+<script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>
+    <a href="http://localhost:3000/HTML/test.php" class="logo"><span class="material-symbols-outlined">
             shopping_cart
         </span> Shop Smart</a>
     <div><span class="material-symbols-outlined" id="menuicon">
             menu
         </span></div>
     <nav class="navbar">
-        <a href="http://localhost:3000/PHP/main/index.php#home">Home</a>
-        <a href="http://localhost:3000/PHP/main/index.php#categories">Categories</a>
-        <a href="http://localhost:3000/PHP/main/index.php#products">Products</a>
-        <a href="http://localhost:3000/PHP/main/index.php#about">About</a>
-
+        <a href="http://localhost:3000/HTML/test.php#home">Home</a>
+        <a href="http://localhost:3000/HTML/test.php#categories">Categories</a>
+        <a href="http://localhost:3000/HTML/test.php#products">Products</a>
+        <a href="http://localhost:3000/HTML/test.php#about">About</a>
+        
     </nav>
+    
+        <div class="search">
+            <form action="">
+                <input type="text" placeholder="search">
+                <a href="#"><i class="fa-solid fa-magnifying-glass" id="icon"></i></a>
+            </form>
+        </div>
     <!-- <div class="profile">
             <img src="../pics/pngwing.com.png" alt="">
             <span>Profile</span>
@@ -34,32 +42,21 @@ if (isset($_COOKIE['user_id'])) {
                 </span>
         </div>-->
     <div class="profile">
-        <a href="http://localhost:3000/HTML/login.html" target="_blank" id="login_btn">Login</a>
+        <a href="../HTML/login.html" target="_blank" id="login_btn">Login</a>
         <!-- user profile, cart, shopping list, inventory -->
+        <button class="logout"><span class="material-symbols-outlined">logout</span></button>
         <span class="cart_account">
-            <!-- <button class="logout"><span class="material-symbols-outlined">logout</span></button> -->
-            <script>
-                $(document).ready(function() {
-                    $('.logout').click(function() {
-                        $.post('../logout.php', function() {
-                            window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
-                        });
-                    });
-                });
-            </script>
-            <a href="http://localhost:3000/PHP/shopping_list/shoppinglist.php" id="shopping_list"><i class='bx bx-list-check'></i></a>
-            <a href="http://localhost:3000/PHP/cart_checkout/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
+            <a href="#" id="shopping_list"><i class='bx bx-list-check'></i></a>
+            <a href="http://localhost:3000/PHP/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
             | <!-- seperator between account and the others icons -->
             <?php $userName = '';
-            if (isset($_COOKIE['user_id'])) {
-                $query = "SELECT name FROM user WHERE id = {$_COOKIE['user_id']}";
-                $stmt = DatabaseHelper::runQuery($conn, $query);
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-                $userName = explode(' ', $result['name'])[0]; // Get the first name
+            if (isset($_COOKIE['user_name'])) {
+                $userName = $_COOKIE['user_name'];
+                $userName = explode(' ', $userName)[0];
             }
 
             echo '<a href="#" id="account">' . $userName . '</a>'; ?>
-            <a href="http://localhost:3000/PHP/profile/profile.php" id="account"><i class='bx bx-user'></i></a>
-        </span>
-    </div>
+            <a href="#" id="account"><i class='bx bx-user'></i></a></span>
+
+            
 </header>

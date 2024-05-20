@@ -73,11 +73,14 @@ input {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    
+    padding-left: 100px;
+    
 }
 
 .btn-field button {
     flex-basis: 48%;
-    background: orange;
+    background: green;
     color: black;
     height: 40px;
     border-radius: 20px;
@@ -85,6 +88,8 @@ input {
     outline: 0;
     cursor: pointer;
     transition: background 1s;
+    align-items: center;
+    
 }
 
 .input-group {
@@ -102,4 +107,16 @@ input {
     font-size: 100;
     padding: 20px;
     margin-top: 40px;
+    transition: 1s;
+    flex-basis: 48%;
+}
+form p {
+    padding-top: 20px;
+}
+form p a{
+    transition: 1s;
+    flex-basis: 48%;
+}
+.btn-field .loginBtn {
+    padding-left: 50px;
 }

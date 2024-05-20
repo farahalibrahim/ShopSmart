@@ -50,10 +50,11 @@
                     </div>
                 </div>
                 <div class="btn-field">
-                    <button type="button" id="signupBtn">Sign Up</button>
+                    <!--<button type="button" id="signupBtn">Sign Up</button>-->
                     <button type="button" id="loginBtn" class="disable">Login</button>
-                    <p>New to website <a href="">Sign Up</a></p>
+                    
                 </div>
+                <p id="signupBtn" id="par" name="parag">New to website <a href="">Sign Up</a></p>
             </form>
         </div>
     </div>
@@ -67,12 +68,14 @@
         let loginBtn = document.getElementById("loginBtn");
         let namefield = document.getElementById("namefield");
         let title = document.getElementById("title");
+        let par = document.getElementById("par")
 
         let phone = document.querySelector("input[name='phone']");
         let email = document.querySelector("input[name='email']");
         let pass = document.querySelector("input[name='pass']");
         let street = document.querySelector("input[name='street']");
         let city = document.querySelector("input[name='city']");
+
 
         loginBtn.onclick = function () {
             namefield.style.maxHeight = '0';
@@ -82,7 +85,7 @@
             title.innerHTML = "Login";
             signupBtn.classList.add("disable");
             loginBtn.classList.remove("disable");
-
+            par.innerHTML = "Already a customer";
 
             phone.required = false;
             street.required = false;
@@ -96,6 +99,8 @@
             streetname.style.maxHeight = '65px';
             cityname.style.maxHeight = '65px';
             title.innerHTML = "Sign Up";
+            
+            
             signupBtn.classList.remove("disable");
             loginBtn.classList.add("disable");
             phone.required = true;
