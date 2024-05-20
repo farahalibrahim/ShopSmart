@@ -9,7 +9,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 $user_id = $_POST['user_id'];
 $card_number = $_POST['card_number'];
 $card_holder_name = $_POST['card_holder_name'];
-$expiry_date = $_POST['expiry_date'];
+$expiry_date = date('Y-m-t', strtotime($_POST['expiry_date'] . '-01'));
 $cvv = $_POST['cvv'];
 $balance = $_POST['balance'];
 

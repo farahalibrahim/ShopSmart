@@ -4,8 +4,8 @@ include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 // for testing, assume that logged in user's email is: sed.neque@outlook.edu
-// $email = 'sed.neque@outlook.edu';
-$email = 'dolor@outlook.couk';
+$email = 'sed.neque@outlook.edu';
+// $email = 'dolor@outlook.couk';
 // $id = 1;
 
 
@@ -58,15 +58,6 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!-- <link rel="stylesheet" href="../CSS/popular_products.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.logout').click(function() {
-                $.post('../PHP/logout.php', function() {
-                    window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
-                });
-            });
-        });
-    </script>
     <style>
         .popular-container,
         .recent-container,
@@ -74,12 +65,12 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             display: flex;
             flex-wrap: wrap;
             justify-content: flex-start;
+            /* margin: 1% 5% 5% 5%; */
         }
 
         .productcard {
-            /* flex: 1 0 15%; */
-            /* Grow and shrink, basis is 21% to allow for 5 items per row with some space in between */
             margin: 1%;
+            padding: 5px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
             transition: 0.3s;
             border-radius: 20px;
@@ -87,7 +78,10 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             height: 250px;
         }
 
-        .productcard h2 {
+        .productcard h3,
+        .productcard .product_name {
+            padding-left: 10px;
+            color: black;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
@@ -100,17 +94,67 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             height: auto;
             display: block;
             margin: 0 auto;
+            object-fit: contain;
         }
 
         .productcard:hover {
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .productcard .product_details {
+            padding: 5px 10px;
+            text-align: left;
+        }
+
+        .productcard .product_details .product_quantity,
+        .productcard .product_details .product_price {
+            font-size: 0.8em;
+            /* margin: 0; */
+            color: darkslategray;
+        }
+
+        .fab {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 56px;
+            height: 56px;
+            background-color: #fff314;
+            color: white;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.40);
+        }
+
+        .chat-popup {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.20);
+            padding: 20px;
+            overflow: auto;
+            z-index: 1000;
         }
     </style>
 </head>
 
 <body>
     <!-- header -->
-    <?php include_once '../header.php'; ?>
+    <?php include_once '../header.php';
+    ?>
+    <a href="#" class="fab" id="fab"><span class="material-symbols-outlined" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">support_agent</span></a>
+    <div id="chat-popup" class="chat-popup" style="display: none;">
+        <h2>Live Chat</h2>
+        <!-- chat content dynamically added here -->
+    </div>
 
     <!--Home Page-->
     <section class="home" id="home">
@@ -119,7 +163,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
                 <div class="home-text">
                     <span>Shop Smart</span>
                     <h1>Choose Your <br>best Offer <br>NOW !!!</h1>
-                    <a href="../PHP/offers.php" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
+                    <a href="offers.php" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
                             arrow_forward
                         </span></a>
                 </div>
@@ -186,7 +230,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <section class="products" id="products">
         <div class="heading">
             <h1>Our Popular <br><span>Products</span></h1>
-            <a href="../popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+            <a href="popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
                 </span></a>
         </div>
@@ -239,8 +283,24 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <!--link to js-->
-    <script src="../../JS/index.js">
+    <script src="../../JS/index.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#fab').on('click', function(event) {
+                event.preventDefault();
+                event.stopPropagation();
+                var chatPopup = $('#chat-popup');
+                chatPopup.css('display', chatPopup.css('display') === 'none' ? 'block' : 'none');
+            });
 
+            $(window).on('click', function(event) {
+                var chatPopup = $('#chat-popup');
+                var fab = $('#fab');
+                if (!$(event.target).closest(chatPopup).length && !$(event.target).closest(fab).length) {
+                    chatPopup.css('display', 'none');
+                }
+            });
+        });
     </script>
 </body>
 

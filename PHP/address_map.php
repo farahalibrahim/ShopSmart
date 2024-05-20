@@ -20,7 +20,7 @@ function getAddressMap($street_address, $city, $map_id)
         $longitude = $data['results'][0]['geometry']['lng'];
     } else {
         // Handle the error if the geocoding fails
-        return "Could not geocode the address.";
+        return "Address doesn't exist.";
     }
 
     // Return the HTML and JavaScript code for the map

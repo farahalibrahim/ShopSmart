@@ -7,6 +7,7 @@ error_reporting(E_ALL);
 
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
+include_once '../responseModal.inc.php'; //for alert message
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 $user_id = $_COOKIE["user_id"];
 echo $user_id;
@@ -37,14 +38,14 @@ if ($payment_method == 'card') {
     $sql = "SELECT * FROM `credit card` WHERE `number` = :card_number";
     $stmt = DatabaseHelper::runQuery($conn, $sql, ['card_number' => $card_number]);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    print_r($results);
+    // print_r($results);
     if ($stmt->rowCount() > 0) {
         // $credit_card = $results[0];
 
         if ($cvv != $results[0]['cvv']) {
             // CVV or total does not match, handle the error
             // CVV or total does not match, handle the error
-            echo "<script>alert('CVV does not match. Please try again.');</script>";
+            echo "<script>showResponseModal('CVV does not match. Please try again.');</script>";
             echo "<script>window.location.href = 'checkout.php';</script>";
         }
         if ($total > $results[0]['balance']) {

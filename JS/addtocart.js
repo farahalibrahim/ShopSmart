@@ -1,6 +1,7 @@
+
 // check if user logged in
 var userId = getCookie('user_id');
-var buttons = $('.add_to_cart_btn');
+var buttons = $('.add_to_cart');
 
 buttons.each(function () {
     $(this).on('click', function () {
@@ -20,7 +21,7 @@ buttons.each(function () {
                 supermarket_id: supermarketId
             },
             success: function () {
-                alert('Product added to cart');
+                showResponseModal('Product added to cart');
             }
         });
     });

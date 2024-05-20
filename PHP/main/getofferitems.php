@@ -1,6 +1,6 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 $sql = "SELECT product.*, supermarket.name AS supermarket_name FROM product INNER JOIN supermarket ON product.supermarket_id = supermarket.id WHERE offer = 1";
@@ -24,7 +24,7 @@ foreach ($offers as $offer) {
     echo '<div class="card">';
     echo '<img src="' . $src . '" alt="' . $offer['product_name'] . '">';
     echo '<div class="card-body">';
-    echo '<h3 class="card-title">' . $offer['product_name'] . '</h3>';
+    echo '<h3 class="product_name">' . $offer['product_name'] . '</h3>';
     echo '<div class="info"><p>' . $offer['supermarket_name'] . '</p>';
     $quantity = $offer['quantity'];
     $quantity_type = $offer['quantity_type'];
@@ -42,7 +42,7 @@ foreach ($offers as $offer) {
     echo '<p class="old_price"><span style="text-decoration: line-through;">$' . $offer['original_price'] . '</span></p></div></div>';
 
     // add to cart button always exists yet if logged in it adds to cart if not a popup prompts to log in/sign up(in ajax file addtocart.js)
-    echo '<button class="add_to_cart_btn" data-barcode="' . $offer['barcode'] . '" data-supermarket-id="' . $offer['supermarket_id'] . '">
+    echo '<button class="add_to_cart" data-barcode="' . $offer['barcode'] . '" data-supermarket-id="' . $offer['supermarket_id'] . '">
     <span class="material-symbols-outlined">add_shopping_cart</span>
     </button>';
     echo '</div>';

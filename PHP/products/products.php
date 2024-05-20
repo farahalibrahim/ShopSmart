@@ -1,5 +1,4 @@
 <?php
-
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
@@ -23,52 +22,68 @@ $category = str_replace('_', ' & ', $_GET['category']);
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <link rel="stylesheet" href="../../CSS/products.css">
+    <!-- <style>
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin: 1% 5% 5% 5%;
+        }
+
+        .productcard {
+            margin: 1%;
+            padding: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+            border-radius: 20px;
+            width: 200px;
+            height: 250px;
+        }
+
+        .productcard h2,
+        .productcard .product_name {
+            padding-left: 10px;
+            color: black;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .productcard img {
+            width: 70%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .productcard:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+        }
+
+        .productcard .product_details {
+            padding: 5px 10px;
+            text-align: left;
+        }
+
+        .productcard .product_details .product_quantity,
+        .productcard .product_details .product_price {
+            font-size: 0.8em;
+            /* margin: 0; */
+            color: darkslategray;
+        }
+    </style> -->
 </head>
 
 <body>
     <!-- header -->
-    <?php include_once '../header.php'; ?>
-
-
+    <?php //include_once '../header.php'; 
+    ?>
+    <!-- <br><br><br><br><br><br><br><br> -->
+    <h1><?php echo $category ?></h1>
     <div class="container">
-        <h1><?php echo $category ?></h1>
         <?php
-        // $sql = "SELECT product.*, supermarket.name as supermarket_name 
-        //     FROM product 
-        //     INNER JOIN supermarket ON product.supermarket_id = supermarket.id 
-        //     WHERE product.category = :category";
-
-        // $stmt = DatabaseHelper::runQuery($conn, $sql, ['category' => $category]);
-        // // $stmt = $conn->prepare($sql);
-        // // $stmt->bindParam(':category', $category);
-        // // $stmt->execute();
-        // $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // // foreach ($results as $result) {
-        // //     print_r(array_keys($result));
-        // //     echo '<br>';
-        // //     // rest of your code...
-        // // }
-
-        // foreach ($results as $result) {
-        //     $finfo = new finfo(FILEINFO_MIME_TYPE);
-        //     $mimeType = $finfo->buffer($result['product_image']);
-
-        //     $imageData = base64_encode($result['product_image']);
-        //     $src = 'data:' . $mimeType . ';base64,' . $imageData;
-
-        // echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><div class="productcard">';
-        // echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
-        // echo '<h2>' . $result['product_name'] . '</h2>';
-        // echo '<div class="product_details"><p>' . $result['supermarket_name'] . '</p>';
-        // echo '<p> $' . $result['price'] . '</p></div></a>';
-        // echo '<a href="addtocart.php?barcode=' . $result['barcode'] . '&supermarket=' . $result['supermarket_id'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
-        // echo '</div>';
-        // }
-
-        // $sql = "SELECT * FROM product WHERE category = :category GROUP BY barcode";
-        // $sql = "SELECT * FROM product WHERE category = :category";
-
 
         $sql = "SELECT barcode, product_name, product_image,quantity, quantity_type, MIN(price) as min_price, MAX(price) as max_price 
         FROM product 
@@ -77,22 +92,6 @@ $category = str_replace('_', ' & ', $_GET['category']);
 
         $stmt = DatabaseHelper::runQuery($conn, $sql, ['category' => $category]);
         $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        // foreach ($results as $result) {
-        //     print_r(array_keys($result));
-        //     echo '<br>';
-        //     // rest of your code...
-        // }
-
-        // foreach ($results as $result) {
-        //     foreach ($result as $key => $value) {
-        //         if ($key != 'product_image') {
-        //             echo $key . ': ' . $value . '<br>';
-        //         }
-        //     }
-        //     echo '<br>';
-        //     // rest of your code...
-        // }
 
 
         foreach ($results as $result) {
@@ -104,7 +103,7 @@ $category = str_replace('_', ' & ', $_GET['category']);
 
             echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><div class="productcard">';
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
-            echo '<h3>' . $result['product_name'] . '</h3>';
+            echo '<h3 class="product_name">' . $result['product_name'] . '</h3>';
             echo '<div class="product_details">';
             $quantity = $result['quantity'];
             $quantity_type = $result['quantity_type'];
@@ -116,18 +115,15 @@ $category = str_replace('_', ' & ', $_GET['category']);
             } else {
                 $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
             }
-            echo "<p>{$quantity} {$unit}</p>";
+            echo "<p class='product_quantity'>{$quantity} {$unit}</p>";
 
             if ($result['min_price'] == $result['max_price']) { // only one supermarket selling product OR multiple at same price => no price range
-                echo '<p > $' . $result['min_price'] . '</p>';
+                echo '<p class="product_price"> $' . $result['min_price'] . '</p>';
             } else { // there is a price range => multiple supermarkets selling same product
-                echo '<p class="prodprice"> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
+                echo '<p class="product_price"> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
             }
-            // echo '<p>' . $result['quantity'] . ' - $' . $result['max_price'] . '</p></div></a>';
-
-
             echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
-            echo '</div>';
+            echo '</div></div></a>';
         }
         ?>
     </div>

@@ -13,6 +13,7 @@ $user_id = $_COOKIE['user_id'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo "Order# " . $order; ?></title>
+    <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -94,9 +95,11 @@ $user_id = $_COOKIE['user_id'];
 </head>
 
 <body>
+    <br><br><br><br><br>
     <?php
+    include_once '../header.php';
     // Get the order details
-    $query = "SELECT `order`.*,order_details.*,shipment.*, supermarket.name AS supermarket_name,product.quantity_type, product.quantity AS product_quantity, product.product_name, product.product_image FROM `order`
+    $query = "SELECT `order`.*,order_details.*,shipment.*, order.status AS `status`, supermarket.name AS supermarket_name,product.quantity_type, product.quantity AS product_quantity, product.product_name, product.product_image FROM `order`
               JOIN order_details ON order.order_nb = order_details.order_nb 
               JOIN shipment ON order.order_nb = shipment.order_nb 
               JOIN supermarket ON order_details.supermarket_id = supermarket.id 
@@ -118,15 +121,18 @@ $user_id = $_COOKIE['user_id'];
     } elseif ($orderDetails[0]['status'] == 'processing') {
         echo '<i class="bx bx-store status_icon"></i> <p class="status">Processing</p>'; // Display the processing status\
     } elseif ($orderDetails[0]['status'] == 'out_for_delivery') {
-        echo '<i class="bx bx-truck status_icon"></i> <p class="status">Out for Delivery</p>'; // Display the shipping status
+        echo '<span class="material-symbols-outlined status_icon">local_shipping</span> <p class="status">Out for Delivery</p>'; // Display the shipping status
     } elseif ($orderDetails[0]['status'] == 'packed') {
         echo '<i class="bx bx-package status_icon"></i> <p class="status">Packed</p>'; // Display the shipping status
     }
+    // echo  $orderDetails[0]['status'];
     echo '</div>';
-    echo '<div class="contact"><div class="address">';
-    echo '<span class="material-symbols-outlined address_icon">door_open</span>';
-    echo '<p class="address">' . $orderDetails[0]["street_address"] . ' - ' . $orderDetails[0]["city"] . '</p></div>';
-    echo $orderDetails[0]["user_phone"];
+
+    echo '<div class="address_contact">';
+    echo '<h2>Delivery Address & Contact:</h2>';
+    echo '<div class="address"><span class="material-symbols-outlined address_icon">door_open</span>';
+    echo '<p>' . $orderDetails[0]["street_address"] . ' - ' . $orderDetails[0]["city"] . '</p></div>';
+    echo '<div class="contact"><p>' . $orderDetails[0]["user_phone"] . '</p></div>';
     echo '</div>';
 
     // Create a new array that groups the items by supermarket_id
@@ -198,7 +204,7 @@ $user_id = $_COOKIE['user_id'];
     echo '<div class="payment_method">';
     if (($orderDetails[0]['payment_method'] == 'card')) {
         echo '<span class="material-symbols-outlined payment_icon">credit_card</span>';
-        echo '<p>Card ending in ' . substr($orderDetails[0]['card_number'], -4) . '</p>'; // Display the card number
+        echo '<p>Card ending in ' . substr($orderDetails[0]['payment_card'], -4) . '</p>'; // Display the card number
     } else if (($orderDetails[0]['payment_method'] == 'cod')) {
         echo '<span class="material-symbols-outlined payment_icon">payments</span>';
         echo '<p>Cash on Delivery</p>'; // Display the card number

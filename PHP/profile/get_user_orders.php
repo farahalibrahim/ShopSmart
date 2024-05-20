@@ -70,8 +70,8 @@ if ($orders->rowCount() > 0) {
         // echo '</div>';
         // echo '</div>';
     }
-} else {
+} else { //no orders div, to be styled in the center of document
     echo '<div class="no-order"> <span class="material-symbols-outlined">orders</span>';
-    echo '<h2>No Credit Cards Found</h2>';
-    echo '<p>Use the button above to add</p></div>';
+    echo '<h2>You have placed no orders yet!</h2>';
+    echo '<a href="http://localhost:3000/PHP/main/index.php#products">Go Shopping</a></div>';
 }

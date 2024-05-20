@@ -45,7 +45,7 @@ $user_id = $_COOKIE["user_id"];
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
             echo $user['street_address'] . ', ' . $user['city'];
             ?></p>
-        <a href="#">Change</a>
+        <a href="../profile/profile.php?section=address">Change</a>
     </div>
     <div class="order_summary">
         <?php
@@ -58,10 +58,9 @@ $user_id = $_COOKIE["user_id"];
         <div class="total">
             <?php include_once('update_cart_summary.php'); ?>
 
-
         </div>
     </div>
-    <form action="checkout.php?coupon=<script>document.getElementById('placeorder_total').value</script>" method="post">
+    <form action="checkout.php" method="post">
         <input type="hidden" name="total" id="total">
         <script>
             document.getElementById('total').value = document.getElementById('placeorder_total').value;
@@ -79,13 +78,14 @@ $user_id = $_COOKIE["user_id"];
                 <div class="card_options">
                     <?php
 
-                    $sql = "SELECT number FROM `credit card` WHERE user_id = :user_id";
+                    $sql = "SELECT `number`, `expiry` FROM `credit card` WHERE user_id = :user_id";
                     $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
                     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                     if (count($results) == 0) {
+                        echo '<div class="no-card"><span class="material-symbols-outlined">credit_card_off</span>';
                         echo '<p>You have no saved cards</p>';
-                        echo '<p>use COD or <a href="#" class="add_card"><i class="bx bx-plus"></i>add card</a></p>';
+                        echo '<p>Use COD or <a href="../profile/profile.php?section=cards" class="add_card"><i class="bx bx-plus"></i>add card</a></p></div>';
                     } else {
                         foreach ($results as $row) {
                             $lastFourDigits = substr($row['number'], -4);
@@ -93,7 +93,7 @@ $user_id = $_COOKIE["user_id"];
                             echo '<div class="card_option">';
                             echo '<input type="radio" id="card_' . $lastFourDigits . '" name="selected_card" value="' . $row['number'] . '">';
                             echo '<label for="card_' . $lastFourDigits . '">';
-                            echo '**** **** **** ' . $lastFourDigits . ' (' . $expiryDate . ')';
+                            echo 'Card ending with ' . $lastFourDigits . ' (' . $expiryDate . ')';
                             echo '</label>';
                             echo '</div>';
                             echo '<input type="text" id="cvv_' . $lastFourDigits . '" name="cvv_' . $lastFourDigits . '" placeholder="CVV" required style="display: none;">';
