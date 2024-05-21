@@ -4,7 +4,7 @@ $(document).ready(function () {
         var couponCode = $('#coupon_input').val();
         $.ajax({
             type: 'POST',
-            url: '../PHP/cart_checkout/check_coupon.php',
+            url: '../cart_checkout/check_coupon.php',
             data: { coupon: couponCode },
             async: false, // Make the AJAX request synchronous
             success: function (response) {
@@ -21,6 +21,8 @@ $(document).ready(function () {
                         success: function (cartSummary) {
                             // Update the cart summary with the new discount value
                             $('.total').html(cartSummary);
+                            // Update the 'total' element with the value of the 'placeorder_total' element
+                            $('#total').val($('#placeorder_total').val());
                         }
                     });
                 }

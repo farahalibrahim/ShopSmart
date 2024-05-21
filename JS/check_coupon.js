@@ -8,15 +8,18 @@ $(document).ready(function () {
             data: { coupon: couponCode },
             async: false, // Make the AJAX request synchronous
             success: function (response) {
-                if (response === '0') {
-                    $('#coupon_status').show().text('Coupon invalid!');
-                } else {
-                    $('#coupon_status').show().text('Hooray! You got ' + response + '% discount');
+                console.log(couponCode);
+                if (couponCode != '') { // If coupon code is not empty
 
+                    if (response === '0') {
+                        $('#coupon_status').show().text('Coupon invalid!');
+                    } else {
+                        $('#coupon_status').show().text('Hooray! You got ' + response + '% discount');
+                    }
                     // Send the discount to update_cart_summary.php
                     $.ajax({
                         type: 'POST',
-                        url: '../PHP/cart_checkout/update_cart_summary.php', // Replace with the path to your PHP script
+                        url: '../cart_checkout/update_cart_summary.php', // Replace with the path to your PHP script
                         data: { discount: response },
                         success: function (cartSummary) {
                             // Update the cart summary with the new discount value

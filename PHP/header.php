@@ -13,27 +13,63 @@ if (isset($_COOKIE['user_id'])) {
 ?>
 
 <header class="header">
-<script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>
-    <a href="http://localhost:3000/HTML/test.php" class="logo"><span class="material-symbols-outlined">
+    <a id="back_arrow" href="#" onclick="event.preventDefault(); goBack();"><span class="material-symbols-outlined">
+            arrow_back
+        </span></a>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    <script src="https://kit.fontawesome.com/f1d5e2b530.js" crossorigin="anonymous"></script>
+    <a href="http://localhost:3000/PHP/main/index.php" class="logo"><span class="material-symbols-outlined">
             shopping_cart
         </span> Shop Smart</a>
     <div><span class="material-symbols-outlined" id="menuicon">
             menu
         </span></div>
     <nav class="navbar">
-        <a href="http://localhost:3000/HTML/test.php#home">Home</a>
-        <a href="http://localhost:3000/HTML/test.php#categories">Categories</a>
-        <a href="http://localhost:3000/HTML/test.php#products">Products</a>
-        <a href="http://localhost:3000/HTML/test.php#about">About</a>
-        
+        <a href="http://localhost:3000/PHP/main/index.php#home">Home</a>
+        <a href="http://localhost:3000/PHP/main/index.php#categories">Categories</a>
+        <a href="http://localhost:3000/PHP/main/index.php#products">Products</a>
+        <a href="http://localhost:3000/PHP/main/index.php#about">About</a>
+
     </nav>
-    
+
+    <div class="search-container">
         <div class="search">
-            <form action="">
-                <input type="text" placeholder="search">
-                <a href="#"><i class="fa-solid fa-magnifying-glass" id="icon"></i></a>
-            </form>
+            <span class="material-symbols-outlined" id="search_icon">search</span>
+            <input id="search_input" type="text" placeholder="search">
         </div>
+        <div class="search-results" id="search_results">
+            <!-- Search results will be populated here -->
+        </div>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#search_input').on('input', function() {
+                var searchQuery = $(this).val();
+                if (searchQuery === '') {
+                    $('#search_results').hide();
+                } else {
+                    $.ajax({
+                        url: 'http://localhost:3000/PHP/search.php',
+                        type: 'POST',
+                        data: {
+                            query: searchQuery
+                        },
+                        success: function(data) {
+                            if (data) {
+                                $('#search_results').html(data).show();
+                            } else {
+                                $('#search_results').hide();
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
     <!-- <div class="profile">
             <img src="../pics/pngwing.com.png" alt="">
             <span>Profile</span>
@@ -45,9 +81,18 @@ if (isset($_COOKIE['user_id'])) {
         <a href="../HTML/login.html" target="_blank" id="login_btn">Login</a>
         <!-- user profile, cart, shopping list, inventory -->
         <button class="logout"><span class="material-symbols-outlined">logout</span></button>
+        <script>
+            $(document).ready(function() {
+                $('.logout').click(function() {
+                    $.post('../logout.php', function() {
+                        window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
+                    });
+                });
+            });
+        </script>
         <span class="cart_account">
             <a href="#" id="shopping_list"><i class='bx bx-list-check'></i></a>
-            <a href="http://localhost:3000/PHP/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
+            <a href="http://localhost:3000/PHP/cart_checkout/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
             | <!-- seperator between account and the others icons -->
             <?php $userName = '';
             if (isset($_COOKIE['user_name'])) {
@@ -58,5 +103,5 @@ if (isset($_COOKIE['user_id'])) {
             echo '<a href="#" id="account">' . $userName . '</a>'; ?>
             <a href="#" id="account"><i class='bx bx-user'></i></a></span>
 
-            
+
 </header>

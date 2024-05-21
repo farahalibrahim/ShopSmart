@@ -18,6 +18,53 @@
     transition: all .2s linear;
 }
 
+.search-container {
+    position: relative;
+    display: inline-block;
+    width: 200px;
+    /* Adjust as needed */
+}
+
+.search {
+    position: relative;
+}
+
+#search_input {
+    padding: 10px;
+    padding-left: 40px;
+    /* Make room for the search icon on the left */
+    border-radius: 50px;
+    /* Make the corners rounded */
+    border: 1px solid #ccc;
+    width: 100%;
+    /* Take up full width of the parent */
+}
+
+#search_icon {
+    position: absolute;
+    left: 10px;
+    /* Position the icon to the left */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.search-results {
+    position: absolute;
+    top: 100%;
+    /* Position it just below the search bar */
+    width: 100%;
+    /* Match the width of the search bar */
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    display: none;
+    /* make hidden initially */
+    z-index: 1;
+    /* Ensure the div floats on top of other elements */
+}
+
 /* header properties */
 .header {
     position: fixed;
@@ -207,6 +254,7 @@ nav a:hover {
     color: black;
     cursor: pointer;
 }
+
 nav .search {
     height: 30px;
     display: flex;
@@ -217,6 +265,7 @@ nav .search {
     align-items: center;
 
 }
+
 .search a .fa-solid {
     color: green;
     font-size: 18px;

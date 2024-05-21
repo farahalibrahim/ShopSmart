@@ -276,7 +276,7 @@ session_start();
                 echo '<img class="productimg" src="' . $src . '" alt="' . $product['product_name'] . '">'; // use $src here
                 echo "<div class='productdetails'><h3>$productName</h3>";
 
-                $quantity = $product['quantity'];
+                $quantity = $product['product_quantity'];
                 $quantity_type = $product['quantity_type'];
                 $unit = '';
 
@@ -287,12 +287,27 @@ session_start();
                     $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
                 }
                 echo "<p>{$quantity} {$unit}</p>";
+                echo "<script>console.log(" . $quantity . ");</script>";
 
                 echo "<p>Price: $$productPrice</p>";
                 echo "<input type='number' value='$productQuantity' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId' class='quantity-input'>";
                 echo "<button class='delete-button' data-barcode='" . $product['barcode'] . "' data-supermarket-id='$supermarketId'><i class='bx bx-trash-alt'></i></button>";
                 // echo "</div></div></a>"; 
-                echo "</div></div>";
+                echo "</div>";
+                // Check for other options with lower price
+                $otherOptionsSql = "SELECT * FROM product WHERE barcode = :barcode AND price < :price ORDER BY price ASC LIMIT 1";
+                $otherOptionsStmt = DatabaseHelper::runQuery($conn, $otherOptionsSql, ["barcode" => $product['barcode'], "price" => $productPrice]);
+                $otherOption = $otherOptionsStmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($otherOption) {
+                    echo "<div class='other_option'>";
+                    // echo "<a href='viewproduct.php?barcode=" . $otherOption['barcode'] . "'>Other option from " . $otherOption['supermarket_name'] . " at $" . $otherOption['price'] . "</a>";
+                    echo "<a href='../products/viewproduct.php?barcode=" . $otherOption['barcode'] . "'>Other option at $" . $otherOption['price'] . "<span class='material-symbols-outlined'>
+                    arrow_forward
+                </span></a>";
+                    echo "</div>";
+                }
+                echo "</div>";
             }
 
             echo "</div>";
@@ -331,7 +346,8 @@ session_start();
     <br>
     <button class="checkout_btn">Checkout</button>
     <!-- to update item quantities dynamically using ajax -->
-    <script src="../../JS/updatecart.js"></script>
+    <script src="../../JS/updatecart.js">
+    </script>
 
     <script>
         // redirect to checkout page when checkout button is clicked
@@ -348,18 +364,18 @@ session_start();
             });
         }
         // $(document).ready(function() {
-        //     $('.quantity-input').on('change click', function() {
-        //         $.ajax({
-        //             type: 'POST',
-        //             url: 'update_cart_summary.php',
-        //             data: {
-        //                 user_id: $('#user_id').val(), // user_id is retrieved from a hidden input field
-        //             },
-        //             success: function(response) {
-        //                 $('.total').html(response);
-        //             }
-        //         });
-        //     });
+        // $('.quantity-input').on('change click', function() {
+        // $.ajax({
+        // type: 'POST',
+        // url: 'update_cart_summary.php',
+        // data: {
+        // user_id: $('#user_id').val(), // user_id is retrieved from a hidden input field
+        // },
+        // success: function(response) {
+        // $('.total').html(response);
+        // }
+        // });
+        // });
         // });
     </script>
     <!-- to remove items from cart using ajax -->

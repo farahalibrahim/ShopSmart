@@ -6,11 +6,11 @@
 </div>
 
 <script src="../../JS/responseModal.js"></script>
-<style>
+<?php echo '<style>
     #responseModal>.modal-content {
         width: fit-content;
         padding: 20px 50px;
         box-sizing: border-box;
         border-radius: 30px;
     }
-</style>
+</style>';

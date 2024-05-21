@@ -143,6 +143,10 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             overflow: auto;
             z-index: 1000;
         }
+
+        #back_arrow {
+            display: none;
+        }
     </style>
 </head>
 

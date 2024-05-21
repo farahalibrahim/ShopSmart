@@ -42,9 +42,7 @@ foreach ($offers as $offer) {
     echo '<p class="old_price"><span style="text-decoration: line-through;">$' . $offer['original_price'] . '</span></p></div></div>';
 
     // add to cart button always exists yet if logged in it adds to cart if not a popup prompts to log in/sign up(in ajax file addtocart.js)
-    echo '<button class="add_to_cart" data-barcode="' . $offer['barcode'] . '" data-supermarket-id="' . $offer['supermarket_id'] . '">
-    <span class="material-symbols-outlined">add_shopping_cart</span>
-    </button>';
+    echo '<a href="../products/viewproduct.php?barcode=' . $offer['barcode'] . '"><span class="material-symbols-outlined">arrow_forward</span></a>';
     echo '</div>';
     echo '</div>';
 }
