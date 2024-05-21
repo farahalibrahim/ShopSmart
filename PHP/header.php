@@ -103,13 +103,16 @@ if (isset($_COOKIE['user_id'])) {
             <a href="http://localhost:3000/PHP/cart_checkout/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
             | <!-- seperator between account and the others icons -->
             <?php $userName = '';
-            if (isset($_COOKIE['user_name'])) {
-                $userName = $_COOKIE['user_name'];
-                $userName = explode(' ', $userName)[0];
+            if (isset($_COOKIE['user_id'])) {
+                $query = "SELECT name FROM user WHERE id = {$_COOKIE['user_id']}";
+                $stmt = DatabaseHelper::runQuery($conn, $query);
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                $userName = explode(' ', $result['name'])[0]; // Get the first name
             }
 
             echo '<a href="#" id="account">' . $userName . '</a>'; ?>
-            <a href="#" id="account"><i class='bx bx-user'></i></a></span>
+            <a href="http://localhost:3000/PHP/profile/profile.php" id="account"><i class='bx bx-user'></i></a>
+        </span>
 
 
 </header>

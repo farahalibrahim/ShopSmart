@@ -44,6 +44,11 @@ if ($stmt->rowCount() > 0) {
     // Set cookies
     setcookie('user_id', $last_id, time() + 86400, '/');
     setcookie('user_name', $name, time() + 86400, '/');
+    // $user = $_COOKIE['user_id'];
+
+    $sql = "UPDATE user SET login_status = 'logged_in' WHERE id = :user";
+
+    $stmt = DatabaseHelper::runQuery($conn, $sql, ['user' => $last_id]);
 
     // Return role to AJAX
     echo json_encode(['status' => 'success', 'role' => 'user']);

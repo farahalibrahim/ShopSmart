@@ -2,6 +2,7 @@
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
+session_start();
 
 // for testing, assume that logged in user's email is: sed.neque@outlook.edu
 // $email = 'sed.neque@outlook.edu';
@@ -113,7 +114,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             color: darkslategray;
         }
 
-        .fab {
+        a.fab {
             position: fixed;
             bottom: 20px;
             right: 20px;
@@ -128,11 +129,12 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             text-decoration: none;
             font-size: 24px;
             box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.40);
+            z-index: 900;
         }
 
         .chat-popup {
             position: fixed;
-            bottom: 90px;
+            bottom: 85px;
             right: 20px;
             width: 300px;
             height: 400px;
@@ -140,8 +142,45 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             border-radius: 10px;
             box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.20);
             padding: 20px;
-            overflow: auto;
+            padding-bottom: 5px;
+            display: flex;
+            flex-direction: column;
             z-index: 1000;
+        }
+
+        #chat-content {
+            flex-grow: 1;
+            height: 75%;
+            max-height: 80%;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        #chat_footer {
+            display: flex;
+            max-height: 10%;
+            justify-content: space-between;
+        }
+
+        #chat_header {
+            display: flex;
+            max-height: 10%;
+            padding-bottom: 5px;
+            justify-content: flex-start;
+        }
+
+        #chat-input {
+            flex-grow: 1;
+            margin-right: 10px;
+        }
+
+        #send-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
         }
 
         #back_arrow {
@@ -154,12 +193,98 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
     <!-- header -->
     <?php include_once '../header.php';
     ?>
+    <?php
+    $chat_header = isset($_SESSION['ticket_id']) ? "Ticket# " . $_SESSION['ticket_id'] : "Live Chat";
+    ?>
     <a href="#" class="fab" id="fab"><span class="material-symbols-outlined" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">support_agent</span></a>
     <div id="chat-popup" class="chat-popup" style="display: none;">
-        <h2>Live Chat</h2>
-        <!-- chat content dynamically added here -->
+        <h2 id="chat_header"><?= $chat_header ?></h2>
+        <div id="chat-content"></div>
+        <div id="chat_footer">
+            <input type="text" id="chat-input" placeholder="Type your message here..." oninput="validateInput()">
+            <button id="send-button" disabled>Send</button>
+        </div>
     </div>
 
+    <script>
+        // prevent sending empty messages
+        function validateInput() {
+            var input = document.getElementById('chat-input');
+            var button = document.getElementById('send-button');
+            button.disabled = !input.value;
+        }
+
+        $(document).ready(function() {
+            // Load chat messages
+            function loadMessages() {
+                $.ajax({
+                    url: 'live_chat/load_messages.php',
+                    success: function(data) {
+                        $('#chat-content').html(data);
+                    }
+                });
+            }
+            $('#fab').click(function() {
+                loadMessages();
+            });
+
+            // Send a chat message
+            $('#send-button').click(function() {
+                var message = $('#chat-input').val();
+                $.ajax({
+                    url: 'live_chat/check_ticket.php',
+                    method: 'POST',
+                    data: {
+                        message: message
+                    }, // Send the message along with the request
+                    success: function(data) {
+                        if (data === 'ticket_created') {
+                            // If a new ticket was created, reload the page to update the session
+                            location.reload();
+                        } else {
+                            // If a ticket already exists, send the message as usual
+                            $.ajax({
+                                url: 'live_chat/send_message.php',
+                                method: 'POST',
+                                data: {
+                                    message: message
+                                },
+                                success: function(data) {
+                                    $('#chat-input').val('');
+                                    loadMessages();
+                                }
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Load messages every second to update the chat in real-time
+            setInterval(function() {
+                $.ajax({
+                    url: 'live_chat/check_ticket.php',
+                    method: 'POST',
+                    success: function(data) {
+                        if (data !== 'ticket_created') {
+                            loadMessages();
+                        }
+                    }
+                });
+            }, 10000);
+            // Check if the ticket is closed(by admin) every 5 seconds
+            setInterval(function() {
+                $.ajax({
+                    url: 'live_chat/check_ticket_status.php',
+                    method: 'POST',
+                    success: function(data) {
+                        if (data === 'closed') {
+                            location.reload();
+                        }
+                    }
+                });
+            }, 5000); // Check every 5 seconds
+        });
+    </script>
     <!--Home Page-->
     <section class="home" id="home">
         <div class="swiper-wrapper">

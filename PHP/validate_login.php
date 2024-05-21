@@ -35,5 +35,9 @@ if (!password_verify($pass, $user['password'])) {
 setcookie('user_id', $user['id'], time() + 86400, '/');
 setcookie('user_name', $user['name'], time() + 86400, '/');
 
+$sql = "UPDATE user SET login_status = 'logged_in' WHERE id = :user";
+
+$stmt = DatabaseHelper::runQuery($conn, $sql, ['user' => $user['id']]);
+
 // Return role
 echo json_encode(['status' => 'success', 'role' => $user['role']]);
