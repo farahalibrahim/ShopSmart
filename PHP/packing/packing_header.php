@@ -47,3 +47,12 @@ if (isset($_COOKIE['user_id'])) {
             <button class="logout"><span class="material-symbols-outlined">logout</span></button>
     </div>
 </header>
+<script>
+    $(document).ready(function() {
+        $('.logout').click(function() {
+            $.post('../logout.php', function() {
+                window.location.href = 'http://localhost:3000/PHP/login.php'; // Redirect to the login page
+            });
+        });
+    });
+</script>

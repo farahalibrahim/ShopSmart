@@ -46,6 +46,14 @@ if (isset($_COOKIE['user_id'])) {
         </div>
     </div>
     <script>
+        document.addEventListener('click', function(event) {
+            var search = document.getElementById('search');
+            var input = document.getElementById('search_input');
+            var results = document.getElementById('search_results');
+            if (!search.contains(event.target)) {
+                results.style.display = 'none';
+            }
+        });
         $(document).ready(function() {
             $('#search_input').on('input', function() {
                 var searchQuery = $(this).val();
@@ -78,14 +86,14 @@ if (isset($_COOKIE['user_id'])) {
                 </span>
         </div>-->
     <div class="profile">
-        <a href="../HTML/login.html" target="_blank" id="login_btn">Login</a>
+        <a href="../login.php" target="_blank" id="login_btn">Login</a>
         <!-- user profile, cart, shopping list, inventory -->
         <button class="logout"><span class="material-symbols-outlined">logout</span></button>
         <script>
             $(document).ready(function() {
                 $('.logout').click(function() {
                     $.post('../logout.php', function() {
-                        window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
+                        window.location.href = 'http://localhost:3000/PHP/login.php'; // Redirect to the login page
                     });
                 });
             });

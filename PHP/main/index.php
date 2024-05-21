@@ -4,21 +4,21 @@ include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 // for testing, assume that logged in user's email is: sed.neque@outlook.edu
-$email = 'sed.neque@outlook.edu';
+// $email = 'sed.neque@outlook.edu';
 // $email = 'dolor@outlook.couk';
 // $id = 1;
 
 
-// // 
-$sql = "SELECT id,name FROM user WHERE email = :email";
-$stmt = DatabaseHelper::runQuery($conn, $sql, ['email' => $email]);
+// 
+// $sql = "SELECT id,name FROM user WHERE email = :email";
+// $stmt = DatabaseHelper::runQuery($conn, $sql, ['email' => $email]);
 
-$row = $stmt->fetch(PDO::FETCH_ASSOC);
-$user_id = $row['id'];
-$user_name = $row['name'];
+// $row = $stmt->fetch(PDO::FETCH_ASSOC);
+// $user_id = $row['id'];
+// $user_name = $row['name'];
 
-setcookie('user_id', $user_id, time() + 86400, '/');
-setcookie('user_name', $user_name, time() + 86400, '/');
+// setcookie('user_id', $user_id, time() + 86400, '/');
+// setcookie('user_name', $user_name, time() + 86400, '/');
 // time() + 86400, '/' : current unix timestamp + 24hours. '/' states that cookie is accessable thogh all the domain
 
 // for testing, delete cookies

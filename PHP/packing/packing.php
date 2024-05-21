@@ -29,15 +29,7 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="../../CSS/header_footer.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('.logout').click(function() {
-                $.post('../logout.php', function() {
-                    window.location.href = 'http://localhost:3000/HTML/login.html'; // Redirect to the login page
-                });
-            });
-        });
-    </script>
+
     <style>
         .order {
             border: 1px solid #ccc;
