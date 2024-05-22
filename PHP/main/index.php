@@ -63,22 +63,21 @@ session_start();
         .popular-container,
         .recent-container,
         .recommend-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
-            /* margin: 1% 5% 5% 5%; */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust as needed */
+            grid-gap: 10px;
+            margin-top: 2rem;
         }
-
         .productcard {
-            margin: 1%;
-            padding: 5px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-            transition: 0.3s;
-            border-radius: 20px;
-            width: 200px;
-            height: 250px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            padding: 20px;
+            border-radius: 0.5rem;
+            border: 1px solid #ddd; /* Add a thin gray border */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
-
         .productcard h3,
         .productcard .product_name {
             padding-left: 10px;
@@ -91,11 +90,12 @@ session_start();
         }
 
         .productcard img {
-            width: 70%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
+            width: 100%;
+            height: 100px;
             object-fit: contain;
+            object-position: center;
+            border-radius: 5px; /* Add rounded corners */
+            margin-bottom: 10px;
         }
 
         .productcard:hover {
@@ -103,8 +103,8 @@ session_start();
         }
 
         .productcard .product_details {
-            padding: 5px 10px;
-            text-align: left;
+            font-size: 1rem;
+            font-weight: 600;
         }
 
         .productcard .product_details .product_quantity,
@@ -112,6 +112,15 @@ session_start();
             font-size: 0.8em;
             /* margin: 0; */
             color: darkslategray;
+        }
+        .productcard a{
+            display: flex;
+            align-items: center;
+            color: #eee;
+            position: absolute;
+            margin-bottom: 10px;
+            border-radius: 5rem;
+            background: green;
         }
 
         a.fab {
@@ -383,7 +392,7 @@ session_start();
             <!--Products Container-->
             <div class="recent-container">
                 <?php include_once("buy_again.php");
-                echo get_recent_products($conn, 8, $user_id);
+                echo get_recent_products($conn, 8, $_COOKIE['user_id']);
                 ?>
             </div>
         </section>
