@@ -32,7 +32,7 @@ if (isset($_COOKIE['user_id'])) {
         <a href="http://localhost:3000/PHP/main/index.php#home">Home</a>
         <a href="http://localhost:3000/PHP/main/index.php#categories">Categories</a>
         <a href="http://localhost:3000/PHP/main/index.php#products">Products</a>
-        <!-- <a href="http://localhost:3000/PHP/main/index.php#about">About</a> -->
+        <a href="http://localhost:3000/PHP/main/index.php#about">About</a>
 
     </nav>
 
@@ -99,7 +99,7 @@ if (isset($_COOKIE['user_id'])) {
             });
         </script>
         <span class="cart_account">
-            <a href="#" id="shopping_list"><i class='bx bx-list-check'></i></a>
+            <a href="http://localhost:3000/PHP/shopping_list/shoppinglist.php" id="shopping_list"><i class='bx bx-list-check'></i></a>
             <a href="http://localhost:3000/PHP/cart_checkout/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
             | <!-- seperator between account and the others icons -->
             <?php $userName = '';
