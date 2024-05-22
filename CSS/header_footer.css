@@ -270,3 +270,31 @@ nav .search {
     color: green;
     font-size: 18px;
 }
+.search-container {
+    display: flex; /* Make results display horizontally */
+  flex-wrap: wrap; /* Allow results to wrap to multiple lines if needed */
+  margin: 10px;
+}
+.search-container .search-results {
+    /* Styles for each individual search result */
+  border: 1px solid #ddd; /* Add a border */
+  border-radius: 4px; /* Add rounded corners */
+  padding: 10px; /* Add some padding for content */
+  margin: 5px; /* Add space between each result */
+  width: 100%; /* Set a width for each result (adjust as needed) */
+  /* Responsiveness: Adjust width on smaller screens */
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
+}
+.search-container .search-results a {
+    margin: 5px 0; /* Add some margin for spacing */
+  font-size: 14px;
+  font-weight: bold;
+  color: #4C4C4C;
+}
+.search-container .search-results a:hover {
+    font-size: 17px;
+    color: black;
+    transition: 0.5s;
+}

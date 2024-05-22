@@ -62,6 +62,23 @@ $barcode = $_GET['barcode'];
             top: 50%;
             transform: translateY(-50%);
         }
+
+        .product_container .flex-container{
+            padding-left: 600px;
+            align-items: center;
+            
+        }
+        .product_container .flex-container .product_image{
+            padding-top: 70px;
+        }
+        body {
+            display: grid;
+            place-items: center; /* Aligns the content in the center */
+            min-height: 100vh; /* Ensures viewport fills the entire screen */
+            margin: 0; /* Remove default body margins */
+            font-family: Arial, sans-serif; /* Set a basic font */
+            }
+
     </style>
 </head>
 
