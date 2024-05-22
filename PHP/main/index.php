@@ -371,7 +371,15 @@ session_start();
         </div>
     </section>
 
-    <?php if (isset($_COOKIE['user_id'])) : ?> <!-- Displayed only if user logged in -->
+    <?php
+    // Query to count the number of orders for the current user
+    $sql = "SELECT COUNT(*) as order_count FROM `order` WHERE user_id = :user_id";
+    $stmt = DatabaseHelper::runQuery($conn, $sql, array(":user_id" => $_COOKIE['user_id']));
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // sections are only displayed if user logged in and has at least one order already
+    // Check if the user is logged in and has at least one order
+    if (isset($_COOKIE['user_id']) && $result['order_count'] > 0) : ?> <!-- Displayed only if user logged in -->
         <!--Buy Again-->
         <section class="products" id="products">
             <div class="heading">
