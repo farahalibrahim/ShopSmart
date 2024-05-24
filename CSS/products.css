@@ -61,31 +61,29 @@ search_results_container {
 }
 
 .productcard{
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: 10px;
-    background-color: #fff; /* White background */
-    border: 3px solid #ddd; /* Light gray border */
-    border-radius: 4px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Slight shadow */
-    align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 200px;
+  
 }
 .productcard:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
   }
 .productcard img{
     flex: 1; /* This will make the image take up all available space */
-    background-image: url("[image of chicken legs]"); /* Replace with the URL of your image */
+    
     background-size: cover; /* This will ensure the image covers the entire container */
     background-position: center; /* This will center the image */
-    width: 250px;
-    height: 250px;
+    width: 150px;
+    height: 150px;
     overflow: hidden;
     
   }
   .productcard .product_details{
-    padding: 10px;
+    
     text-align: center;
     font-family: "Open Sans", sans-serif; /* Example font */
   }
@@ -97,11 +95,10 @@ search_results_container {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: auto;
+  width: 170px;
   align-items: center;
   }
   .productcard p {
-    color: #666; /* Light gray text */
   font-size: 16px; /* Adjust as needed */
   margin-bottom: 0; /* Remove bottom margin */
   display: flex;

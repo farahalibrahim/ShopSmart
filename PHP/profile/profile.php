@@ -167,7 +167,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         .card,
         .address-card {
             /* border: 1px solid #ccc; */
-            padding: 10px;
+            padding: 20px;
             margin-bottom: 10px;
             border-radius: 10px;
             /* Add rounded corners */
@@ -178,6 +178,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         .card-header {
             font-weight: bold;
             margin-bottom: 10px;
+            color: #000;
+            border-radius: 10px;
+            background: green;
+            padding: 15px;
+            font-size: 30px;
         }
 
         .card-body {
@@ -187,6 +192,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         .card-body p {
             margin-bottom: 10px;
+            color: #000;
+            font-size: 15px;
+
         }
 
         .card-body .product-images {
@@ -520,7 +528,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         .sidebar nav a {
             display: flex;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
             color: white;
             text-decoration: none;
             overflow: hidden;
@@ -640,6 +648,16 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         .no-order span.material-symbols-outlined {
             font-size: 50px;
             /* Make the span large */
+        }
+        #content{
+            width: 100%;
+            padding: 2% 2% 0 2%;
+        }
+        #content .header h2{
+            padding-left: 10%;
+        }
+        #content .header .add_button #addCardButton{
+            padding-right: 50%;
         }
     </style>
 </head>

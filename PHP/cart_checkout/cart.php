@@ -39,9 +39,16 @@ session_start();
         .Container-for-all hr{
             
         }
-        .Container-for-all .h1 {
-            margin-top: 100px; /* Adjust the value as needed */
+         h1 {
+            border-top: 3px solid #ddd; /* Top border */
+            border-bottom: 3px solid #000; /* Bottom border */
+            padding: 10px 20px; /* Optional padding for spacing */
+            margin: 0; /* Remove default margin */
+            text-align: center; /* Center align the text */
+            padding-top: 40px;
+            color: green;
         }
+        
         
         .empty_cart{
             position: absolute; 
@@ -102,6 +109,13 @@ session_start();
             text-overflow: ellipsis;
             max-width: 200px;
         }
+        .related_container hr{
+            
+            border-bottom: 3px solid #000; /* Bottom border */
+            padding: 10px 20px; /* Optional padding for spacing */
+            margin: 0; /* Remove default margin */
+            text-align: center; /* Center align the text */
+        }
 
         .card-info h3 {
             margin: 0;
@@ -130,11 +144,13 @@ session_start();
         }
 
         .supermarket_card {
-
-            margin: 20px;
-            padding: 10px 20px;
-            border-radius: 20px;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            /* border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 200px;
+            display: inline-block;
         }
 
         .productcard {
@@ -144,8 +160,9 @@ session_start();
             margin: 10px; /* Spacing between cards */
             display: flex; /* Arrange content in rows */
             flex-direction: column; /* Stack elements vertically */
-            width: 250px; /* Adjust width as needed */
+            width: 170px; /* Adjust width as needed */
             text-align: center; /* Center text within the card */
+            
         }
 
         .productcard .productdetails {
@@ -159,6 +176,9 @@ session_start();
             margin-bottom: 5px; /* Space between title and description */
             white-space: nowrap;
             max-width: 250px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
         .productcard .productdetails p{
             font-size: 16px; /* Price font size */
@@ -166,9 +186,9 @@ session_start();
            
         }
         .productcard .productdetails button {
-            width: 50px;
-            height: 50px;
-            font-size: 30px;
+            width: 30px;
+            height: 30px;
+            font-size: 15px;
             background: #e84b10;
         }
 
@@ -186,9 +206,9 @@ session_start();
 
         .productimg {
             width: 100%; /* Image spans the full card width */
-            height: 250px; /* Adjust height as needed */
-            object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
-            border: 1px solid #ddd; /* Border around the image */
+            height: 100%; /* Adjust height as needed */
+            object-fit: cover; 
+            
             transition: transform 0.3s ease-in-out; /* Smooth hover effect */
         }
         .productimg:hover {
@@ -255,9 +275,15 @@ session_start();
         }
         .supermarket_container {
             display: flex;
-            flex-wrap: nowrap; /* Prevents cards from wrapping onto multiple lines */
-            overflow-x: auto; /* Enables horizontal scrollbar */
-            width: fit-content; /* Optional: Adjust width as needed */
+            overflow-x: scroll;
+            white-space: nowrap;
+            margin-top: 2rem;
+            background: #ffffffff;
+            overflow-x: scroll;
+            white-space: nowrap;
+        }
+        .Container-for-all .related_container h2 span {
+            color: green;
         }
        
     </style>
@@ -299,9 +325,9 @@ session_start();
             echo "<h1>Your Cart</h1>";
             echo "<p id='items_count'>(" . $result['count'] . " items)</p>";
             ?>
-            <div class="relaited_container">
+            <div class="related_container">
             <?php
-            echo "<h2>Related Items</h2>";
+            echo "<h2> <span>Related</span> Items</h2>";
             // Related items section
             echo "<div class='related'>";
             
@@ -348,13 +374,14 @@ session_start();
                     }
                 }
             }
-            echo '<hr>';
+            
         }
         ?>
-        
         </div>
         <hr>
+        <h2><span id="cartprod">Cart</span> Products</h2>
         <div class="supermarket_container">
+            
         <?php
        
   

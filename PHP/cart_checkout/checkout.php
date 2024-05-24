@@ -20,6 +20,92 @@ $user_id = $_COOKIE["user_id"];
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+        
+            @media (min-width: 768px) {
+                body{
+                    width: 750px;
+                }
+            }
+
+            @media (min-width: 992px) {
+                body{
+                    width: 970px;
+                }
+            }
+
+            @media (min-width: 1200px) {
+                body{
+                    width: 1200px;
+                }
+            }
+            /* .container0{
+                background: #888;
+                padding: 20px;
+            } */
+        body h1{
+            padding-left: 50%;
+        }
+        .container1 {
+            display: flex;
+            flex-wrap: wrap; /* Optional: Allow sections to wrap if needed on small screens */
+            justify-content: space-between; /* Horizontally space sections */
+            padding: 20px;
+        }
+
+        .shipping_address {
+            margin-left: 10%;
+            width: 38%; /* Adjust width as needed */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background: lightgreen;
+        }
+        .shipping_address span{
+            margin-left: 45%;
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .shipping_address p{
+            margin-left: 20%;
+            
+        }
+        .shipping_address a{
+            margin-top: 5%;
+            margin-left: 40%;
+            color: white;
+            border-radius: 10px;
+            background: black;
+            padding: 10px;
+        }
+        .order_summary{
+            width: 48%; /* Adjust width as needed */
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        .place_order{
+            
+        }
+        .payment {
+            margin-left: 30%;
+        }
+        .payment .cod{
+            margin-bottom: 10px;
+        }
+        .payment input[type="radio"] {
+        margin-right: 10px; /* Spacing between radio button and label */
+        }
+
+        .payment label {
+        display: inline-block; /* Makes text next to radio button */
+        cursor: pointer; /* Indicates clickable element on hover */
+        }
+
+        .payment input[type="radio"]:checked + label {
+        color: #337ab7; /* Change text color to primary color on selection */
+        }
+
         .card_options {
             display: none;
         }
@@ -71,7 +157,9 @@ $user_id = $_COOKIE["user_id"];
 
 <body>
     <?php include_once('../responseModal.inc.php'); ?>
+    <div class="container0">
     <h1>Checkout</h1>
+    <div class="container1">
     <div class="shipping_address">
         <!-- <span class="material-symbols-outlined shipping_address_icon">local_shipping</span> -->
         <span class="material-symbols-outlined">
@@ -99,6 +187,7 @@ $user_id = $_COOKIE["user_id"];
 
         </div>
     </div>
+    </div>
     <form action="checkout.php" method="post" id="checkout_form">
 
         <input type="hidden" name="total" id="total" value="">
@@ -109,7 +198,6 @@ $user_id = $_COOKIE["user_id"];
         </script>
         <div class="payment">
             <h2>Payment Method:</h2>
-
             <div class="cod">
                 <label for="cod_radio">
                     <input type="radio" id="cod_radio" name="payment_method" value="cod">Cash on Delivery</label>
@@ -150,6 +238,7 @@ $user_id = $_COOKIE["user_id"];
             <button type="submit" name="place_order">Place Order</button>
         </div>
     </form>
+    </div>
     <?php
     // if (isset($_POST["place_order"])) {
     //     $total = $_POST['total'];

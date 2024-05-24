@@ -15,48 +15,72 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 <style>
     .container {
   text-align: center;
-  padding: 20px;
+  
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);  gap: 20px; 
+  grid-template-columns: repeat(5, 0fr);  
+  gap: 5px; 
  }
 
  .productcard {
   background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 15px;
-  position: relative; /* Make the card the positioning context for the arrow */
-  padding-top: 20px; /* Add some space for the arrow */
-  padding-right: 20px;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  padding: 10px;
+  width: 200px;
+  display: inline-block;
 }
-
-
+.productcard:hover{
+  transform: scale(1.2);
+ }
 
 .productcard img {
   width: 100%;
-  height: 200px;  object-fit: cover;  
+            height: 100px;
+            object-fit: contain;
+            object-position: center;
+            border-radius: 5px; /* Add rounded corners */
+            margin-bottom: 10px;
+        
 }
 
 .productcard .product_name {
-  font-weight: bold;
-  margin-bottom: 5px;
+  padding-left: 50px;
+            color: black;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            overflow-wrap: break-word; 
+            font-size: 16px;
+            width: 170px;
+            align-items: center;
+            display: flex;
+            flex: 1;
+
 }
 .productcard .product_details .product_price {
-    font-weight: bold;
-  margin-bottom: 5px;
+  margin-left: 5px;
+            padding-right: 200px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: black;
+            padding-left: 60px;
+            width: 100px;
+            display: inline-block
 }
 .productcard a {
-    position: absolute;
-  top: 10px; /* Adjust position */
-  right: 15px; /* Adjust position */
-  width: 30px; /* Adjust size */
-  height: 30px; /* Adjust size */
-  border-radius: 20px;
-  color: #eee;
-  background: green;
+  margin-left: 150px;
+            padding-bottom: 20px;
+            border-radius: 10px;
+}
+.productcard a span{
+  color: green;
 }
 
 </style>

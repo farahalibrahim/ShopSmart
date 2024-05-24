@@ -63,22 +63,25 @@ session_start();
         .popular-container,
         .recent-container,
         .recommend-container {
-            display: grid;
+            display: flex;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust as needed */
             grid-gap: 10px;
             margin-top: 2rem;
             background: #ffffffff;
+            overflow-x: scroll;
+            white-space: nowrap;
         }
         .productcard {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            padding: 20px;
-            border-radius: 0.5rem;
-            border: 1px solid #ddd; /* Add a thin gray border */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background: #eee;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 200px;
+            display: inline-block;
+        }
+        .productcard:hover{
+            transform: scale(1.2);
         }
         .productcard h3,
         .productcard .product_name {
@@ -111,38 +114,36 @@ session_start();
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
-        .productcard .product_details {
+        /* .productcard .product_details {
             font-size: 1rem;
-            font-weight: 600;
+           display: flex;
             
-        }
+        } */
 
         .productcard .product_details .product_quantity,
         .productcard .product_details .product_price {
             
             
         }
-        .productcard .product_details p{
+        .productcard .product_details .product_price{
             margin-left: 5px;
             padding-right: 200px;
             margin-top: 10px;
             font-size: 14px;
-            font-weight: bold;
-            display: flex;
             color: black;
             padding-left: 60px;
+            width: 100px;
+            display: inline-block
         }
         
         .productcard a{
-            display: flex;
-            align-items: center;
-            color: #eee;
-            position: absolute;
-            margin-bottom: 10px;
-            margin-right: 5px;
-            border-radius: 5rem;
-            background: green;
-            margin-top: 160px;
+            margin-left: 150px;
+            padding-bottom: 20px;
+            border-radius: 10px;
+           
+        }
+        .productcard a span{
+            color: green;
         }
        
 
@@ -178,7 +179,10 @@ session_start();
             display: flex;
             flex-direction: column;
             z-index: 1000;
+            max-height: 600px;
+            overflow-y: auto;
         }
+        
 
         #chat-content {
             flex-grow: 1;

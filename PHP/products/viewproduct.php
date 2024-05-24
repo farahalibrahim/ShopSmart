@@ -83,18 +83,19 @@ $barcode = $_GET['barcode'];
             gap: 20px; /* Spacing between cards */
             margin: 0 auto; /* Center the grid horizontally */
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            padding: 0 10% 0 10%;
+            padding: 40px 10% 0 10%;
         }
         @media (max-width: 768px) {
             .product_container .flex-container {
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust min-width for smaller screens */
+            
   }
 }
         .product_container .flex-container .product_image{
             width: 100%; /* Image spans the full card width */
             height: 300px; /* Adjust height as needed */
             object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
-            border: 3px solid #ddd; /* Border around the image */
+            /* border: 3px solid #ddd; Border around the image */
             
         }
         .product_container .flex-container .product_details {
@@ -103,7 +104,7 @@ $barcode = $_GET['barcode'];
         }
         .product_container .flex-container .product_details P{
             font-size: 15px;
-            font-weight: bold;
+            
         }
         .product_container .flex-container .product_details #nutrition{
             height: 500px;
@@ -129,15 +130,13 @@ $barcode = $_GET['barcode'];
                 margin: 0 auto; /* Center the grid horizontally */
             }
             .frequently-container .frequentcard {
-                margin-top: 30px;
-                background-color: #fff; /* White background */
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-                border-radius: 5px; /* Rounded corners */
-                padding: 15px; /* Inner padding */
-                text-align: center; /* Center content within the card */
-                transition: transform 0.3s ease-in-out; /* Smooth hover effect */
-                position: relative; /* Needed for hover effects on child elements */
-                border: 5px solid #ddd; /* Border properties */
+                background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 200px;
+            display: inline-block;
             }
             .frequently-container .frequentcard:hover {
             transform: scale(1.2); /* Slight zoom on hover */
@@ -161,6 +160,13 @@ $barcode = $_GET['barcode'];
                 text-overflow: ellipsis; /* Truncate with ellipsis (...) */
                 width: 140px; /* Adjust width as needed for your product names */
                 /* Other styles for the title (font size, color, etc.) */
+            }
+            .freqHr {
+                border-bottom: 3px solid #000; /* Bottom border */
+            padding: 10px 20px; /* Optional padding for spacing */
+            margin: 0; /* Remove default margin */
+            text-align: center; /* Center align the text */
+            color: #000;
             }
     </style>
 </head>
@@ -277,6 +283,8 @@ $barcode = $_GET['barcode'];
     </div>
 
     <!-- frequently bought together section -->
+    <h2>Frequently Bought Together</h2>
+    <hr class="freqHr">
     <div class="frequently-container">
 
         <?php
@@ -307,7 +315,7 @@ $barcode = $_GET['barcode'];
 
         if (count($results) > 0) {
             // one related product atleast exist
-            echo '<h2>Frequently Bought Together</h2>';
+            
         }
        
 
