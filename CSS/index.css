@@ -24,6 +24,7 @@ img {
 
 body {
     color: var(--text-color);
+    padding: 0 15% 0 15%;
 }
 
 .profile {
@@ -106,8 +107,9 @@ nav a:hover {
 }
 
 .home-text {
-    margin-top: 100px;
-    padding: 0 150px;
+    flex: 1; /* Allow the text content to fill the remaining space */
+  padding: 10px; /* Add padding for content */
+  text-align: left; /* Align the text to the left */
 }
 
 .home-text span {

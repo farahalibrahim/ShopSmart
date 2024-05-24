@@ -80,6 +80,7 @@
     box-shadow: 0 8px 11px rgb(15 55 54 / 15%);
     padding: 20px 100px;
     transition: 0.5s;
+    box-shadow: #4C4C4C;
 }
 
 section {
@@ -297,4 +298,8 @@ nav .search {
     font-size: 17px;
     color: black;
     transition: 0.5s;
+}
+.header #back_arrow {
+    font-size: 15px;
+    color: green;
 }

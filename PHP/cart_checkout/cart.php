@@ -21,7 +21,7 @@ session_start();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-
+    
 
     <style>
         /* .related {
@@ -32,51 +32,97 @@ session_start();
         } */
         .Container-for-all {
             margin: 30px 60px 30px 30px;
-            padding: 30px;
+            padding: 50px 15% 0 15%;
+
+            
+        }
+        .Container-for-all hr{
+            
+        }
+        .Container-for-all .h1 {
+            margin-top: 100px; /* Adjust the value as needed */
+        }
+        
+        .empty_cart{
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%); 
+            text-align: center; 
+            background-color: #fff; 
+            padding: 20px; 
+            border-radius: 5px; 
+            /* Responsiveness styles */
+            max-width: 500px; 
+            margin: 0 auto; 
+        }
+        .empty_cart a{
+            border-radius: 15px;
+            color: black;
+            background: green;
+            padding: 10px;
+        }
+        .related {
+            display: flex;
+            align-items: center;
+            
         }
 
         .relatedcard {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-            margin: 10px;
-            width: 10em;
-            height: 10em;
+            background-color: #fff; /* Set a white background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+            border-radius: 5px; /* Add rounded corners */
+            padding: 15px; /* Add some padding */
+            margin: 10px; /* Add some margin between cards */
+            display: flex; /* Use flexbox for positioning */
+            flex-direction: column; /* Stack elements vertically */
+            justify-content: center; /* Center content vertically */
+            align-items: center; /* Center content horizontally */
+            text-align: center; /* Center text within the card */
+            max-width: 200px; /* Set a maximum width for responsiveness */
         }
+        
 
         .relatedcard img {
-            width: 7em;
-            height: 7em;
-            object-fit: contain;
-            margin-right: 10px;
+            width: 100%;
         }
 
-        .card-info {
+        .relatedcard .card-info {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
+            width: 100%;
+        }
+        .relatedcard .card-info h3{
+            display: flex;
+            align-items: center;
+            white-space: nowrap; /* Restrict text wrapping to one line */
+            overflow: hidden; /* Hide content that overflows */
+            text-overflow: ellipsis;
+            max-width: 200px;
         }
 
         .card-info h3 {
             margin: 0;
+            
         }
 
         .card-info p {
-            margin: 0;
+            
+            display: flex;
+            align-items: center;
         }
 
         .card-info a {
-            text-decoration: none;
-            color: black;
+            width: 20px; /* Set a width for the arrow */
+            height: 20px; /* Set a height for the arrow */
+            fill:currentColor; /* Inherit the card's text color */
+            color: green;
         }
 
         .card-info a:hover {
-            color: blue;
+            color: black;
         }
 
         #catarrow {
@@ -92,21 +138,38 @@ session_start();
         }
 
         .productcard {
-            display: flex;
-            align-items: center;
-            padding-left: 20px;
-            margin: 20px;
-            border: none;
-            border-radius: 100px;
-            background: green;
+            background-color: #fff; /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 5px; /* Rounded corners */
+            margin: 10px; /* Spacing between cards */
+            display: flex; /* Arrange content in rows */
+            flex-direction: column; /* Stack elements vertically */
+            width: 250px; /* Adjust width as needed */
+            text-align: center; /* Center text within the card */
         }
 
         .productcard .productdetails {
-            margin: 10px;
-            align-items: center;
-            display: flex;
-            padding: 20px;
-            justify-content: space-between;
+            color: #333; /* Text color */
+            margin-bottom: 10px; /* Space between description and price */
+            max-width: 250px;
+        }
+        .productcard .productdetails h3{
+            font-size: 18px; /* Title font size */
+            font-weight: bold; /* Bold title text */
+            margin-bottom: 5px; /* Space between title and description */
+            white-space: nowrap;
+            max-width: 250px;
+        }
+        .productcard .productdetails p{
+            font-size: 16px; /* Price font size */
+            color: #e84b10; /* Orange color for price */
+           
+        }
+        .productcard .productdetails button {
+            width: 50px;
+            height: 50px;
+            font-size: 30px;
+            background: #e84b10;
         }
 
         .productcard .productdetails .weight {
@@ -115,21 +178,33 @@ session_start();
             margin: 20px;
             font-weight: 20%;
         }
+        .productcard .productdetails input {
+            width: 80px;
+            font-size: 15px;
+            font-weight: bold;
+        }
 
         .productimg {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            border-radius: 20px;
-            /* box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
-            border-radius: 20px; */
+            width: 100%; /* Image spans the full card width */
+            height: 250px; /* Adjust height as needed */
+            object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
+            border: 1px solid #ddd; /* Border around the image */
+            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+        }
+        .productimg:hover {
+            transform: scale(1.05); /* Enlarge image slightly on hover */
+            opacity: 0.9; /* Reduce opacity slightly on hover */
         }
 
         .payment_icons {
             display: flex;
             align-items: center;
         }
+        .payment_methods {
+            width: 33%;
+            padding-left: 20%;
 
+        }
         .payment_methods i {
             font-size: 50px;
         }
@@ -146,6 +221,45 @@ session_start();
             border-radius: 20px;
             width: 100%;
         }
+        .cart_summary {
+            width: 300px; /* Adjust width as needed */
+            border: 1px solid #ddd; /* Add a thin border */
+            padding: 15px; /* Add some padding */
+            margin: 0 auto; /* Center the receipt horizontally */
+            font-family: Arial, sans-serif; /* Set a font family */
+           
+        }
+        .cart_summary h2{
+            text-align: center; /* Center the header text */
+            margin-bottom: 10px;
+        }
+        .cart_summary .coupon{
+            margin-top: 5px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .cart_summary .coupon button{ 
+            border-radius: 20px;
+            color: black;
+            background: green;
+            padding: 5px;
+            font-weight: 100;
+        }
+        .cart_summary .total {
+            margin-top: 5px;
+        }
+        .down-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .supermarket_container {
+            display: flex;
+            flex-wrap: nowrap; /* Prevents cards from wrapping onto multiple lines */
+            overflow-x: auto; /* Enables horizontal scrollbar */
+            width: fit-content; /* Optional: Adjust width as needed */
+        }
+       
     </style>
 
 
@@ -166,9 +280,11 @@ session_start();
 
 <body>
     <div class="Container-for-all">
+        
         <!-- header -->
         <?php include_once '../header.php';
         ?>
+        
         <?php
         $sql = "SELECT COUNT(*) as count FROM cart WHERE user_id = :user_id";
         $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
@@ -182,10 +298,13 @@ session_start();
         } else {
             echo "<h1>Your Cart</h1>";
             echo "<p id='items_count'>(" . $result['count'] . " items)</p>";
-
+            ?>
+            <div class="relaited_container">
+            <?php
+            echo "<h2>Related Items</h2>";
             // Related items section
             echo "<div class='related'>";
-            echo "<h2>Related Items</h2>";
+            
 
             $sql = "SELECT DISTINCT product.tag , cart.product_barcode
         FROM cart 
@@ -229,9 +348,16 @@ session_start();
                     }
                 }
             }
+            echo '<hr>';
         }
-
-
+        ?>
+        
+        </div>
+        <hr>
+        <div class="supermarket_container">
+        <?php
+       
+  
         // cart products display section
         $sql = "SELECT DISTINCT cart.*, supermarket.name 
             FROM cart 
@@ -312,11 +438,14 @@ session_start();
 
             echo "</div>";
         }
+        echo "</div>";
         ?>
+        </div>
+        
 
         <br>
         <hr><br>
-
+        <div class="down-container">
         <!-- accepted payment methods display section -->
         <div class="payment_methods">
             <h3>We accept</h3>
@@ -342,9 +471,11 @@ session_start();
             </div>
         </div>
     </div>
+    
 
     <br>
     <button class="checkout_btn">Checkout</button>
+    </div>
     <!-- to update item quantities dynamically using ajax -->
     <script src="../../JS/updatecart.js">
     </script>

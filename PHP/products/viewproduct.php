@@ -30,6 +30,7 @@ $barcode = $_GET['barcode'];
     <!-- <script src="../../JS/responseModal.js"></script> -->
     <?php include_once '../responseModal.inc.php'; ?>
     <style>
+        
         .modal {
             display: none;
             /* Hidden by default */
@@ -51,7 +52,7 @@ $barcode = $_GET['barcode'];
             /* Black w/ opacity */
         }
 
-        /* Modal Content */
+        /* Modal Content 
         .modal-content {
             background-color: #fefefe;
             margin: auto;
@@ -61,15 +62,55 @@ $barcode = $_GET['barcode'];
             position: relative;
             top: 50%;
             transform: translateY(-50%);
-        }
+        }*/
 
         .product_container .flex-container{
-            padding-left: 600px;
-            align-items: center;
+            background-color: #fff; /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            border-radius: 5px; /* Rounded corners */
+            padding: 15px; /* Inner padding */
+            text-align: center; /* Center content within the card */
+            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+            margin-top: 100PX;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        }
+        /* .product_container .flex-container:hover {
+            transform: scale(1.02); /* Slight zoom on hover 
+        } */
+        .product_container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+            gap: 20px; /* Spacing between cards */
+            margin: 0 auto; /* Center the grid horizontally */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            padding: 0 10% 0 10%;
+        }
+        @media (max-width: 768px) {
+            .product_container .flex-container {
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust min-width for smaller screens */
+  }
+}
+        .product_container .flex-container .product_image{
+            width: 100%; /* Image spans the full card width */
+            height: 300px; /* Adjust height as needed */
+            object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
+            border: 3px solid #ddd; /* Border around the image */
             
         }
-        .product_container .flex-container .product_image{
-            padding-top: 70px;
+        .product_container .flex-container .product_details {
+            color: #333; /* Text color */
+            margin-bottom: 10px; 
+        }
+        .product_container .flex-container .product_details P{
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .product_container .flex-container .product_details #nutrition{
+            height: 500px;
+            width: 500px;
+        }
+        .product_container .flex-container .product_details .comparison_table {
+            margin-left: 200px;
         }
         body {
             display: grid;
@@ -79,6 +120,48 @@ $barcode = $_GET['barcode'];
             font-family: Arial, sans-serif; /* Set a basic font */
             }
 
+
+            /*frequently*/
+            .frequently-container {
+                display: flex;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
+                gap: 20px; /* Spacing between cards */
+                margin: 0 auto; /* Center the grid horizontally */
+            }
+            .frequently-container .frequentcard {
+                margin-top: 30px;
+                background-color: #fff; /* White background */
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+                border-radius: 5px; /* Rounded corners */
+                padding: 15px; /* Inner padding */
+                text-align: center; /* Center content within the card */
+                transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+                position: relative; /* Needed for hover effects on child elements */
+                border: 5px solid #ddd; /* Border properties */
+            }
+            .frequently-container .frequentcard:hover {
+            transform: scale(1.2); /* Slight zoom on hover */
+            }
+            .frequently-container .frequentcard .productarrow {
+                font-size: 30px;
+                font-weight: bold;
+                color: green;
+                align-items: center;
+                padding: 5px;
+                position: relative;
+            }
+            .frequently-container .frequentcard .product_details{
+                font-size: 15px;
+                font-weight: bold;
+
+            }
+            .frequently-container .frequentcard .product_name {
+                white-space: nowrap; /* Prevent wrapping to multiple lines */
+                overflow: hidden; /* Hide overflowing content */
+                text-overflow: ellipsis; /* Truncate with ellipsis (...) */
+                width: 140px; /* Adjust width as needed for your product names */
+                /* Other styles for the title (font size, color, etc.) */
+            }
     </style>
 </head>
 
@@ -226,6 +309,7 @@ $barcode = $_GET['barcode'];
             // one related product atleast exist
             echo '<h2>Frequently Bought Together</h2>';
         }
+       
 
         foreach ($results as $result) {
             $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -238,7 +322,7 @@ $barcode = $_GET['barcode'];
             echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
             echo '<h2 class="product_name">' . $result['product_name'] . '</h2>';
             echo '<div class="product_details"><p> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p></div></a>';
-            echo '<a class="prodarrow" href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+            echo '<a class="productarrow" href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div>';
         }
 

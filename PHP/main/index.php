@@ -67,6 +67,7 @@ session_start();
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust as needed */
             grid-gap: 10px;
             margin-top: 2rem;
+            background: #ffffffff;
         }
         .productcard {
             position: relative;
@@ -77,6 +78,7 @@ session_start();
             border-radius: 0.5rem;
             border: 1px solid #ddd; /* Add a thin gray border */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background: #eee;
         }
         .productcard h3,
         .productcard .product_name {
@@ -85,8 +87,15 @@ session_start();
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            overflow-wrap: break-word; 
+            font-size: 16px;
+            width: 100%;
+            align-items: center;
+            display: flex;
+            flex: 1;
         }
 
         .productcard img {
@@ -105,23 +114,37 @@ session_start();
         .productcard .product_details {
             font-size: 1rem;
             font-weight: 600;
+            
         }
 
         .productcard .product_details .product_quantity,
         .productcard .product_details .product_price {
-            font-size: 0.8em;
-            /* margin: 0; */
-            color: darkslategray;
+            
+            
         }
+        .productcard .product_details p{
+            margin-left: 5px;
+            padding-right: 200px;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            color: black;
+            padding-left: 60px;
+        }
+        
         .productcard a{
             display: flex;
             align-items: center;
             color: #eee;
             position: absolute;
             margin-bottom: 10px;
+            margin-right: 5px;
             border-radius: 5rem;
             background: green;
+            margin-top: 160px;
         }
+       
 
         a.fab {
             position: fixed;

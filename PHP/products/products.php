@@ -82,7 +82,7 @@ $category = str_replace('_', ' & ', $_GET['category']);
     <?php //include_once '../header.php'; 
     ?>
     <!-- <br><br><br><br><br><br><br><br> -->
-    <h1><?php echo $category ?></h1>
+    <h1 class="catname"><?php echo $category ?></h1>
     <div class="container">
         <?php
 
