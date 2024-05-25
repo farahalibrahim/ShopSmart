@@ -1,6 +1,6 @@
 <?php
-include_once('../connection.inc.php');
-include_once('../dbh.class.inc.php');
+include_once('../../connection.inc.php');
+include_once('../../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 // Fetch the closed tickets
@@ -30,7 +30,8 @@ while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
     echo "<td>" . htmlspecialchars($row['user_id']) . "</td>";
     echo "<td>" . htmlspecialchars($row['timestamp']) . "</td>";
     echo "<td>" . htmlspecialchars($row['content']) . "</td>";
-    echo "<td><button class='open-chat' data-ticket-id='" . htmlspecialchars($row['ticket_id']) . "'>Open in Live Chat</button></td>";
+    echo "<td><button class='open-chat' data-ticket-id='" . htmlspecialchars($row['ticket_id']) . "'>
+    <span class='material-symbols-outlined'>history</span><span>Chat History</span></button></td>";
     echo "</tr>";
 }
 

@@ -3,11 +3,12 @@ include_once '../../connection.inc.php';
 include_once '../../dbh.class.inc.php';
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 session_start();
-
-// Get the POST data
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 $message = $_POST['message'];
 
-// Get the ticket ID and user ID from the session
 $ticket_id = $_SESSION['ticket_id'];
 $user_id = $_COOKIE['user_id'];
 

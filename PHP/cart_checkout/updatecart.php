@@ -2,7 +2,10 @@
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
-
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 $data = json_decode(file_get_contents('php://input'), true);
 $barcode = $data['barcode'];
 $supermarketId = $data['supermarket_id'];
