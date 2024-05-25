@@ -218,7 +218,11 @@ $role = $stmt->fetchColumn();
     }
 
     echo '<div class="order_items">'; // Parent card
-    echo '<h3>Order Items:</h3>';
+
+    echo '<h3 id="orderItems"> <span>Order</span> Items</h3>';
+
+    echo '<h3>Order Items</h3><span>(' . $orderDetails[0]["nb_products"] . ' items)</span>';
+
     // Loop over the supermarkets
     foreach ($groupedItems as $supermarketName => $supermarketData) {
         $supermarketId = $supermarketData['id']; // Get the supermarket ID
