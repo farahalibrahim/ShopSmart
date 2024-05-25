@@ -1,6 +1,201 @@
 redirected products
 <?php
 include_once '../../accountFreezeModal.inc.php'; ?>
+
+<div id="addModal" style="display: none;">
+    <div class="modal-content">
+        <form id="product_form" enctype="multipart/form-data" style="display: none;">
+            <h3 class="form_header">Add New Product</h3>
+            <div id="add_status"></div>
+            <table>
+                <tr>
+                    <td>
+                        <h5>Barcode</h5>
+                    </td>
+                    <td><input type="text" name="barcode" id="barcode" class="form-input" placeholder="xxxx xxxx xxxx xxxx" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Supermarket</h5>
+                    </td>
+                    <td>
+                        <select name="supermarket" id="supermarket" class="form-input" required>
+                            <?php include_once 'get_supermarkets.php'; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Product Name</h5>
+                    </td>
+                    <td><input type="text" name="product_name" id="product_name" class="form-input" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Manufacturer</h5>
+                    </td>
+                    <td><input type="text" name="manufacturer" id="manufacturer" class="form-input" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Product Image</h5>
+                    </td>
+                    <td><input type="file" name="product_image" id="product_image" class="form-input" accept="image/*" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Nutritional Facts</h5>
+                    </td>
+                    <td><input type="file" name="nutritional_facts" id="nutritional_facts" class="form-input" accept="image/*" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Quantity Type</h5>
+                    </td>
+                    <td>
+                        <select name="quantity_type" id="quantity_type" class="form-input" required>
+                            <option value="weight">Weight</option>
+                            <option value="piece">Piece</option>
+                            <option value="liquid">Liquid</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Quantity</h5>
+                    </td>
+                    <td><input type="number" name="quantity" id="quantity" class="form-input" placeholder="XXXX" required></td><span id="unit"></span>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h5>Price</h5>
+                    </td>
+                    <td><input type="number" name="price" id="price" class="form-input" placeholder="$X.XX" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Expiry Date</h5>
+                    </td>
+                    <td><input type="date" name="expiry_date" id="expiry_date" class="form-input" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Category</h5>
+                    </td>
+                    <td>
+                        <select name="category" id="category" class="form-input" required>
+                            <?php include_once 'get_category_options.php'; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Tag</h5>
+                    </td>
+                    <td>
+                        <select name="tag" id="tag" class="form-input" required>
+                            <?php include_once 'get_tags.php'; ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" id="save_product"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+        <!-- <form id="offer_form" style="display: none;">
+            <h3 class="form_header">Add Offer to Existing Product</h3>
+        </form> -->
+        <form id="tags_form" style="display: none;">
+            <h3 class="form_header">Add New Product Tag</h3>
+            <span><span>Current Tags:</span><select name="category" id="current_tags_select" class="form-input">
+                    <?php include_once 'get_tags.php'; ?>
+                </select></span><br>
+
+            <span><span>New Tag</span><input type="text" name="new_category" id="new_tag" title="Only digits" placeholder="..." required class="form-input"></span><br>
+            <span><span>Tag title</span><input type="text" name="new_category" id="new_tag_title" title="Only letters, spaces and & are allowed" placeholder="..." required class="form-input"></span><br>
+            <button type="submit" id="add_tag_button"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+        <form id="category_form" style="display: none;">
+            <h3 class="form_header">Add New Category</h3>
+            <span><span>Current Categories</span><select name="category" id="current_categories_select" class="form-input">
+                    <?php include_once 'get_category_options.php'; ?>
+                </select></span><br>
+
+            <span><span>New Category</span><input type="text" name="new_category" id="new_category" title="Only letters, spaces and & are allowed" placeholder="..." required class="form-input"></span><br>
+            <button type="submit" id="add_category_button"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+    </div>
+</div>
+<script>
+    $('#save_product').click(function(e) {
+        e.preventDefault();
+        var form = $('#product_form')[0];
+
+        // Check form validity
+        if (!form.checkValidity()) {
+            return;
+        }
+
+        // Regular expressions
+        var barcodeRegex = /^\d{16}$/;
+        var productNameRegex = /^[a-zA-Z0-9()+\-x& ]+$/;
+        var manufacturerRegex = /^[a-zA-Z ]+$/;
+
+        // Get input values
+        var barcode = $('#barcode').val();
+        var productName = $('#product_name').val();
+        var manufacturer = $('#manufacturer').val();
+
+        // Check if input matches regular expressions
+        if (!barcodeRegex.test(barcode)) {
+            $('#add_status').text('Barcode must be exactly 16 digits.');
+            return;
+        }
+        if (!productNameRegex.test(productName)) {
+            $('#add_status').text('Product name can contain letters, numbers, parentheses, + - x &, and spaces only.');
+            return;
+        }
+        if (!manufacturerRegex.test(manufacturer)) {
+            $('#add_status').text('Manufacturer must contain letters only.');
+            return;
+        }
+
+        var formData = new FormData(form);
+
+
+        $.ajax({
+            url: 'products/add_product.php',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+                $('#addModal').hide();
+                if (response === "Product added successfully") {
+                    showResponseModal("Product added successfully", function() {
+                        $('#addModal').show();
+                        $('#product_form').find('input, select').val(''); //reset form
+                    });
+                } else if (response === "Product already exists at selected supermarket") {
+                    showResponseModal("Product already exists at selected supermarket", function() {
+                        $('#products').click(); // Refresh the page
+                    });
+                } else if (response === "Product wasn't added") {
+                    showResponseModal("Product wasn't added", function() {
+                        $('#addModal').show();
+                    });
+                } else if (response === "Only images are allowed") {
+                    $('#add_status').text(response);
+                } else {
+                    console.log(response);
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.log(textStatus, errorThrown);
+            }
+        });
+    });
+</script>
 <section class="products_section">
     <h2 id="product_section_header">Manage Products</h2>
     <div class="product_section_top">
@@ -14,7 +209,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             </select>
             <div class="search_method">
                 <div class="search_field">
-                    <input type="text" id="product_search_input" placeholder="Search...">
+                    <input type="text" id="product_search_input" placeholder="Search..." pattern="\d{1,16}"> <!-- default for barcode search -->
                     <button id="product_clear_search"><span class='material-symbols-outlined'>close</span></button>
                 </div>
                 <div class="search_select" style="display: none;">
@@ -26,11 +221,162 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         </div>
         <div id="product_add_button">
             <button id="add_product_button"><span class="material-symbols-outlined">add</span><span>Add</span></button>
+            <div id="add_product_popup" style="display: none;">
+                <div class="popup-option" id="product_option">Product</div>
+                <!-- <div class="popup-option" id="offer_option">Offer</div> -->
+                <div class="popup-option" id="tags_option">Tags</div>
+                <div class="popup-option" id="category_option">Category</div>
+            </div>
         </div>
     </div>
     <div id="search_results"></div>
 </section>
+<!-- add button -->
 <script>
+    // add product options popup
+    document.getElementById('add_product_button').addEventListener('click', function() {
+        var popup = document.getElementById('add_product_popup');
+        if (popup.style.display === 'none') {
+            popup.style.display = 'block';
+        } else {
+            popup.style.display = 'none';
+        }
+    });
+
+    document.querySelectorAll('.popup-option').forEach(function(option) {
+        option.addEventListener('click', function() {
+            var modal = document.getElementById('addModal');
+            var popup = document.getElementById('add_product_popup');
+
+            // Hide all forms
+            document.querySelectorAll('#modal-content form').forEach(function(form) {
+                form.style.display = 'none';
+            });
+
+            // Show the appropriate form based on the clicked option
+            switch (this.id) {
+                case 'product_option':
+                    document.getElementById('product_form').style.display = 'block';
+                    // document.getElementById('offer_form').style.display = 'none';
+                    document.getElementById('tags_form').style.display = 'none';
+                    document.getElementById('category_form').style.display = 'none';
+                    break;
+                    // case 'offer_option':
+                    //     document.getElementById('product_form').style.display = 'none';
+                    //     document.getElementById('offer_form').style.display = 'block';
+                    //     document.getElementById('tags_form').style.display = 'none';
+                    //     document.getElementById('category_form').style.display = 'none';
+                    //     break;
+                case 'tags_option':
+                    document.getElementById('product_form').style.display = 'none';
+                    // document.getElementById('offer_form').style.display = 'none';
+                    document.getElementById('tags_form').style.display = 'block';
+                    document.getElementById('category_form').style.display = 'none';
+                    break;
+                case 'category_option':
+                    document.getElementById('product_form').style.display = 'none';
+                    // document.getElementById('offer_form').style.display = 'none';
+                    document.getElementById('tags_form').style.display = 'none';
+                    document.getElementById('category_form').style.display = 'block';
+                    break;
+            }
+
+            // Show the modal
+            modal.style.display = 'block';
+            popup.style.display = 'none';
+        });
+    });
+
+    // save new category
+    $(document).ready(function() {
+        // prevent entering character that doesn't match pattern
+        $('#new_category').on('keypress paste', function(event) {
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!/^[a-zA-Z\s&]+$/.test(key)) {
+                event.preventDefault();
+            }
+        });
+        $('#add_category_button').click(function(event) {
+            event.preventDefault();
+
+            var newCategory = $('#new_category').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'products/add_category.php',
+                data: {
+                    new_category: newCategory
+                },
+                success: function(response) {
+                    $('#addModal').hide()
+                    showResponseModal('Category added successfully', function() {
+                        $('#products').click(); // Refresh the page
+                    });
+                }
+            });
+        });
+    });
+
+    // save new tag
+    $(document).ready(function() {
+        $('#new_tag').on('keypress paste', function(event) {
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!/^\d+$/.test(key)) {
+                event.preventDefault();
+            }
+        });
+
+        $('#new_tag_title').on('keypress paste', function(event) {
+            var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!/^[a-zA-Z\s&]+$/.test(key)) {
+                event.preventDefault();
+            }
+        });
+
+        $('#add_tag_button').click(function(event) {
+            event.preventDefault();
+
+            var newTag = $('#new_tag').val();
+            var newTagTitle = $('#new_tag_title').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'products/check_and_add_tag.php',
+                data: {
+                    new_tag: newTag,
+                    new_tag_title: newTagTitle
+                },
+                success: function(response) {
+                    if (response === 'Tag added successfully') {
+                        $('#addModal').hide()
+                        showResponseModal('Tag added successfully', function() {
+                            $('#products').click(); // Refresh the page
+                        });
+                    } else if (response === 'Tag already exists') {
+                        $('#addModal').hide()
+                        showResponseModal('Tag already exists', function() {
+                            $('#addModal').show()
+                        });
+                    }
+                }
+            });
+        });
+    });
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        var modal = document.getElementById('addModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    };
+</script>
+<!-- search and product display -->
+<script>
+    // Clear the search input when the clear button is clicked
+    document.getElementById('product_clear_search').addEventListener('click', function() {
+        document.getElementById('product_search_input').value = '';
+    });
     // if searching by category or tag, hide the search field and show the select
     document.getElementById('product_search_type').addEventListener('change', function() {
         var searchField = document.querySelector('.search_field');
@@ -45,14 +391,16 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             // Clear the select options
             searchSelect.innerHTML = '';
 
-            var categories = ['Bakery', 'Beverages', 'Cleaning Supplies', 'Dairy', 'Fruits & Vegetables', 'Meat & Chicken', 'Personal Care', 'Snacks'];
+            $(document).ready(function() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'products/get_category_options.php',
+                    success: function(response) {
+                        // var searchSelect = document.getElementById('current_categories_select');
 
-            // Populate the select options with categories
-            categories.forEach(function(category) {
-                var option = document.createElement('option');
-                option.value = category;
-                option.text = category;
-                searchSelect.appendChild(option);
+                        searchSelect.innerHTML = response;
+                    }
+                });
             });
         } else if (this.value === 'tag') {
             searchField.style.display = 'none';
@@ -64,14 +412,8 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             $.ajax({
                 url: 'products/get_tags.php',
                 method: 'GET',
-                success: function(data) {
-                    var tags = JSON.parse(data);
-                    tags.forEach(function(tag) {
-                        var option = document.createElement('option');
-                        option.value = tag.tag;
-                        option.text = tag.tag + " - " + tag.tag_title;
-                        searchSelect.appendChild(option);
-                    });
+                success: function(response) {
+                    searchSelect.innerHTML = response;
                 }
             });
         } else if (this.value === 'barcode') {
@@ -80,8 +422,8 @@ include_once '../../accountFreezeModal.inc.php'; ?>
 
             // apply a pattern that only allows 16 digits
             // searchField.setAttribute('type', 'text');
-            searchInput.setAttribute('pattern', '\\d{16}');
-            searchInput.setAttribute('title', 'Please enter exactly 16 digits');
+            searchInput.setAttribute('pattern', '[0-9]{1,16}');
+            searchInput.setAttribute('title', 'Please enter up to 16 digits');
         } else if (this.value === 'product_name') {
             searchField.style.display = 'block';
             searchSelectDiv.style.display = 'none';
@@ -110,20 +452,24 @@ include_once '../../accountFreezeModal.inc.php'; ?>
     });
 
     // prevent entering character that doesn't match pattern
-    document.getElementById('product_search_input').addEventListener('keypress', function(e) {
+    $('#product_search_input').on('keypress paste', function(event) {
+        var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
         var pattern = this.getAttribute('pattern');
+
         if (pattern) {
-            var regex = new RegExp(pattern);
-            if (!regex.test(e.key)) {
-                e.preventDefault();
+            var regex = new RegExp('^' + pattern + '$');
+            if (!regex.test(key)) {
+                event.preventDefault();
             }
         }
+
     });
 
     $(document).ready(function() {
         $('#product_search_type').trigger('change');
     });
 
+    // search for products
     $(document).ready(function() {
         $('#product_search_select').change(function() {
             var searchType = $('#product_search_type').val();
