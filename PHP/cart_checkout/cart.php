@@ -165,7 +165,7 @@ session_start();
             margin: 10px; /* Spacing between cards */
             display: flex; /* Arrange content in rows */
             flex-direction: column; /* Stack elements vertically */
-            width: 250px; /* Adjust width as needed */
+            width: 300px; /* Adjust width as needed */
             text-align: center; /* Center text within the card */
             height: 250px;
         }
@@ -219,6 +219,11 @@ session_start();
         .productimg:hover {
             transform: scale(1.05); /* Enlarge image slightly on hover */
             opacity: 0.9; /* Reduce opacity slightly on hover */
+        }
+        .product .productcard .pro_cont{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .payment_icons {

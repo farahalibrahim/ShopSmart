@@ -21,9 +21,7 @@ include_once '../responseModal.inc.php';
     <!-- jQuery AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        body{
-            background: green;
-        }
+        
         .container{
             padding: 20px;
             border-radius: 10px;

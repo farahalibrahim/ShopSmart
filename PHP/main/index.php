@@ -70,6 +70,7 @@ session_start();
             background: #ffffffff;
             overflow-x: scroll;
             white-space: nowrap;
+            height: 280px;
         }
         .productcard {
             background-color: #fff;

@@ -23,6 +23,7 @@ function get_popular_products($conn, $nb_products = 8)
         $products .= '<div class="productcard">';
         $products .=  '<img src=" ' . $src . '" alt="' . $result["product_name"] . '">';
         $products .=   '<h3 class="product_name">' . $result["product_name"] . '</h3>';
+        $products .=   '<div class="pro_cont">';
         $products .=  '<div class="product_details">';
         if ($result['min_price'] == $result['max_price']) {
             $products .=  "<p class='product_price'> $" . $result['min_price'] . "</p>";
@@ -31,6 +32,7 @@ function get_popular_products($conn, $nb_products = 8)
         }
         $products .=  "</div>";
         $products .=  '<a href="../products/viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined">arrow_forward</span></a>';
+        $products .=  '</div>';
         $products .=  '</div>';
     }
     return $products;
