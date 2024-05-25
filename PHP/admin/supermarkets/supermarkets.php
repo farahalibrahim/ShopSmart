@@ -215,54 +215,6 @@
     </div>
 </div>
 <script>
-    // $(document).on('click', '.edit-button', function() {
-    //     var id = $(this).data('id');
-    //     var name = $(this).data('name');
-    //     var website = $(this).data('website');
-    //     var email = $(this).data('email');
-    //     var phone = $(this).data('phone');
-
-    //     $('#id').val(id);
-    //     $('#name').val(name);
-    //     $('#website').val(website);
-    //     $('#email').val(email);
-    //     $('#phone').val(phone);
-
-    //     $('#supermarket_modal').show();
-    // });
-    // $('#form-submit-button').click(function(e) {
-    //     e.preventDefault();
-    //     console.log('button triggered');
-
-    //     var id = $("#id").val();
-    //     var name = $("#name").val();
-    //     var website = $("#website").val();
-    //     var email = $("#email").val();
-    //     var phone = $("#phone").val();
-
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "supermarkets/update_supermarket.php",
-    //         data: {
-    //             id: id,
-    //             name: name,
-    //             website: website,
-    //             email: email,
-    //             phone: phone
-    //         },
-    //         success: function(response) {
-    //             if (response == 'success') {
-    //                 $('#supermarket_modal').hide();
-    //                 location.reload(); // reload the page to show the updated data
-    //             } else {
-    //                 alert('Failed to update supermarket');
-    //             }
-    //         },
-    //         error: function() {
-    //             alert('An error occurred');
-    //         }
-    //     });
-    // });
     $(document).ready(function() {
         $('#supermarket_modal .close').click(function() {
             $('#supermarket_modal').hide();

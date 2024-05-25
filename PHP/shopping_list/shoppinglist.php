@@ -21,14 +21,19 @@ include_once '../responseModal.inc.php';
     <!-- jQuery AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+
         
-        .container{
+        
+
+        .container {
+
             padding: 20px;
             border-radius: 10px;
             /* Add rounded corners */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-            background: lightgrey;
+            /* background: lightgrey; */
         }
+
         .add_button {
             display: flex;
             justify-content: flex-end;
@@ -134,7 +139,7 @@ include_once '../responseModal.inc.php';
             padding: 20px;
             margin-bottom: 20px;
             /* Add margin between list items */
-            background: #eee;
+            /* background: #eee; */
         }
 
         .product {

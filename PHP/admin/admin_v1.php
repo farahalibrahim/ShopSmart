@@ -388,7 +388,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         }
 
         .form-input {
-            border-radius: 5px;
+            border-radius: 20px;
             padding: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
@@ -557,8 +557,122 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             justify-content: center;
             align-items: center;
         }
+
+        .card {
+            display: flex;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+
+        .card img {
+            flex: 1;
+            max-width: 100px;
+            margin-right: 20px;
+            object-fit: contain;
+        }
+
+        .card-body {
+            flex: 2;
+        }
+
+        .card-body h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+            max-width: 60%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .card-body h3:hover {
+            color: transparent;
+        }
+
+        .card-body h3:hover::after {
+            content: attr(data-content);
+            position: absolute;
+            white-space: nowrap;
+            background-color: #fff;
+            padding: 0 5px;
+            animation: slide 5s linear infinite;
+            left: 100%;
+            color: #000;
+        }
+
+        @keyframes slide {
+            0% {
+                left: 100%;
+            }
+
+            100% {
+                left: -100%;
+            }
+        }
+
+        .card-body p {
+            /* margin: 0 0 10px; */
+            margin: 0;
+            font-size: smaller;
+            color: #888;
+        }
+
+        /* .product_quantity, */
+        .product_price {
+            font-weight: bold;
+            color: #4C4C4C;
+            font-size: larger;
+        }
+
+        #add_product_popup {
+            position: absolute;
+            width: 200px;
+            padding: 10px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            z-index: 1;
+        }
+
+        #addModal {
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        table td {
+            border: 1px solid black;
+        }
     </style>
     <script>
+        $(document).ready(function() {
+            $(document).on('mouseover', '.card-body h3', function() {
+                if (!$(this).attr('data-content')) {
+                    $(this).attr('data-content', $(this).text());
+                }
+            });
+        });
         $(document).ready(function() {
             // Function to load content via AJAX
             function loadContent(url) {
