@@ -43,8 +43,8 @@ $user_id = $_COOKIE["user_id"];
                 padding: 20px;
             } */
         body h1{
-            padding-left: 45%;
-            color: gray;
+            padding-left: 5%;
+            color: #000;
         }
         .container1 {
             display: block;

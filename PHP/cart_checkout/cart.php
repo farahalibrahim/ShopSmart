@@ -119,7 +119,7 @@ session_start();
             text-align: center; /* Center align the text */
         }
         .related_container {
-            width: 600px;
+            width: 100%;
             
         }
 
@@ -150,13 +150,12 @@ session_start();
         }
 
         .supermarket_card {
-            background-color: #fff;
-            /* border-radius: 20px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
-            margin-bottom: 20px;
-            padding: 10px;
-            width: 300px;
-            display: inline-block;
+            display: flex;
+            flex-wrap: nowrap;  /* Prevent line breaks */
+            overflow-x: scroll;  /* Enable horizontal scroll */
+            height: 330px;
+            width: 100%;  /* Force full width within supermarket section */
+  
         }
 
         .productcard {
@@ -188,14 +187,14 @@ session_start();
         }
         .productcard .productdetails p{
             font-size: 13px; /* Price font size */
-            color: #e84b10; /* Orange color for price */
+            color: #000; /* Orange color for price */
            
         }
         .productcard .productdetails button {
             width: 30px;
             height: 30px;
             font-size: 15px;
-            background: #e84b10;
+            background: green;
         }
 
         .productcard .productdetails .weight {
@@ -227,7 +226,7 @@ session_start();
             align-items: center;
         }
         .payment_methods {
-            width: 33%;
+            margin-bottom: 20px;
             
 
         }
@@ -275,27 +274,22 @@ session_start();
             margin-top: 5px;
         }
         .down-container {
-            display: flex;
+            display: grid;
             align-items: center;
             justify-content: space-between;
             width: 500px;
-            margin: 0 0 0 60%;
+            
         }
         .supermarket_container {
-            display: flex;
-            overflow-x: scroll;
-            white-space: nowrap;
-            margin-top: 2rem;
-            background: #ffffffff;
-            overflow-x: scroll;
-            white-space: nowrap;
-            width: 580px;
+            display: grid;
+            grid-template-columns: 1fr;  /* Single column for supermarkets */
+            grid-gap: 1rem;  /* Gap between supermarkets */
         }
         .Container-for-all .related_container h2 span {
             color: green;
         }
         .productcard .other_option a{
-            color: #e84b10;
+            color: gray;
             display: flex;
             justify-content: space-between;
         }
@@ -416,8 +410,9 @@ session_start();
             $supermarketId = $row['supermarket_id'];
 
             // Create a div for each distinct supermarket
-            echo "<div  class='supermarket_card'>";
             echo "<h2>$supermarketName</h2>";
+            echo "<div  class='supermarket_card'>";
+            
 
             // Get all items from this supermarket and display them in the table format
             $itemsSql = "SELECT product.*, product.quantity AS product_quantity, cart.quantity FROM cart 

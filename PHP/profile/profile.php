@@ -163,6 +163,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             text-decoration: none;
             cursor: pointer;
         }
+        .card .card_details .delete_button{
+            background: red;
+        }
 
         .card,
         .address-card {
@@ -216,7 +219,22 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             flex-direction: row;
             align-items: center;
             justify-content: flex-start;
+        }
+        .address-card .address-card-body{
+            margin-left: 20px;
+        }
+        .address-card .changeAddressButton{
+            margin-left: 20px;
+        }
 
+        #content .header{
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #000;
+            border-radius: 10px;
+            background: green;
+            padding: 5px;
+            font-size: 20px;
         }
 
         #mapid {

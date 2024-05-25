@@ -3,6 +3,67 @@ include_once('../../connection.inc.php');
 include_once('../../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 ?>
+<style>
+    
+    .dashboard{
+        padding: 3%;
+        
+    }
+    .dashboard #tickets-section h2{
+        
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 30px;
+        font-weight: bold;
+        background: green;
+        
+    }
+    .dashboard #tickets-section #ticket-search-bar{
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    }
+    .dashboard #tickets-section #ticket-search-bar #ticket-search-type{
+        font-size: 20px;
+        border-radius: 20px;
+        padding: 10px;
+        background: green;
+        color: white;
+        font-weight: bold;
+    }
+    .dashboard #tickets-section #ticket-search-bar  #ticket-search-input{
+        flex: 1; /* Expands to fill remaining space */
+        border: 1px solid #ccc;
+        padding: 0.5rem;
+        border-radius: 20px;
+        font-size: 1rem;
+        margin-right: 0.5rem;
+        margin-left: 0.5rem;
+        
+        
+    }
+    .dashboard #tickets-section #ticket-search-bar  #ticket-search-input ::placeholder{
+        color: #eee;
+    }
+    .dashboard #tickets-section #ticket-search-bar button{
+        background-color: #333;
+        color: #fff;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        font-size: 20px;
+    }
+    .dashboard #tickets-section #ticket-search-bar button:hover{
+        background-color: #444;
+    }
+    .dashboard #tickets-section #closed-tickets-details {
+        padding-left: 30px;
+        font-size: 20px;
+        padding-top: 40px;
+        font-weight: bold;
+    }
+</style>
 <div class="dashboard">
     <section id="tickets-section">
         <h2>Tickets</h2>

@@ -37,7 +37,7 @@
                     <div class="input-field">
                         <i class="fa-solid fa-lock"></i>
                         <input name="pass" id="pass" type="password" placeholder="password" required>
-                        <button class="pass_visibility" type="button" onclick="togglePasswordVisibility('pass')"><span class="material-symbols-outlined" id="passIcon">visibility</span></button><br>
+                        <!-- <button class="pass_visibility" type="button" onclick="togglePasswordVisibility('pass')"><span class="material-symbols-outlined" id="passIcon">visibility</span></button><br> -->
 
                     </div>
                     <div class="input-field" id="phone">
