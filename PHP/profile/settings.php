@@ -2,7 +2,10 @@
 include_once '../connection.inc.php';
 include_once '../dbh.class.inc.php';
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
-
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 $user_id = $_COOKIE['user_id'];
 $sql = "SELECT * FROM `user` WHERE id = :user";
 $user = DatabaseHelper::runQuery($conn, $sql, ['user' => $user_id])->fetchAll(PDO::FETCH_ASSOC)[0];

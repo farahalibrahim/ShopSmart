@@ -2,8 +2,15 @@
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 $order = $_GET['order_nb'];
 $user_id = $_COOKIE['user_id'];
+$sql = 'SELECT `role` FROM `user` WHERE id = :user_id';
+$stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
+$role = $stmt->fetchColumn();
 ?>
 
 <!DOCTYPE html>
@@ -99,7 +106,7 @@ $user_id = $_COOKIE['user_id'];
     <?php
     include_once '../header.php';
     // Get the order details
-    $query = "SELECT `order`.*,order_details.*,shipment.*, order.status AS `status`, supermarket.name AS supermarket_name,product.quantity_type, product.quantity AS product_quantity, product.product_name, product.product_image FROM `order`
+    $query = "SELECT `order`.*,order_details.*,shipment.*, COUNT(order_details.order_nb) as nb_products, order.status AS `status`, supermarket.name AS supermarket_name,product.quantity_type, product.quantity AS product_quantity, product.product_name, product.product_image FROM `order`
               JOIN order_details ON order.order_nb = order_details.order_nb 
               JOIN shipment ON order.order_nb = shipment.order_nb 
               JOIN supermarket ON order_details.supermarket_id = supermarket.id 
@@ -148,7 +155,7 @@ $user_id = $_COOKIE['user_id'];
     }
 
     echo '<div class="order_items">'; // Parent card
-    echo '<h3>Order Items:</h3>';
+    echo '<h3>Order Items</h3><span>(' . $orderDetails[0]["nb_products"] . ' items)</span>';
     // Loop over the supermarkets
     foreach ($groupedItems as $supermarketName => $supermarketData) {
         $supermarketId = $supermarketData['id']; // Get the supermarket ID
@@ -158,12 +165,14 @@ $user_id = $_COOKIE['user_id'];
         echo '<div class="supermarket_items" data-id="' . $supermarketId . '">'; // Supermarket items div
         echo '<h4>' . $supermarketName . '</h4>'; // Display the supermarket ID
 
-        // Display the rating stars
-        echo '<div class="stars">';
-        for ($i = 1; $i <= 5; $i++) {
-            echo '<span class="star" data-value="' . $i . '">&#9734;</span>'; // Display an empty star
+        // Display the rating stars if user, (admin is also redirected to same page)
+        if ($role == 'user') {
+            echo '<div class="stars">';
+            for ($i = 1; $i <= 5; $i++) {
+                echo '<span class="star" data-value="' . $i . '">&#9734;</span>'; // Display an empty star
+            }
+            echo '</div>';
         }
-        echo '</div>';
 
         // Loop over the items in the order
         foreach ($items as $item) {

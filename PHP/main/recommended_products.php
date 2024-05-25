@@ -2,7 +2,10 @@
 // include_once('../PHP/connection.inc.php');
 // include_once('../PHP/dbh.class.inc.php');
 // $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
-
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 // if (isset($_COOKIE['user_id'])) {
 $user_id = $_COOKIE['user_id'];
 // }

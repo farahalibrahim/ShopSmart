@@ -1,9 +1,12 @@
 <?php
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
+include_once('../check_login.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
-
-
+if (!isset($_COOKIE['user_id'])) {
+    header('Location: http://localhost:3000/PHP/login.php');
+    exit;
+}
 $sql = "SELECT * FROM user WHERE id = :id";
 $stmt = DatabaseHelper::runQuery($conn, $sql, array(":id" => $_COOKIE['user_id']));
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -17,8 +20,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
     <title>Admin Portal</title>
     <!-- jQuery AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <style>
         * {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -239,13 +242,36 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         #chat-section {
             /* flex: 1; */
-            border-left: #4C4C4C 1px solid;
+            /* border-left: #4C4C4C 1px solid; */
             height: 100vh;
             display: flex;
             flex-direction: column;
-            width: 0;
+            width: 37px;
             transition: width 0.5s ease-in-out;
             overflow: hidden;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            /* Add a shadow */
+            position: relative;
+            /* Make it a relative container for the handle */
+            border-radius: 20px;
+            padding: 0 10px 0 10px;
+            box-sizing: content-box;
+        }
+
+        #chat-section::before {
+            content: "";
+            position: absolute;
+            left: 10px;
+            /* Position it to the left of the chat section */
+            top: 50%;
+            transform: translateY(-50%);
+            /* Center it vertically */
+            width: 7px;
+            height: 80px;
+            background: rgba(128, 128, 128, 0.5);
+            /* Gray with low opacity */
+            border-radius: 10px;
+            /* Rounded corners */
         }
 
         #chat-section.open {
@@ -258,6 +284,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             height: 80%;
             max-height: 80%;
             /* Adjust this value as needed */
+            padding: 0 0 0 27px;
+
+        }
+
+        #chat-header {
+            height: 15%;
         }
 
         .chat_footer {
@@ -265,11 +297,265 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             align-items: center;
             justify-content: space-between;
             padding: 10px;
+            height: 7%;
+            width: 100%;
         }
 
         #chat_input {
             flex-grow: 1;
             margin-right: 10px;
+            width: 80%;
+        }
+
+        #no-match,
+        #no_open_ticket {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        #ticket-search-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+            padding: 0.4em 0.8em;
+            border-radius: 20px;
+        }
+
+        #ticket-search-input {
+            flex-grow: 1;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        #ticket-clear-search {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        #ticket-clear-search>span.material-symbols-outlined {
+            font-size: 12px;
+            font-weight: bold;
+            color: lightslategray;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-field {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .form-label {
+            margin-right: 10px;
+        }
+
+        .form-input {
+            border-radius: 5px;
+            padding: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .submit-button {
+            align-self: flex-end;
+            margin-top: 10px;
+        }
+
+        .user-card {
+            display: flex;
+            justify-content: flex-start;
+            padding: 20px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        /* 
+        .user-card {
+            display: flex;
+            justify-content: flex-start;
+        } */
+
+        .user-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .user-icon>* {
+            font-size: 50px;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 20px;
+        }
+
+        .user-info>* {
+            margin: 0;
+        }
+
+        .user-actions {
+            display: none;
+            position: absolute;
+            right: 20px;
+            top: 0;
+        }
+
+        .user-card:hover .user-actions {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        #freezeModal .modal-content textarea,
+        #freezeModal .modal-content button {
+            display: block;
+            margin: auto;
+        }
+
+        #freezeModal .modal-content textarea {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100px;
+            margin-bottom: 10px;
+            overflow-y: auto;
+        }
+
+        #freezeModalSubmit:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+
+        #freezeReason {
+            padding: 10px;
+            border-radius: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Modal Close Button */
+        .close {
+            color: #aaaaaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .card:hover .card-body .delete-button {
+            display: block;
+        }
+
+        header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            width: fit-content;
+            border-radius: 20px;
+            /* background-color: #eeeeee; */
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        header>* {
+            margin-block: 0.5em;
+        }
+
+        #back_arrow {
+            margin-inline: 0.1em;
+            font-size: small;
+            color: #4C4C4C;
+        }
+
+        #sortOrder {
+            padding: 5px;
+            border-radius: 20px;
+            background-color: #f2f2f2;
+            max-width: 10em;
+            width: fit-content;
+        }
+
+        #order-search-bar {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 20px;
+            background-color: #f2f2f2;
+            width: 50%;
+            max-width: 30em;
+            margin-inline: 0.2em;
+        }
+
+        #order-search-input {
+            flex-grow: 1;
+            border: none;
+            background-color: transparent;
+        }
+
+        #order-clear-search {
+            margin-left: 5px;
+            background-color: transparent;
+        }
+
+
+        #order-clear-search>span {
+            font-size: 12px;
+            color: #4C4C4C;
+        }
+
+        #filters {
+            display: flex;
+        }
+
+        #filters>* {
+            margin-left: 10px;
+            justify-content: center;
+            align-items: center;
         }
     </style>
     <script>
@@ -292,25 +578,31 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             $('#dashboard').click(function() {
                 $('a').removeClass('active');
                 $(this).addClass('active');
-                loadContent('dashboard.php');
+                loadContent('dashboard/dashboard.php');
+            });
+
+            $('#users').click(function() {
+                $('a').removeClass('active');
+                $(this).addClass('active');
+                loadContent('users/users.php');
             });
 
             $('#orders').click(function() {
                 $('a').removeClass('active');
                 $(this).addClass('active');
-                loadContent('orders.php');
+                loadContent('orders/orders.php');
             });
 
             $('#products').click(function() {
                 $('a').removeClass('active');
                 $(this).addClass('active');
-                loadContent('products.php');
+                loadContent('products/products.php');
             });
 
             $('#supermarkets').click(function() {
                 $('a').removeClass('active');
                 $(this).addClass('active');
-                loadContent('supermsrkets.php');
+                loadContent('supermarkets/supermarkets.php');
             });
 
             $('#logout').click(function() {
@@ -331,6 +623,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+    <?php include_once '../responseModal.inc.php' ?>
+    <?php include_once '../confirmationModal.inc.php' ?>
     <div class="sidebar" id="sidebar">
         <div class="top-section">
             <a href="http://localhost:3000/PHP/main/index.php" class="logo">
@@ -349,11 +643,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
         <nav>
-            <a href="#" id="dashboard"><span class="material-symbols-outlined" data-label="Dashboard">dashboard</span><span class="nav-text"> Dashboard</span></a>
-            <a href="#" id="orders"><span class="material-symbols-outlined" data-label="Orders">shopping_cart</span><span class="nav-text"> Orders</span></a>
-            <a href="#" id="products"><span class="material-symbols-outlined" data-label="Products">inventory_2</span><span class="nav-text"> Products</span></a>
-            <a href="#" id="supermarkets"><span class="material-symbols-outlined" data-label="Supermarkets">store</span><span class="nav-text"> Supermarkets</span></a>
-            <a href="#" id="logout"><span class="material-symbols-outlined" data-label="Logout">logout</span><span class="nav-text"> Logout</span></a>
+            <a href="#" id="dashboard" title="Dashboard"><span class="material-symbols-outlined" data-label="Dashboard">dashboard</span><span class="nav-text"> Dashboard</span></a>
+            <a href="#" id="users" title="Users"><span class="material-symbols-outlined" data-label="Users">group</span><span class="nav-text"> Users</span></a>
+            <!-- <a href="#" id="orders" title="Orders"><span class="material-symbols-outlined" data-label="Orders">shopping_cart</span><span class="nav-text"> Orders</span></a> -->
+            <a href="#" id="products" title="Products"><span class="material-symbols-outlined" data-label="Products">inventory_2</span><span class="nav-text"> Products</span></a>
+            <a href="#" id="supermarkets" title="Supermarkets"><span class="material-symbols-outlined" data-label="Supermarkets">store</span><span class="nav-text"> Supermarkets</span></a>
+            <a href="#" id="logout" title="Logout"><span class="material-symbols-outlined" data-label="Logout">logout</span><span class="nav-text"> Logout</span></a>
         </nav>
     </div>
     <h1>Admin Portal</h1>
