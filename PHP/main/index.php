@@ -449,8 +449,8 @@ session_start();
         </section>
     <?php endif; ?>
 
-    <!--Footer Section-->
-    <?php include_once '../footer.php'; ?>
+<!--Footer Section-->
+<?php include_once '../footer.php'; ?>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

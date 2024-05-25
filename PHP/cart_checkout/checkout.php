@@ -21,7 +21,7 @@ $user_id = $_COOKIE["user_id"];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
         
-            @media (min-width: 768px) {
+            /* @media (min-width: 768px) {
                 body{
                     width: 750px;
                 }
@@ -37,36 +37,46 @@ $user_id = $_COOKIE["user_id"];
                 body{
                     width: 1200px;
                 }
-            }
+            } */
             /* .container0{
                 background: #888;
                 padding: 20px;
             } */
         body h1{
-            padding-left: 50%;
+            padding-left: 45%;
+            color: gray;
         }
         .container1 {
-            display: flex;
+            display: block;
             flex-wrap: wrap; /* Optional: Allow sections to wrap if needed on small screens */
             justify-content: space-between; /* Horizontally space sections */
             padding: 20px;
         }
+        .container0 hr{
+            border: 1px solid #000;
+    width: 100%;  /* Line extends to 50% of the container width */
+    margin: 1rem 0;  /* 1rem margin above and below the line */
+        }
+        
 
         .shipping_address {
-            margin-left: 10%;
-            width: 38%; /* Adjust width as needed */
+            margin-left: 3%;
+            width: 48%; /* Adjust width as needed */
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
-            background: lightgreen;
+            background: #7CE200;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
         }
         .shipping_address span{
-            margin-left: 45%;
+            margin-left: 5%;
             font-size: 50px;
             font-weight: bold;
+            
         }
         .shipping_address p{
-            margin-left: 20%;
+            margin-left: 5%;
             
         }
         .shipping_address a{
@@ -76,30 +86,55 @@ $user_id = $_COOKIE["user_id"];
             border-radius: 10px;
             background: black;
             padding: 10px;
+            
         }
         .order_summary{
+            margin-left: 3%;
             width: 48%; /* Adjust width as needed */
             border: 1px solid #ddd;
             border-radius: 5px;
             padding: 10px;
             background-color: #f5f5f5;
+
         }
         .place_order{
             
         }
         .payment {
-            margin-left: 30%;
+            margin-left: 20%;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 1rem;
+        }
+        .payment h2 span {
+            color: #888;
+        }
+        .payment h2 {
+            color: #7CE200;
         }
         .payment .cod{
             margin-bottom: 10px;
+            margin-left: 5%;
+        }
+        .payment .card {
+            
+            margin-left: 5%;
         }
         .payment input[type="radio"] {
-        margin-right: 10px; /* Spacing between radio button and label */
+        margin-right: 0.5rem; /* Spacing between radio button and label */
         }
+        @media only screen and (max-width: 768px) {
+        .payment label,
+        .payment input[type="radio"] {
+            font-size: 0.8rem;  /* Reduce font size for smaller screens */
+        }
+}
 
         .payment label {
         display: inline-block; /* Makes text next to radio button */
         cursor: pointer; /* Indicates clickable element on hover */
+        font-weight: bold;
+        margin-bottom: 0.5rem;
         }
 
         .payment input[type="radio"]:checked + label {
@@ -108,6 +143,37 @@ $user_id = $_COOKIE["user_id"];
 
         .card_options {
             display: none;
+        }
+        .card_options span{
+            margin-left: 10%;
+            color: #7CE200;
+        }
+        .card_options a{
+            border: 1px solid #7CE200;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 15px;
+            color: #000;
+            font-weight: 400;
+            background: #7CE200;
+        }
+        .card_options a:hover{
+            background: #eee;
+            color: #000;
+            cursor: pointer;
+        }
+        .place_order button{
+            margin-left: 25%;
+            border: 1px solid #7CE200;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 15px;
+            color: #000;
+            font-weight: 400;
+            background: #7CE200;
+        }
+        .place_order button:hover{
+            cursor: pointer;
         }
 
         input[id^="cvv_"] {
@@ -188,6 +254,7 @@ $user_id = $_COOKIE["user_id"];
         </div>
     </div>
     </div>
+    <hr>
     <form action="checkout.php" method="post" id="checkout_form">
 
         <input type="hidden" name="total" id="total" value="">
@@ -197,7 +264,7 @@ $user_id = $_COOKIE["user_id"];
             });
         </script>
         <div class="payment">
-            <h2>Payment Method:</h2>
+            <h2><span>Payment</span> Method:</h2>
             <div class="cod">
                 <label for="cod_radio">
                     <input type="radio" id="cod_radio" name="payment_method" value="cod">Cash on Delivery</label>

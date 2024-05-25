@@ -32,7 +32,7 @@ session_start();
         } */
         .Container-for-all {
             margin: 30px 60px 30px 30px;
-            padding: 50px 15% 0 15%;
+            padding: 50px 5% 0 5%;
 
             
         }
@@ -44,7 +44,7 @@ session_start();
             border-bottom: 3px solid #000; /* Bottom border */
             padding: 10px 20px; /* Optional padding for spacing */
             margin: 0; /* Remove default margin */
-            text-align: center; /* Center align the text */
+            text-align: start; /* Center align the text */
             padding-top: 40px;
             color: green;
         }
@@ -87,11 +87,13 @@ session_start();
             align-items: center; /* Center content horizontally */
             text-align: center; /* Center text within the card */
             max-width: 200px; /* Set a maximum width for responsiveness */
+            width: 120px;
+            height: 120px;
         }
         
 
         .relatedcard img {
-            width: 100%;
+            width: 80%;
         }
 
         .relatedcard .card-info {
@@ -115,6 +117,10 @@ session_start();
             padding: 10px 20px; /* Optional padding for spacing */
             margin: 0; /* Remove default margin */
             text-align: center; /* Center align the text */
+        }
+        .related_container {
+            width: 600px;
+            
         }
 
         .card-info h3 {
@@ -149,7 +155,7 @@ session_start();
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); */
             margin-bottom: 20px;
             padding: 10px;
-            width: 200px;
+            width: 300px;
             display: inline-block;
         }
 
@@ -160,9 +166,9 @@ session_start();
             margin: 10px; /* Spacing between cards */
             display: flex; /* Arrange content in rows */
             flex-direction: column; /* Stack elements vertically */
-            width: 170px; /* Adjust width as needed */
+            width: 250px; /* Adjust width as needed */
             text-align: center; /* Center text within the card */
-            
+            height: 250px;
         }
 
         .productcard .productdetails {
@@ -181,7 +187,7 @@ session_start();
             overflow: hidden;
         }
         .productcard .productdetails p{
-            font-size: 16px; /* Price font size */
+            font-size: 13px; /* Price font size */
             color: #e84b10; /* Orange color for price */
            
         }
@@ -205,11 +211,11 @@ session_start();
         }
 
         .productimg {
-            width: 100%; /* Image spans the full card width */
-            height: 100%; /* Adjust height as needed */
+            width: 110px; /* Image spans the full card width */
+            height: 100px; /* Adjust height as needed */
             object-fit: cover; 
-            
             transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+            margin-left: 30%;
         }
         .productimg:hover {
             transform: scale(1.05); /* Enlarge image slightly on hover */
@@ -222,7 +228,7 @@ session_start();
         }
         .payment_methods {
             width: 33%;
-            padding-left: 20%;
+            
 
         }
         .payment_methods i {
@@ -272,6 +278,8 @@ session_start();
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 500px;
+            margin: 0 0 0 60%;
         }
         .supermarket_container {
             display: flex;
@@ -281,10 +289,18 @@ session_start();
             background: #ffffffff;
             overflow-x: scroll;
             white-space: nowrap;
+            width: 580px;
         }
         .Container-for-all .related_container h2 span {
             color: green;
         }
+        .productcard .other_option a{
+            color: #e84b10;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+            
        
     </style>
 
@@ -366,8 +382,8 @@ session_start();
                         echo '<div class="relatedcard">';
                         echo '<img src="' . $src . ' " alt="' . $item['product_name'] . ' ">';
                         echo ' <div class="card-info">';
-                        echo '<h3>' . $item['product_name'] . '</h3>';
-                        echo '<p>$' . $item['min_price'] . ' - $' . $item['max_price'] . '</p>';
+                        // echo '<h3>' . $item['product_name'] . '</h3>';
+                        // echo '<p>$' . $item['min_price'] . ' - $' . $item['max_price'] . '</p>';
                         echo '<a href="viewproduct.php?barcode=' . $item['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
                         echo '</div>';
                         echo '</div>';

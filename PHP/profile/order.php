@@ -19,14 +19,63 @@ $user_id = $_COOKIE['user_id'];
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
+       
         .order_items {
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             padding: 10px;
             margin-bottom: 10px;
-            border-radius: 10px;
+            border-radius: 0px;
             /* Add rounded corners */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
             /* Add shadow */
+            
+        }
+        .order_items .supermarket_items{
+            padding: 0 5% 0 5%;
+            
+        }
+        .order_items .supermarket_items .stars{
+            margin-bottom: 10px;
+        }
+        .order_items h3 span{
+            padding-left: 45%;
+            color: green;
+        }
+        .card{
+            padding: 0 5% 0 5%;
+            
+        }
+        .card-header{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: none;
+            padding: 10px;
+            background: #7CE200;
+        }
+        .card-header h3{
+            padding-right: 5%;
+        }
+        .card-header h2{
+            padding-left: 5%;
+        }
+        .status{
+            border-radius: none;
+            padding: 0;
+            background: gray;
+            padding-left: 5%;
+        }
+        .status i{
+            font-size: 30px;
+        }
+        .status p {
+            font-size: 20px;
+        }
+        .address_contact{
+            border-radius: none;
+            padding: 10px;
+            /* background: linear-gradient(to bottom, #7CE200 0%, #4c4c4c 100%); */
+            background: gray;
         }
 
         .item-card {
@@ -91,6 +140,20 @@ $user_id = $_COOKIE['user_id'];
         .payment_icon {
             margin-right: 10px;
         }
+        .payment .payment_method{
+            border: 1px solid;
+            border-radius: none;
+            background: #7CE200;
+            padding: 5px;
+        }
+        .payment .payment_method p{
+            margin-left: 10%;
+            font-size: 20px;
+            font-weight: 400;
+        }
+        .payment .payment_method span {
+            margin-left: 5%;
+        }
     </style>
 </head>
 
@@ -148,7 +211,7 @@ $user_id = $_COOKIE['user_id'];
     }
 
     echo '<div class="order_items">'; // Parent card
-    echo '<h3>Order Items:</h3>';
+    echo '<h3 id="orderItems"> <span>Order</span> Items</h3>';
     // Loop over the supermarkets
     foreach ($groupedItems as $supermarketName => $supermarketData) {
         $supermarketId = $supermarketData['id']; // Get the supermarket ID
