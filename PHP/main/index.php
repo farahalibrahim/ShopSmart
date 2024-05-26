@@ -64,7 +64,8 @@ session_start();
         .recent-container,
         .recommend-container {
             display: flex;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust as needed */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            /* Adjust as needed */
             grid-gap: 10px;
             margin-top: 2rem;
             background: #ffffffff;
@@ -72,6 +73,7 @@ session_start();
             white-space: nowrap;
             height: 250px;
         }
+
         .productcard {
             background-color: #fff;
             border-radius: 20px;
@@ -81,12 +83,13 @@ session_start();
             width: 200px;
             display: inline-block;
         }
-        .productcard:hover{
+
+        .productcard:hover {
             transform: scale(1.05);
         }
-        .pro_cont{
-           
-        }
+
+        .pro_cont {}
+
         .productcard h3,
         .productcard .product_name {
             padding-left: 10px;
@@ -110,7 +113,8 @@ session_start();
             height: 100px;
             object-fit: contain;
             object-position: center;
-            border-radius: 5px; /* Add rounded corners */
+            border-radius: 5px;
+            /* Add rounded corners */
             margin-bottom: 10px;
         }
 
@@ -125,11 +129,9 @@ session_start();
         } */
 
         .productcard .product_details .product_quantity,
+        .productcard .product_details .product_price {}
+
         .productcard .product_details .product_price {
-            
-            
-        }
-        .productcard .product_details .product_price{
             margin-left: 5px;
             padding-right: 200px;
             margin-top: 10px;
@@ -139,26 +141,28 @@ session_start();
             width: 100px;
             display: inline-block
         }
-        
-        .productcard a{
+
+        .productcard a {
             margin-left: 150px;
             padding-bottom: 20px;
             border-radius: 10px;
-           
+
         }
-        .productcard a span{
+
+        .productcard a span {
             color: #eee;
             border: 1px solid green;
             padding: 5px;
             border-radius: 20px;
             background: green;
         }
-        .productcard a span:hover{
+
+        .productcard a span:hover {
             color: green;
             border: 1px solid green;
             background: #eee;
         }
-       
+
 
         a.fab {
             position: fixed;
@@ -195,7 +199,7 @@ session_start();
             max-height: 600px;
             overflow-y: auto;
         }
-        
+
 
         #chat-content {
             flex-grow: 1;
@@ -237,12 +241,12 @@ session_start();
         }
     </style>
     <!-- header -->
-    <?php include_once '../header.php';?>
+    <?php include_once '../header.php'; ?>
 </head>
 
 <body>
-    
-    
+
+
     <?php
     $chat_header = isset($_SESSION['ticket_id']) ? "Ticket# " . $_SESSION['ticket_id'] : "Live Chat";
     ?>
@@ -353,12 +357,27 @@ session_start();
             <div class="swiper-slide container">
                 <div class="home-text">
                     <span>Shop Smart</span>
-                    <h1>Compare between <br>Many Offers <br> --><-- </h1>
-                            <a href="#" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
+                    <h1>Compare between <br>Many Offers <br> <span class="material-symbols-outlined" style="font-size: large;">
+                            compare_arrows
+                        </span> </h1>
+                    <!-- <a href="#" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
                                     arrow_forward
-                                </span></a>
+                                </span></a> -->
+                    <p>Find your favorite products to start!</p>
                 </div>
                 <img src="../../pics/Compare Symbol.G03.watermarked.2k.png" alt="">
+            </div>
+
+            <!--Slide 3-->
+            <div class="swiper-slide container">
+                <div class="home-text">
+                    <span>Shop Smart</span>
+                    <h1>Track your <br>Favorite Products <br></h1>
+                    <a href="../shopping_list/shoppinglist.php" class="btn">Start Now <span class="material-symbols-outlined" id="R-arrow">
+                            arrow_forward
+                        </span></a>
+                </div>
+                <img src="../../pics/Symbol Graph Red Green.G03.watermarked.2k.png" alt="">
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -463,8 +482,8 @@ session_start();
         </section>
     <?php endif; ?>
 
-<!--Footer Section-->
-<?php include_once '../footer.php'; ?>
+    <!--Footer Section-->
+    <?php include_once '../footer.php'; ?>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
