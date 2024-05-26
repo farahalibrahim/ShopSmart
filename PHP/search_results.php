@@ -20,13 +20,16 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <style>
         .container{
-            padding: 3% 3% 0 3%;
+            padding: 2% 3% 0 3%;
         }
         
       .container .productcard{
         display: flex;
         align-items: center;
       }  
+      .product_details{
+        margin-left: 20px;
+      }
       .product_details a {
         color: #000;
       }
@@ -34,8 +37,16 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
         border: 1px solid green;
         color: #eee;
         background: green;
-        border-radius: 20px;
+        border-radius: 30px;
         padding: 10px;
+      }
+      .product_details a span:hover{
+        background: #eee;
+        color: green;
+      }
+      .productcard img{
+        width: 100px;
+        height: auto;
       }
       
     </style>
@@ -93,7 +104,7 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
             ?>
         </div>
     </div>
-    <?php include_once('footer.php'); ?>
+    
 </body>
-
+<?php include_once('footer.php'); ?>
 </html>
