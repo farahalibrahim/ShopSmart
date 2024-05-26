@@ -18,6 +18,27 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
 
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        .container{
+            padding: 3% 3% 0 3%;
+        }
+        
+      .container .productcard{
+        display: flex;
+        align-items: center;
+      }  
+      .product_details a {
+        color: #000;
+      }
+      .product_details a span{
+        border: 1px solid green;
+        color: #eee;
+        background: green;
+        border-radius: 20px;
+        padding: 10px;
+      }
+      
+    </style>
 </head>
 
 <body>
@@ -26,7 +47,7 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
     <div class="container">
         <h2>Search results for <span id="search_query">"<?= $search ?>"</span></h2>
 
-        <div class="search_results_container">
+        <div class="c">
             <?php
 
             $sql = "SELECT barcode, product_name, product_image,quantity, quantity_type, MIN(price) as min_price, MAX(price) as max_price 
@@ -46,8 +67,9 @@ $search = $_GET['search']; // Retrieve the 'search' query parameter
 
                 echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><div class="productcard">';
                 echo '<img src="' . $src . '" alt="' . $result['product_name'] . '">'; // use $src here
-                echo '<h3 class="product_name">' . $result['product_name'] . '</h3>';
+                
                 echo '<div class="product_details">';
+                echo '<h3 class="product_name">' . $result['product_name'] . '</h3>';   
                 $quantity = $result['quantity'];
                 $quantity_type = $result['quantity_type'];
                 $unit = '';

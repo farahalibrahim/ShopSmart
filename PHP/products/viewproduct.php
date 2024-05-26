@@ -132,14 +132,14 @@ $barcode = $_GET['barcode'];
             .frequently-container .frequentcard {
                 background-color: #fff;
             border-radius: 20px;
-            box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 10px;
             width: 200px;
             display: inline-block;
             }
             .frequently-container .frequentcard:hover {
-            transform: scale(1.2); /* Slight zoom on hover */
+            transform: scale(1.05); /* Slight zoom on hover */
             }
             .frequently-container .frequentcard .productarrow {
                 font-size: 30px;
@@ -151,7 +151,7 @@ $barcode = $_GET['barcode'];
             }
             .frequently-container .frequentcard .product_details{
                 font-size: 15px;
-                font-weight: bold;
+                
 
             }
             .frequently-container .frequentcard .product_name {
@@ -167,6 +167,18 @@ $barcode = $_GET['barcode'];
             margin: 0; /* Remove default margin */
             text-align: center; /* Center align the text */
             color: #000;
+            }
+            .frequently-container .frequentcard a span{
+                color: #eee;
+            border: 1px solid green;
+            padding: 5px;
+            border-radius: 20px;
+            background: green;
+            }
+            .frequently-container .frequentcard a span:hover{
+            color: green;
+            border: 1px solid green;
+            background: #eee;
             }
     </style>
 </head>

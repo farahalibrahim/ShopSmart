@@ -58,10 +58,11 @@ $role = $stmt->fetchColumn();
             justify-content: space-between;
             border-radius: none;
             padding: 10px;
-            background: #7CE200;
+            background: green;
         }
         .card-header h3{
             padding-right: 5%;
+            font-weight: 0;
         }
         .card-header h2{
             padding-left: 5%;
@@ -69,7 +70,7 @@ $role = $stmt->fetchColumn();
         .status{
             border-radius: none;
             padding: 0;
-            background: gray;
+            background: lightgray;
             padding-left: 5%;
         }
         .status i{
@@ -82,7 +83,7 @@ $role = $stmt->fetchColumn();
             border-radius: none;
             padding: 10px;
             /* background: linear-gradient(to bottom, #7CE200 0%, #4c4c4c 100%); */
-            background: gray;
+            background: lightgray;
         }
 
         .item-card {
@@ -136,10 +137,14 @@ $role = $stmt->fetchColumn();
         }
 
         .status,
-        .address,
-        .payment_method {
+        .address
+         {
             display: flex;
             align-items: center;
+        }
+        .payment_method{
+            display: flex;
+            margin: 0;
         }
 
         .status_icon,
@@ -150,17 +155,19 @@ $role = $stmt->fetchColumn();
         .payment .payment_method{
             border: 1px solid;
             border-radius: none;
-            background: #7CE200;
+            background: green;
             padding: 5px;
         }
         .payment .payment_method p{
-            margin-left: 10%;
+            margin-left: 5%;
             font-size: 20px;
             font-weight: 400;
         }
         .payment .payment_method span {
             margin-left: 5%;
+            margin-top: 20px;
         }
+        
     </style>
 </head>
 
@@ -181,7 +188,7 @@ $role = $stmt->fetchColumn();
 
     echo '<div class="card">'; // Start the card
     echo '<div class="card-header"><h2>Order# ' . $order . '</h2>'; // Display the order number
-    echo '<h3>Ordered on: ' . $orderDetails[0]['order_date'] . '</h3></div>';
+    echo '<h3><span>Ordered on: ' . $orderDetails[0]['order_date'] . '</span></h3></div>';
 
     echo '<div class="status">';
     if ($orderDetails[0]['status'] == 'delivered') {
@@ -221,7 +228,7 @@ $role = $stmt->fetchColumn();
 
     echo '<h3 id="orderItems"> <span>Order</span> Items</h3>';
 
-    echo '<h3>Order Items</h3><span>(' . $orderDetails[0]["nb_products"] . ' items)</span>';
+    echo '<span>(' . $orderDetails[0]["nb_products"] . ' items)</span>';
 
     // Loop over the supermarkets
     foreach ($groupedItems as $supermarketName => $supermarketData) {
