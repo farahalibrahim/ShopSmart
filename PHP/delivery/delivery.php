@@ -70,12 +70,27 @@ setcookie('user_name', $user_name, time() + 86400, '/');
         #content{
             padding: 100px 0 0 30px;
         }
+        #content form input{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+        }
         .card-body{
             font-size: 20px;
             margin-bottom: 10px;
         }
         .card-body h5{
             color: green;
+        }
+        .card-body button{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+
         }
         .card-body input#update_status{
             border: 1px solid;

@@ -1,3 +1,26 @@
+<head>
+    <style>
+        form{
+            padding: 20px;
+        }
+        .card{
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .card-title{
+            color: Green;
+            font-size: 25px;
+        }
+        form input{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+
+        }
+    </style>
+</head>
 <?php
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');

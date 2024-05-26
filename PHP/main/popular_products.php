@@ -20,21 +20,22 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(5, 0fr);  
+  grid-template-columns: repeat(5, 1fr);  
   gap: 5px; 
+  padding: 0;
  }
 
  .productcard {
   background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px;
-  padding: 10px;
-  width: 200px;
-  display: inline-block;
+            border-radius: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 200px;
+            display: inline-block;
 }
 .productcard:hover{
-  transform: scale(1.2);
+  transform: scale(1.05);
  }
 
 .productcard img {
@@ -48,7 +49,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 }
 
 .productcard .product_name {
-  padding-left: 50px;
+  padding-left: 10px;
             color: black;
             display: -webkit-box;
             -webkit-line-clamp: 2;
@@ -58,30 +59,36 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
             text-overflow: ellipsis;
             overflow-wrap: break-word; 
             font-size: 16px;
-            width: 170px;
+            width: 100%;
             align-items: center;
             display: flex;
             flex: 1;
 
 }
-.productcard .product_details .product_price {
-  margin-left: 5px;
+.productcard .product_details .product_price{
+            margin-left: 5px;
             padding-right: 200px;
             margin-top: 10px;
             font-size: 14px;
             color: black;
-            padding-left: 60px;
+            padding-left: 20px;
             width: 100px;
             display: inline-block
-}
-.productcard a {
-  margin-left: 150px;
+        }
+
+        .productcard a{
+            margin-left: 150px;
             padding-bottom: 20px;
             border-radius: 10px;
-}
-.productcard a span{
-  color: green;
-}
+           
+        }
+        .productcard a span{
+            color: #eee;
+            border: 1px solid green;
+            padding: 5px;
+            border-radius: 20px;
+            background: green;
+        }
 
 </style>
 

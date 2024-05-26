@@ -5,11 +5,37 @@
         }
         .card{
             font-size: 20px;
+            margin-bottom: 20px;
         }
         .card-title{
             color: Green;
             font-size: 25px;
         }
+        #myModal{
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .card-body button{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+
+        }
+        .card-body button:hover{
+            background: #eee;
+            color: green;
+            cursor: pointer;
+        }
+        .modal .modal-content form input{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+        }
+        
     </style>
 </head>
 

@@ -1,3 +1,65 @@
+<head>
+    <style>
+        body{
+            padding: 20px;
+        }
+        .modal-content span{
+            font-size: 40px;
+        }
+        .modal-content span:hover{
+            cursor: pointer;
+            color: red;
+        }
+        .modal-content h2{
+            font-size: 30px;
+            color: green;
+        }
+        .modal-content #freezeReason{
+            padding: 20px 40px;
+            border-radius: 20px;
+        }
+        .users h2{
+            font-size: 30px;
+            color: green;
+        }
+        .users h2 span{
+            color: gray;
+        }
+        .users_section{
+            padding-top: 20px;
+        }
+        .user-card{
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            /* Add rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            font-size: 20px;
+        }
+        #freezeModal .modal-content button,
+        #users-search-bar #users-search-type,
+        #users-search-bar button,
+        .user-actions button,
+        .user-actions .edit-button,
+        .user-actions .user-select
+        {
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            background: green;
+            padding: 10px 20px;
+        }
+        #users-search-bar input{
+            padding: 10px;
+            border-radius: 20px;
+        }
+        @media (max-width: 768px) {
+            body{
+                width: 100%;
+            }
+  }
+    </style>
+</head>
 <!-- redirected user -->
 <div id="freezeModal" class="modal">
     <div class="modal-content">
@@ -24,7 +86,7 @@
     </div>
 </div>
 <div class="users">
-    <h2 class="users_header">Manage Users</h2>
+    <h2 class="users_header"><span>Manage</span> Users</h2>
     <div id="users-search-bar">
         <select id="users-search-type">
             <option value="email">Email</option>
