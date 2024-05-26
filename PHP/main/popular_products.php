@@ -14,9 +14,9 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
 
 <style>
     .container {
-  text-align: center;
-  
-}
+      width: 100%;
+      padding: 10px; /* Add some padding for spacing */
+      margin: 0 auto; /* Center the container horizontally */}
 
 .product-grid {
   display: grid;

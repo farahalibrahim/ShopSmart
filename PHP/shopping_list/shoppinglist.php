@@ -173,18 +173,22 @@ include_once '../responseModal.inc.php';
             display: flex;
             align-items: center;
             justify-content: space-between;
+            color: green;
         }
 
         .price_indicator>* {
             margin-right: 10px;
+            color: green;
         }
 
         .price_indicator>*:first-child {
             margin-right: 5px;
+            color: green;
         }
 
         .price_indicator>*:last-child {
             margin-right: 20px;
+            color: green;
         }
 
         .other_products {
@@ -222,6 +226,47 @@ include_once '../responseModal.inc.php';
             /* width: max-content; */
             /* Change this line */
             /* padding: 10px; */
+        }
+        .product .indicator-class{
+            display: flex;
+            padding: 10px 20px; 
+        }
+        .product .indicator-class button{
+            padding: 10px 20px; 
+        }
+        @media (max-width: 768px) {
+        /* Adjust the breakpoint as needed for small screens */
+        .container {
+            width: 100%;
+            flex-direction: row; /* Change to row layout for horizontal card on small screens */
+            
+        }
+        h1,
+        .list_item
+         {
+            width: 100%;
+            flex: 1; /* Make header, body, and add item section fill available space horizontally */
+        }
+        .add_button{
+            flex: 1;
+            margin-right: 30%;
+        }
+        .product{
+            display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the items horizontally */
+        }
+        .product .indicator-class {
+            display: flex;
+            align-items: center;
+        }
+        .product .price_indicator p{
+            margin-right: 10px;
+            width: 100%;
+        }
+        .other_product{
+            margin: 0;
+        }
         }
     </style>
 </head>
@@ -294,6 +339,7 @@ include_once '../responseModal.inc.php';
                     $unit = ($quantity_type == 'weight') ? 'g' : (($quantity_type == 'liquid') ? 'ml' : 'pieces');
                 }
                 echo "<p class='product_quantity'>{$quantity} {$unit}</p></div>";
+                // echo '<div class="indicator-class">';
                 echo '<div class="price_indicator">';
                 $savedPrice = $result['saved_price'];
                 $currentPrice = $result['current_price'];
@@ -317,6 +363,7 @@ include_once '../responseModal.inc.php';
                 echo '<button type="button" class="remove_from_list" data-barcode="' . $result['product_barcode'] . '" data-supermarket-id="' . $result['supermarket_id'] . '"><span class="material-symbols-outlined">playlist_remove</span></button>';
                 echo '<button type="button" class="add_to_cart" data-barcode="' . $result['product_barcode'] . '" data-supermarket-id="' . $result['supermarket_id'] . '"><span class="material-symbols-outlined">add_shopping_cart</span></button>';
                 echo '</div>';
+                // echo '</div>';
                 include_once 'other_options.php';
                 echo "<div class='other_products'><h3>Other Options</h3>";
                 $otherProductOptions = getOtherProductOptions($conn, $result['product_barcode'], $result['supermarket_id']);

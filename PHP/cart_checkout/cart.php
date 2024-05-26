@@ -40,10 +40,7 @@ session_start();
             
         }
          h1 {
-            border-top: 3px solid #ddd; /* Top border */
-            border-bottom: 3px solid #000; /* Bottom border */
-            padding: 10px 20px; /* Optional padding for spacing */
-            margin: 0; /* Remove default margin */
+            
             text-align: start; /* Center align the text */
             padding-top: 40px;
             color: green;
@@ -135,18 +132,23 @@ session_start();
         }
 
         .card-info a {
-            width: 20px; /* Set a width for the arrow */
-            height: 20px; /* Set a height for the arrow */
+            width: 25px; /* Set a width for the arrow */
+            height: 25px; /* Set a height for the arrow */
             fill:currentColor; /* Inherit the card's text color */
             color: green;
+            border: 1px solid;
+            border-radius: 40px;
+            color: #eee;
+            background: green;
         }
 
         .card-info a:hover {
             color: black;
+            background: #eee;
         }
 
         #catarrow {
-            font-size: 30px;
+            font-size: 20px;
         }
 
         .supermarket_card {
@@ -220,7 +222,7 @@ session_start();
             transform: scale(1.05); /* Enlarge image slightly on hover */
             opacity: 0.9; /* Reduce opacity slightly on hover */
         }
-        .product .productcard .pro_cont{
+        .productcard .pro_cont{
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -298,7 +300,21 @@ session_start();
             display: flex;
             justify-content: space-between;
         }
-        
+        .productcard .other_option a:hover{
+            color: green;
+        }
+        .cart-head{
+            display: flex;
+            align-items: center;
+            border-top: 3px solid #ddd; /* Top border */
+            border-bottom: 3px solid #000; /* Bottom border */
+            padding: 0px 20px; /* Optional padding for spacing */
+            margin: 0; /* Remove default margin */
+        }
+        .cart-head p{
+            padding-top: 70px;
+            padding-left: 10px;
+        }
             
        
     </style>
@@ -337,8 +353,10 @@ session_start();
             echo "<a href='http://localhost:3000/PHP/main/index.php#products' class='shop_btn'>Go shopping</a>";
             exit();
         } else {
+            echo "<div class='cart-head'>";
             echo "<h1>Your Cart</h1>";
             echo "<p id='items_count'>(" . $result['count'] . " items)</p>";
+            echo "</div>"
             ?>
             <div class="related_container">
             <?php

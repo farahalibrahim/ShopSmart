@@ -70,7 +70,7 @@ session_start();
             background: #ffffffff;
             overflow-x: scroll;
             white-space: nowrap;
-            height: 280px;
+            height: 250px;
         }
         .productcard {
             background-color: #fff;
@@ -82,7 +82,10 @@ session_start();
             display: inline-block;
         }
         .productcard:hover{
-            transform: scale(1.2);
+            transform: scale(1.05);
+        }
+        .pro_cont{
+           
         }
         .productcard h3,
         .productcard .product_name {
@@ -94,7 +97,7 @@ session_start();
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            overflow-wrap: break-word; 
+            /* overflow-wrap: break-word;  */
             font-size: 16px;
             width: 100%;
             align-items: center;
@@ -132,7 +135,7 @@ session_start();
             margin-top: 10px;
             font-size: 14px;
             color: black;
-            padding-left: 60px;
+            padding-left: 20px;
             width: 100px;
             display: inline-block
         }
@@ -144,7 +147,16 @@ session_start();
            
         }
         .productcard a span{
+            color: #eee;
+            border: 1px solid green;
+            padding: 5px;
+            border-radius: 20px;
+            background: green;
+        }
+        .productcard a span:hover{
             color: green;
+            border: 1px solid green;
+            background: #eee;
         }
        
 
@@ -224,12 +236,13 @@ session_start();
             display: none;
         }
     </style>
+    <!-- header -->
+    <?php include_once '../header.php';?>
 </head>
 
 <body>
-    <!-- header -->
-    <?php include_once '../header.php';
-    ?>
+    
+    
     <?php
     $chat_header = isset($_SESSION['ticket_id']) ? "Ticket# " . $_SESSION['ticket_id'] : "Live Chat";
     ?>

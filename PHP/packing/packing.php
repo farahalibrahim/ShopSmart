@@ -31,18 +31,36 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
+        body{
+            padding-top: 4%;
+        }
+        .cart_account {
+            display: flex;
+        }
+        .cart_account a{
+            color: green;
+            margin-top: 5px;
+        }
         .order {
             border: 1px solid #ccc;
             border-radius: 5px;
-            padding: 15px;
+            padding: 30px ;
+            margin-top: 10%;
             margin-bottom: 20px;
             background-color: #f9f9f9;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            margin-top: 30px;
         }
 
-        .order h2,
+        .order h2{
+            margin-bottom: 10px;
+        }
         .order h3 {
             margin-bottom: 10px;
+            color: green;
+        }
+        .order h3 span{
+            color: gray;
         }
 
         .item {
@@ -60,6 +78,8 @@ setcookie('user_name', $user_name, time() + 86400, '/');
         .item input[type="checkbox"] {
             float: left;
             margin-right: 10px;
+            margin-left: 20px;
+            
         }
 
         .item img {
@@ -68,21 +88,58 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             width: auto;
             height: 150px;
             object-fit: cover;
+            margin-left: 20px;
         }
 
         .item-details {
             overflow: hidden;
             /* to clear the float */
+            margin-left: 20px;
         }
 
         .item-details p {
-            margin: 0;
+            margin-bottom: 3px;
+            
+        }
+        .order button{
+            margin-left: 90%;
+            background-color: green;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        @media (max-width: 768px) {
+            .item {
+                display: flex;
+                flex-direction: column;
+            }
+            .item-details {
+                flex: 1;
+            }
+            .order button{
+                margin-left: 35%;
+            }
+            .header{
+                display: flex;
+                margin-right: 20px;
+                width: 100%;
+            }
+            .header a span{
+                margin-right: 20px;
+            }
+            .header .user{
+                margin-left: 20px;
+            }
         }
     </style>
+    <?php include 'packing_header.php'; ?>
 </head>
 
 <body>
-    <?php include 'packing_header.php'; ?>
+    
     <?php
     // Get all orders that are currently being processed and have not been packed yet
     $query = "SELECT * FROM `order` WHERE `status` = 'processing' ORDER BY order_date ASC";
@@ -91,11 +148,11 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     if ($stmt->rowCount() > 0) {
         foreach ($stmt->fetchAll(PDO::FETCH_ASSOC) as $order) {
             echo "<div class='order' data-order='" . $order['order_nb'] . "'>";
-            echo "<h2>Order# " . $order['order_nb'] . "</h2>";
+            echo "<h2>Order #" . $order['order_nb'] . "</h2>";
             // echo "<h3>Customer: " . $order['user_id'] . "</h3>";
             echo "<h3>Order Date: " . $order['order_date'] . "</h3>";
             // echo "<h3>Order Status: " . $order['status'] . "</h3>";
-            echo "<h3>Order Items:</h3>";
+            echo "<h3><span>Order </span>Items:</h3>";
 
             // Get all items in the order
             $query = "SELECT order_details.quantity AS order_quantity, 

@@ -75,6 +75,49 @@ $category = str_replace('_', ' & ', $_GET['category']);
             color: darkslategray;
         }
     </style> -->
+    <style>
+        .container{
+            padding: 0 5% 5% 5%;
+            margin-top: 50px;
+        }
+        .productcard {
+            background-color: #fff; /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+            border-radius: 5px; /* Rounded corners */
+            margin: 10px; /* Spacing between cards */
+            display: flex; /* Arrange content in rows */
+            flex-direction: column; /* Stack elements vertically */
+            width: 300px; /* Adjust width as needed */
+            text-align: center; /* Center text within the card */
+            height: 300px;
+        }
+        .productcard a{
+            width: 110px; /* Image spans the full card width */
+            height: 100px; /* Adjust height as needed */
+            object-fit: cover; 
+            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+            margin-left: 25%;
+        }
+        .product_details a{
+            width: 100px;
+            
+            
+        }
+        .product_details{
+            padding-top: 40px;
+        }
+        .product_details a .product_quantity{
+            width: 100px;
+            padding-top: 20px;
+            font-weight: 0;
+        }
+        .product_details a .product_price{
+            padding-top: 10px;
+        }
+        .product_details a #arrow{
+            
+        }
+    </style>
 </head>
 
 <body>
@@ -123,7 +166,7 @@ $category = str_replace('_', ' & ', $_GET['category']);
             } else { // there is a price range => multiple supermarkets selling same product
                 echo '<p class="product_price"> $' . $result['min_price'] . ' - $' . $result['max_price'] . '</p>';
             }
-            echo '<a href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
+            echo '<a id="arrow" href="viewproduct.php?barcode=' . $result['barcode'] . '"><span class="material-symbols-outlined" id="catarrow">arrow_forward</span></a>';
             echo '</div></div></a>';
         }
         ?>
