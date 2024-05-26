@@ -1,4 +1,4 @@
-redirected products
+<!-- redirected products -->
 <?php
 include_once '../../accountFreezeModal.inc.php'; ?>
 
@@ -77,7 +77,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
                     <td>
                         <h5>Expiry Date</h5>
                     </td>
-                    <td><input type="date" name="expiry_date" id="expiry_date" class="form-input" required></td>
+                    <td><input type="date" name="expiry_date" id="expiry_date" class="form-input" min="<?php echo date('Y-m-d'); ?>" required></td>
                 </tr>
                 <tr>
                     <td>
@@ -85,7 +85,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
                     </td>
                     <td>
                         <select name="category" id="category" class="form-input" required>
-                            <?php include_once 'get_category_options.php'; ?>
+                            <?php include 'get_category_options.php'; ?>
                         </select>
                     </td>
                 </tr>
@@ -95,7 +95,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
                     </td>
                     <td>
                         <select name="tag" id="tag" class="form-input" required>
-                            <?php include_once 'get_tags.php'; ?>
+                            <?php include 'get_tags.php'; ?>
                         </select>
                     </td>
                 </tr>
@@ -108,7 +108,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         <form id="tags_form" style="display: none;">
             <h3 class="form_header">Add New Product Tag</h3>
             <span><span>Current Tags:</span><select name="category" id="current_tags_select" class="form-input">
-                    <?php include_once 'get_tags.php'; ?>
+                    <?php include 'get_tags.php'; ?>
                 </select></span><br>
 
             <span><span>New Tag</span><input type="text" name="new_category" id="new_tag" title="Only digits" placeholder="..." required class="form-input"></span><br>
@@ -118,7 +118,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         <form id="category_form" style="display: none;">
             <h3 class="form_header">Add New Category</h3>
             <span><span>Current Categories</span><select name="category" id="current_categories_select" class="form-input">
-                    <?php include_once 'get_category_options.php'; ?>
+                    <?php include 'get_category_options.php'; ?>
                 </select></span><br>
 
             <span><span>New Category</span><input type="text" name="new_category" id="new_category" title="Only letters, spaces and & are allowed" placeholder="..." required class="form-input"></span><br>
@@ -366,8 +366,11 @@ include_once '../../accountFreezeModal.inc.php'; ?>
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         var modal = document.getElementById('addModal');
+        var modal2 = document.getElementById('productActionsModal');
         if (event.target == modal) {
             modal.style.display = 'none';
+        } else if (event.target == modal2) {
+            modal2.style.display = 'none';
         }
     };
 </script>
@@ -430,7 +433,8 @@ include_once '../../accountFreezeModal.inc.php'; ?>
 
             // pattern that allows letters, digits, parentheses, +, ., x only
             // searchInput.setAttribute('type', 'text');
-            searchInput.setAttribute('pattern', '[A-Za-z0-9()+.x ]{1,60}');
+
+            // searchInput.setAttribute('pattern', '[A-Za-z0-9\(\)\.\sx]{1,60}');
             searchInput.setAttribute('title', 'Please enter up to 60 characters. Allowed characters: letters, digits, parentheses, +, ., x');
         } else if (this.value === 'supermarket_name') {
             searchField.style.display = 'block';
@@ -501,6 +505,316 @@ include_once '../../accountFreezeModal.inc.php'; ?>
                 },
                 success: function(response) {
                     $('#search_results').html(response);
+                }
+            });
+        });
+    });
+
+    $(document).on('click', '.delete-button', function() {
+        var barcode = $(this).data('barcode');
+        var supermarketId = $(this).data('supermarket-id');
+
+        showConfirmationModal('Are you sure you want to delete this product?', function() {
+            $.ajax({
+                url: 'products/delete_product.php',
+                type: 'POST',
+                data: {
+                    barcode: barcode,
+                    supermarket_id: supermarketId
+                },
+                success: function(response) {
+                    // console.log('Success:', response);
+                    if (response == 'success') {
+                        showResponseModal('Product deleted successfully', function() {
+                            $('#product_search_input').trigger('keyup');
+                        });
+                    } else {
+                        showResponseModal('Failed to delete product');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+
+    $(document).on('click', '.edit-button', function() {
+        var barcode = $(this).data('barcode');
+        var supermarketId = $(this).data('supermarket-id');
+
+
+        $('#edit_barcode').val(barcode);
+        $('#edit_supermarket').val(supermarketId);
+
+        $('#offerForm').hide();
+        $('#editForm').show();
+
+        $('#productActionsModal').show();
+
+        // $.ajax({
+        //     url: 'products/get_product.php',
+        //     type: 'POST',
+        //     data: {
+        //         barcode: barcode,
+        //         supermarket_id: supermarketId
+        //     },
+        //     success: function(data) {
+        //         var product = JSON.parse(data);
+
+        //         if (product) {
+        //             // Fill the form fields with the product data
+        //             $('#edit_product_name').val(product.product_name);
+        //             $('#edit_manufacturer').val(product.manufacturer);
+        //             $('#edit_quantity_type').val(product.quantity_type);
+        //             $('#edit_quantity').val(product.quantity);
+        //             $('#edit_price').val(product.price);
+        //             $('#edit_expiry_date').val(product.expiry_date);
+        //             $('#edit_category').val(product.category);
+        //             $('#edit_tag').val(product.tag);
+
+        //             $('#editForm').show();
+        //         } else {
+        //             alert('No product found with the given barcode and supermarket ID.');
+        //         }
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         console.error('Error:', textStatus, errorThrown);
+        //     }
+        // });
+    });
+    $(document).on('click', '.offer-button', function() {
+
+        var barcode = $(this).data('barcode');
+        var supermarketId = $(this).data('supermarket-id');
+
+        $.ajax({
+            url: 'products/get_offer.php',
+            type: 'POST',
+            data: {
+                barcode: barcode,
+                supermarket_id: supermarketId
+            },
+            success: function(data) {
+                if (data === "No offer") {
+
+                    $('#offerForm').show();
+                    $('#editForm').hide();
+
+
+                    $('#offer_barcode').val(barcode);
+                    $('#offer_supermarket').val(supermarketId);
+
+                    $('#productActionsModal').show();
+
+                } else {
+                    var offer = JSON.parse(data);
+
+                    // Populate the offer form with the offer data
+                    $('#offer_percent').val(offer.offer_percent);
+                    $('#offer_expiry').val(offer.offer_expiry);
+
+                    $('#offer_barcode').val(barcode);
+                    $('#offer_supermarket').val(supermarketId);
+
+                    $('#offerForm').show();
+                    $('#editForm').hide();
+
+                    $('#productActionsModal').show();
+                }
+            }
+        });
+    });
+</script>
+<div id="productActionsModal" style="display: none;">
+    <div class="modal-content">
+        <form id="editForm" style="display: none;">
+            <h3 class="form_header">Edit Product</h3>
+            <!-- <div id="add_status"></div> -->
+            <table>
+                <input type="hidden" name="edit_barcode" id="edit_barcode">
+                <input type="hidden" name="edit_supermarket" id="edit_supermarket">
+                <tr>
+                    <td>
+                        <h5>Product Name</h5>
+                    </td>
+                    <td><input type="text" name="product_name" id="edit_product_name" class="form-input" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Manufacturer</h5>
+                    </td>
+                    <td><input type="text" name="manufacturer" id="edit_manufacturer" class="form-input" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Quantity Type</h5>
+                    </td>
+                    <td>
+                        <select name="quantity_type" id="edit_quantity_type" class="form-input" required>
+                            <option value="weight">Weight</option>
+                            <option value="piece">Piece</option>
+                            <option value="liquid">Liquid</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Quantity</h5>
+                    </td>
+                    <td><input type="number" name="quantity" id="edit_quantity" class="form-input" placeholder="XXXX" min="1" max="15000" required></td><span id="unit"></span>
+                </tr>
+
+                <tr>
+                    <td>
+                        <h5>Price</h5>
+                    </td>
+                    <td><input type="number" name="price" id="edit_price" class="form-input" placeholder="$X.XX" min="0" max="1000" step="0.1" required></td>
+
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Expiry Date</h5>
+                    </td>
+                    <td><input type="date" name="expiry_date" id="edit_expiry_date" class="form-input" min="<?php echo date('Y-m-d'); ?>" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Category</h5>
+                    </td>
+                    <td>
+                        <select name="category" id="edit_category" class="form-input" required>
+                            <?php include 'get_category_options.php'; ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Tag</h5>
+                    </td>
+                    <td>
+                        <select name="tag" id="edit_tag" class="form-input" required>
+                            <?php include 'get_tags.php'; ?>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit" id="edit_product"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+        <form id="offerForm" style="display: none;">
+            <h3 class="form_header">Add Offer</h3>
+            <div class="offer_status"></div>
+            <table>
+                <input type="hidden" name="offer_barcode" id="offer_barcode">
+                <input type="hidden" name="offer_supermarket" id="offer_supermarket">
+                <tr>
+                    <td>
+                        <h5>Offer Percent</h5>
+                    </td>
+                    <td><input type="number" name="offer_percent" id="offer_percent" class="form-input" min="1" max="100" step="1" required></td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Offer End Date</h5>
+                    </td>
+                    <td><input type="date" name="offer_expiry" id="offer_expiry" class="form-input" min="<?php echo date('Y-m-d'); ?>" required></td> <!-- min current date-->
+                </tr>
+            </table>
+            <button type="submit" id="add_offer"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).on('click', '#add_offer', function(e) {
+        e.preventDefault();
+        $('.offer_status').text('');
+
+        var offerPercent = $('#offer_percent').val();
+        var offerExpiry = $('#offer_expiry').val();
+        var offerBarcode = $('#offer_barcode').val();
+        var offerSupermarket = $('#offer_supermarket').val();
+
+        if (!offerPercent || !offerExpiry) {
+            $('.offer_status').text('Both fields must be filled');
+            return;
+        }
+
+        // Validate the offer percent
+        if (offerPercent < 1 || offerPercent > 100) {
+            $('.offer_status').text('Offer percent must be between 1 and 100.');
+            return;
+        }
+
+        $.ajax({
+            url: 'products/update_offer.php',
+            type: 'POST',
+            data: {
+                offer_percent: offerPercent,
+                offer_expiry: offerExpiry,
+                offer_barcode: offerBarcode,
+                offer_supermarket: offerSupermarket
+            },
+            success: function(response) {
+                $('#productActionsModal').hide();
+                if (response === 'success') {
+                    showResponseModal('Offer added successfully', function() {
+                        $('#product_search_input').trigger('keyup');
+                    });
+                } else {
+                    showResponseModal('Failed to add offer', function() {
+                        $('#productActionsModal').show();
+                    });
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+            }
+        });
+    });
+    $(document).ready(function() {
+        $(document).on('click', '#edit_product', function(e) {
+            e.preventDefault();
+
+            var barcode = $('#edit_barcode').val();
+            var supermarketId = $('#edit_supermarket').val();
+            var productName = $('#edit_product_name').val();
+            var manufacturer = $('#edit_manufacturer').val();
+            var quantityType = $('#edit_quantity_type').val();
+            var quantity = $('#edit_quantity').val();
+            var price = $('#edit_price').val();
+            var expiryDate = $('#edit_expiry_date').val();
+            var category = $('#edit_category').val();
+            var tag = $('#edit_tag').val();
+
+            $.ajax({
+                url: 'products/update_product.php',
+                type: 'POST',
+                data: {
+                    edit_barcode: barcode,
+                    edit_supermarket: supermarketId,
+                    product_name: productName,
+                    manufacturer: manufacturer,
+                    quantity_type: quantityType,
+                    quantity: quantity,
+                    price: price,
+                    expiry_date: expiryDate,
+                    category: category,
+                    tag: tag
+                },
+                success: function(response) {
+                    $('#productActionsModal').hide();
+                    if (response === 'success') {
+                        showResponseModal('Offer added successfully', function() {
+                            $('#product_search_input').trigger('keyup');
+                        });
+                    } else {
+                        showResponseModal('Failed to add offer', function() {
+                            $('#productActionsModal').show();
+                        });
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error('Error:', textStatus, errorThrown);
                 }
             });
         });

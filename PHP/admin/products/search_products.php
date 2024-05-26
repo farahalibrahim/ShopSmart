@@ -50,6 +50,7 @@ try {
         }
 
         echo '<div class="card">';
+        echo '<div class="card-top">';
         echo '<img src="' . $src . '" alt="' . $product['product_name'] . '">';
         echo '<div class="card-body">';
         echo '<h3>' . $product['product_name'] . '</h3>';
@@ -60,6 +61,28 @@ try {
         } else { // there is a price range => multiple supermarkets selling same product
             echo '<p class="product_price"> $' . $product['min_price'] . ' - $' . $product['max_price'] . '</p>';
         }
+        echo '</div></div>';
+        echo '<div class="card-bottom">';
+        echo '<details class="product_options">';
+        echo '<summary>Supermarkets offering products</summary>';
+
+        $sql = "SELECT supermarket.name, product.supermarket_id, price FROM product INNER JOIN supermarket ON product.supermarket_id = supermarket.id WHERE barcode = :barcode";
+        $attr = ["barcode" => $product['barcode']];
+        $supermarket_stmt = DatabaseHelper::runQuery($conn, $sql, $attr);
+        $results = $supermarket_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        echo '<table  class="product_options_table">';
+        foreach ($results as $supermarket) {
+            echo '<tr class="product_option">';
+            echo '<td>' . $supermarket['name'] . '</td>';
+            echo '<td>$' . $supermarket['price'] . '</td>';
+            echo '<td><button class="edit-button" data-barcode="' . $product['barcode'] . '" data-supermarket-id="' . $supermarket['supermarket_id'] . '"><span class="material-symbols-outlined">edit</span></button></td>';
+            echo '<td><button class="delete-button" data-barcode="' . $product['barcode'] . '" data-supermarket-id="' . $supermarket['supermarket_id'] . '"><span class="material-symbols-outlined">delete</span></button></td>';
+            echo '<td><button class="offer-button" data-barcode="' . $product['barcode'] . '" data-supermarket-id="' . $supermarket['supermarket_id'] . '"><span class="material-symbols-outlined">price_change</span></button></td>';
+            echo '</tr>';
+        }
+        echo '</table>';
+        echo '</details>';
         echo '</div></div>';
     }
 } catch (PDOException $e) {

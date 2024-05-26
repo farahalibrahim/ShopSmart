@@ -34,6 +34,16 @@ $target_dir = "uploads/";
 $productImageExtension = pathinfo($productImage["name"], PATHINFO_EXTENSION);
 $nutritionalFactsExtension = pathinfo($nutritionalFacts["name"], PATHINFO_EXTENSION);
 
+$productImageExtension = pathinfo($productImage["name"], PATHINFO_EXTENSION);
+$nutritionalFactsExtension = pathinfo($nutritionalFacts["name"], PATHINFO_EXTENSION);
+
+// Check if the files are images
+if (!getimagesize($productImage["tmp_name"]) || !getimagesize($nutritionalFacts["tmp_name"])) {
+    echo "Only images are allowed";
+    exit;
+}
+
+
 $productImagePath = $target_dir . "image-" . $barcode . "." . $productImageExtension;
 $nutritionalFactsPath = $target_dir . "nutritional-" . $barcode . "." . $nutritionalFactsExtension;
 
