@@ -59,6 +59,7 @@ $role = $stmt->fetchColumn();
             border-radius: none;
             padding: 10px;
             background: green;
+            color: #eee;
         }
         .card-header h3{
             padding-right: 5%;
@@ -71,7 +72,7 @@ $role = $stmt->fetchColumn();
             border-radius: none;
             padding: 0;
             background: lightgray;
-            padding-left: 5%;
+            padding-left: 2%;
         }
         .status i{
             font-size: 30px;

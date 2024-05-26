@@ -34,13 +34,13 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
                                 echo "Payment Card: {$shipment['payment_card']}";
                             } ?>
                         </p>
-                        <input type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
+                        <input  type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
                     </div>
                 </div>
     <?php
             }
         }
-        echo '<input type="submit" value="Update Status">';
+        echo '<input id="update_status" type="submit" value="Update Status">';
     }
     ?>
 </form>

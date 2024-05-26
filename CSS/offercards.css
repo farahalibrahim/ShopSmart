@@ -3,6 +3,8 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     /* Aligns items to the start of the container */
+    margin-left: 40px;
+    padding-top: 50px;
 }
 
 .card {
@@ -25,16 +27,40 @@
 }
 
 .card .card-body {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    /* Aligns items to the start of the card body */
+    color: #333; /* Text color */
+            margin-bottom: 10px; /* Space between description and price */
+            width: 100%;
+            
+}
+.card-body h3{
+    font-size: 18px; /* Title font size */
+            font-weight: bold; /* Bold title text */
+            margin-bottom: 5px; /* Space between title and description */
+            white-space: nowrap;
+            max-width: 200px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+}
+
+.card-body a span{
+    margin-left: 80%;
+    color: #eee;
+    border: 1px solid;
+    border-radius: 30px;
+    padding: 10px;
+    background: green;
+    
 }
 
 .card .info {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    height: 80px;
+}
+.card .info p{
+    margin: 3px;
 }
 
 .card .card-title,
@@ -67,7 +93,7 @@
 
 .card .price {
     display: flex;
-    justify-content: space-between;
+    
     align-items: center;
     /* Aligns items along the y-axis */
     width: 100%;
@@ -81,6 +107,7 @@
 .card .old_price {
     font-size: 0.8em;
     text-decoration: line-through;
+    padding-left: 20px;
 }
 
 .card .add_to_cart {
@@ -103,4 +130,14 @@
     background-color: white;
     color: black;
     border: green 2px solid;
+}
+@media (max-width: 768px) {
+    /* Adjust the breakpoint as needed for small screens */
+    .container {
+      flex-direction: column; /* Change to column layout for cards on small screens */
+      display: flex; /* Make the card container a flex container */
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 30px;
+    }
 }

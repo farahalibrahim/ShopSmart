@@ -1,9 +1,24 @@
+<head>
+    <style>
+        body{
+            padding: 20px;
+        }
+        .card{
+            font-size: 20px;
+        }
+        .card-title{
+            color: Green;
+            font-size: 25px;
+        }
+    </style>
+</head>
+
 <?php
 include_once('../connection.inc.php');
 include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 ?>
-<br><br><br><br><br><br>
+
 <form method="POST" action="update_delivery_status.php">
     <?php
     $sql = "SELECT * FROM `order` WHERE status = 'out_for_delivery' ORDER BY order_date ASC";
