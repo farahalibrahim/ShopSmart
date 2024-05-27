@@ -75,6 +75,9 @@ session_start();
             white-space: nowrap;
             height: 250px;
         }
+        .profile button span {
+            color: green;
+        }
         .productcard {
             background-color: #fff;
             border-radius: 20px;
@@ -106,7 +109,9 @@ session_start();
             align-items: center;
             display: flex;
             flex: 1;
+            position: relative;
         }
+        
 
         .productcard img {
             width: 100%;
@@ -127,11 +132,7 @@ session_start();
             
         } */
 
-        .productcard .product_details .product_quantity,
-        .productcard .product_details .product_price {
-            
-            
-        }
+        
         .productcard .product_details .product_price{
             margin-left: 5px;
             padding-right: 200px;
@@ -341,6 +342,7 @@ session_start();
     <!--Home Page-->
     <section class="home" id="home">
         <div class="swiper-wrapper">
+            <!--Slide 1-->
             <div class="swiper-slide container ">
                 <div class="home-text">
                     <span>Shop Smart</span>

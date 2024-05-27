@@ -185,17 +185,17 @@ $user_id = $_COOKIE["user_id"];
 
         .card_options span {
             margin-left: 10%;
-            color: #7CE200;
+            color: green;
         }
 
         .card_options a {
-            border: 1px solid #7CE200;
+            border: 1px solid green;
             border-radius: 20px;
             padding: 10px;
             font-size: 15px;
-            color: #000;
+            color: #eee;
             font-weight: 400;
-            background: #7CE200;
+            background: green;
         }
 
         .card_options a:hover {

@@ -665,6 +665,46 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         table td {
             border: 1px solid black;
         }
+        .products_section h2{
+            color: green;
+        }
+        .products_section h2 span{
+            color: gray;
+        }
+        .modal-content form h3{
+            color: green;
+        }
+         .main-content #addModal .modal-content form table{
+             border: none;
+             
+        }
+        #product_search_type,#add_product_button,#sales_analytics, #analysis_duration{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            padding: 10px;
+            background: green;
+        }
+        .modal-content{
+            border-radius: 20px;
+        }
+        #add_product_popup{
+            margin-top: 10px;
+        }
+        .supermarket_analytics h2, .supermarket_managment h2{
+            color: green;
+        }
+        .supermarket_analytics h2 span, .supermarket_managment h2 span {
+            color: gray;
+        }
+        h1{
+            color: #eee;
+            border: 1px solid green;
+            border-radius: 20px;
+            padding: 15px;
+            background: green;
+        }
+
     </style>
     <script>
         $(document).ready(function() {

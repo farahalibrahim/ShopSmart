@@ -8,7 +8,7 @@
 
 <div class="supermarkets">
     <section class="supermarket_analytics">
-        <h2 class="supermarket_analytics_header">Sales Analytics</h2>
+        <h2 class="supermarket_analytics_header"><span>Sales</span> Analytics</h2>
         <div id="analytics_filters">
             <select id="sales_analytics">
                 <option value="total_sales">Total Sales</option>
@@ -146,7 +146,7 @@
 
 
     <section class="supermarket_managment">
-        <h2 class="supermarket_managment_header">Manage Supermarkets</h2>
+        <h2 class="supermarket_managment_header"><span>Manage</span> Supermarkets</h2>
         <table class="supermarket_table">
             <thead>
                 <tr>

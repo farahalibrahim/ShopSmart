@@ -33,7 +33,7 @@ session_start();
         .Container-for-all {
             margin: 30px 60px 30px 30px;
             padding: 50px 5% 0 5%;
-
+            background: #fbfbf9;
             
         }
         .Container-for-all hr{
@@ -197,6 +197,8 @@ session_start();
             height: 30px;
             font-size: 15px;
             background: green;
+            border-radius: 20px;
+            color: #eee;
         }
 
         .productcard .productdetails .weight {
@@ -272,10 +274,11 @@ session_start();
         }
         .cart_summary .coupon button{ 
             border-radius: 20px;
-            color: black;
+            color: #eee;
             background: green;
             padding: 5px;
             font-weight: 100;
+
         }
         .cart_summary .total {
             margin-top: 5px;
