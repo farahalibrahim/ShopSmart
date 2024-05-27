@@ -158,7 +158,7 @@
                                     window.location.href = 'delivery/delivery.php';
                                     break;
                                 case 'admin':
-                                    window.location.href = 'admin/admin_v1.php';
+                                    window.location.href = 'admin/admin.php';
                                     break;
                             }
                         } else {

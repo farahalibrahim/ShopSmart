@@ -27,10 +27,10 @@ $barcode = $_GET['barcode'];
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
     <!-- <script src="../../JS/responseModal.js"></script> -->
     <?php include_once '../responseModal.inc.php'; ?>
     <style>
-        
         .modal {
             display: none;
             /* Hidden by default */
@@ -64,122 +64,168 @@ $barcode = $_GET['barcode'];
             transform: translateY(-50%);
         }*/
 
-        .product_container .flex-container{
-            background-color: #fff; /* White background */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-            border-radius: 5px; /* Rounded corners */
-            padding: 15px; /* Inner padding */
-            text-align: center; /* Center content within the card */
-            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
+        .product_container .flex-container {
+            background-color: #fff;
+            /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            border-radius: 5px;
+            /* Rounded corners */
+            padding: 15px;
+            /* Inner padding */
+            text-align: center;
+            /* Center content within the card */
+            transition: transform 0.3s ease-in-out;
+            /* Smooth hover effect */
             margin-top: 100PX;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
+
         /* .product_container .flex-container:hover {
             transform: scale(1.02); /* Slight zoom on hover 
         } */
         .product_container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
-            gap: 20px; /* Spacing between cards */
-            margin: 0 auto; /* Center the grid horizontally */
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* Responsive columns */
+            gap: 20px;
+            /* Spacing between cards */
+            margin: 0 auto;
+            /* Center the grid horizontally */
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             padding: 40px 10% 0 10%;
         }
+
         @media (max-width: 768px) {
             .product_container .flex-container {
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust min-width for smaller screens */
-            
-  }
-}
-        .product_container .flex-container .product_image{
-            width: 100%; /* Image spans the full card width */
-            height: 300px; /* Adjust height as needed */
-            object-fit: cover; /* Crop image to fit while maintaining aspect ratio */
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                /* Adjust min-width for smaller screens */
+
+            }
+        }
+
+        .product_container .flex-container .product_image {
+            width: 100%;
+            /* Image spans the full card width */
+            height: 300px;
+            /* Adjust height as needed */
+            object-fit: cover;
+            /* Crop image to fit while maintaining aspect ratio */
             /* border: 3px solid #ddd; Border around the image */
-            
+
         }
+
         .product_container .flex-container .product_details {
-            color: #333; /* Text color */
-            margin-bottom: 10px; 
+            color: #333;
+            /* Text color */
+            margin-bottom: 10px;
         }
-        .product_container .flex-container .product_details P{
+
+        .product_container .flex-container .product_details P {
             font-size: 15px;
-            
+
         }
-        .product_container .flex-container .product_details #nutrition{
+
+        .product_container .flex-container .product_details #nutrition {
             height: 500px;
             width: 500px;
         }
+
         .product_container .flex-container .product_details .comparison_table {
             margin-left: 200px;
         }
+
         body {
             display: grid;
-            place-items: center; /* Aligns the content in the center */
-            min-height: 100vh; /* Ensures viewport fills the entire screen */
-            margin: 0; /* Remove default body margins */
-            font-family: Arial, sans-serif; /* Set a basic font */
-            }
+            place-items: center;
+            /* Aligns the content in the center */
+            min-height: 100vh;
+            /* Ensures viewport fills the entire screen */
+            margin: 0;
+            /* Remove default body margins */
+            font-family: Arial, sans-serif;
+            /* Set a basic font */
+        }
 
 
-            /*frequently*/
-            .frequently-container {
-                display: flex;
-                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive columns */
-                gap: 20px; /* Spacing between cards */
-                margin: 0 auto; /* Center the grid horizontally */
-            }
-            .frequently-container .frequentcard {
-                background-color: #fff;
+        /*frequently*/
+        .frequently-container {
+            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            /* Responsive columns */
+            gap: 20px;
+            /* Spacing between cards */
+            margin: 0 auto;
+            /* Center the grid horizontally */
+        }
+
+        .frequently-container .frequentcard {
+            background-color: #fff;
             border-radius: 20px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 10px;
             width: 200px;
             display: inline-block;
-            }
-            .frequently-container .frequentcard:hover {
-            transform: scale(1.05); /* Slight zoom on hover */
-            }
-            .frequently-container .frequentcard .productarrow {
-                font-size: 30px;
-                font-weight: bold;
-                color: green;
-                align-items: center;
-                padding: 5px;
-                position: relative;
-            }
-            .frequently-container .frequentcard .product_details{
-                font-size: 15px;
-                
+        }
 
-            }
-            .frequently-container .frequentcard .product_name {
-                white-space: nowrap; /* Prevent wrapping to multiple lines */
-                overflow: hidden; /* Hide overflowing content */
-                text-overflow: ellipsis; /* Truncate with ellipsis (...) */
-                width: 140px; /* Adjust width as needed for your product names */
-                /* Other styles for the title (font size, color, etc.) */
-            }
-            .freqHr {
-                border-bottom: 3px solid #000; /* Bottom border */
-            padding: 10px 20px; /* Optional padding for spacing */
-            margin: 0; /* Remove default margin */
-            text-align: center; /* Center align the text */
+        .frequently-container .frequentcard:hover {
+            transform: scale(1.05);
+            /* Slight zoom on hover */
+        }
+
+        .frequently-container .frequentcard .productarrow {
+            font-size: 30px;
+            font-weight: bold;
+            color: green;
+            align-items: center;
+            padding: 5px;
+            position: relative;
+        }
+
+        .frequently-container .frequentcard .product_details {
+            font-size: 15px;
+
+
+        }
+
+        .frequently-container .frequentcard .product_name {
+            white-space: nowrap;
+            /* Prevent wrapping to multiple lines */
+            overflow: hidden;
+            /* Hide overflowing content */
+            text-overflow: ellipsis;
+            /* Truncate with ellipsis (...) */
+            width: 140px;
+            /* Adjust width as needed for your product names */
+            /* Other styles for the title (font size, color, etc.) */
+        }
+
+        .freqHr {
+            border-bottom: 3px solid #000;
+            /* Bottom border */
+            padding: 10px 20px;
+            /* Optional padding for spacing */
+            margin: 0;
+            /* Remove default margin */
+            text-align: center;
+            /* Center align the text */
             color: #000;
-            }
-            .frequently-container .frequentcard a span{
-                color: #eee;
+        }
+
+        .frequently-container .frequentcard a span {
+            color: #eee;
             border: 1px solid green;
             padding: 5px;
             border-radius: 20px;
             background: green;
-            }
-            .frequently-container .frequentcard a span:hover{
+        }
+
+        .frequently-container .frequentcard a span:hover {
             color: green;
             border: 1px solid green;
             background: #eee;
-            }
+        }
     </style>
 </head>
 
@@ -265,15 +311,17 @@ $barcode = $_GET['barcode'];
             if ($row['supermarket_rating'] !== null) {
                 echo ' <div class="rating">';
                 for ($i = 1; $i <= 5; $i++) {
-                    if ($i <= ceil($row['supermarket_rating'])) {
-                        echo '<span class="star" style="color: yellow;">&#9733;</span>'; // Full star
+                    if ($i <= floor($row['supermarket_rating'])) {
+                        echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star</span>'; // Full star
+                    } else if ($i - 1 < $row['supermarket_rating'] && $row['supermarket_rating'] < $i) {
+                        echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star_half</span>'; // Half star
                     } else {
-                        echo '<span class="star" style="color: gray;">&#9734;</span>'; // Empty star
+                        echo '<span class="star material-symbols-outlined" style="color: gray; font-size: 20px;">star</span>'; // Empty star
                     }
                 }
-                if ($row['supermarket_rating'] - floor($row['supermarket_rating']) > 0) { // display the rating if it is decimal
-                    echo ' (' . $row['supermarket_rating'] . ')';
-                }
+                // if ($row['supermarket_rating'] - floor($row['supermarket_rating']) > 0) { // display the rating if it is decimal
+                //     echo ' (' . $row['supermarket_rating'] . ')';
+                // }
                 echo '</div>';
             }
             echo '</div></td>';
@@ -327,9 +375,9 @@ $barcode = $_GET['barcode'];
 
         if (count($results) > 0) {
             // one related product atleast exist
-            
+
         }
-       
+
 
         foreach ($results as $result) {
             $finfo = new finfo(FILEINFO_MIME_TYPE);
@@ -350,14 +398,14 @@ $barcode = $_GET['barcode'];
         ?>
     </div>
     </div>
-    <div id="responseModal" class="modal">
+    <!-- <div id="responseModal" class="modal">
         <div class="modal-content">
-            <!-- <span class="close">&times;</span> -->
-            <p id="responseText"></p>
-        </div>
+    <p id="responseText"></p>
     </div>
+    </div> -->
 
     <script src="../../JS/addtocart.js"></script>
+    <script src="../../JS/add_to_shopping_list.js"></script>
 
     <input type="hidden" class="click_product" data-barcode="<?= $barcode ?>">
     <script src="../../JS/track_click.js"></script>

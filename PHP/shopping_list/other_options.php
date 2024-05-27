@@ -18,15 +18,17 @@ function getOtherProductOptions($conn, $barcode, $supermarket_id)
         if ($result['supermarket_rating'] !== null) {
             echo ' <div class="rating">';
             for ($i = 1; $i <= 5; $i++) {
-                if ($i <= ceil($result['supermarket_rating'])) {
-                    echo '<span class="star" style="color: yellow;">&#9733;</span>'; // Full star
+                if ($i <= floor($result['supermarket_rating'])) {
+                    echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star</span>'; // Full star
+                } else if ($i - 1 < $result['supermarket_rating'] && $result['supermarket_rating'] < $i) {
+                    echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star_half</span>'; // Half star
                 } else {
-                    echo '<span class="star" style="color: gray;">&#9734;</span>'; // Empty star
+                    echo '<span class="star material-symbols-outlined" style="color: gray; font-size: 20px;">star</span>'; // Empty star
                 }
             }
-            if ($result['supermarket_rating'] - floor($result['supermarket_rating']) > 0) { // display the rating if it is decimal
-                echo ' (' . $result['supermarket_rating'] . ')';
-            }
+            // if ($result['supermarket_rating'] - floor($result['supermarket_rating']) > 0) { // display the rating if it is decimal
+            //     echo ' (' . $result['supermarket_rating'] . ')';
+            // }
             echo '</div>';
         }
         echo '</div>';

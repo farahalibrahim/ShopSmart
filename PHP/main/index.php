@@ -4,41 +4,9 @@ include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 session_start();
 
-// for testing, assume that logged in user's email is: sed.neque@outlook.edu
-// $email = 'sed.neque@outlook.edu';
-// $email = 'dolor@outlook.couk';
-// $id = 1;
-
-
-// 
-// $sql = "SELECT id,name FROM user WHERE email = :email";
-// $stmt = DatabaseHelper::runQuery($conn, $sql, ['email' => $email]);
-
-// $row = $stmt->fetch(PDO::FETCH_ASSOC);
-// $user_id = $row['id'];
-// $user_name = $row['name'];
-
-// setcookie('user_id', $user_id, time() + 86400, '/');
-// setcookie('user_name', $user_name, time() + 86400, '/');
-// time() + 86400, '/' : current unix timestamp + 24hours. '/' states that cookie is accessable thogh all the domain
-
 // for testing, delete cookies
 // setcookie('user_id', "", time() - 3600, '/');
 // setcookie('user_name', "", time() - 3600, '/');
-
-
-
-// // for password hashing and verification, to be moved to login/signup page after complete
-// // hashing, PASSWORD_DEFAULT is constant
-// $password = "userpassword";
-// $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-// // verification
-// if (password_verify($password, $hashed_password)) {
-//     echo 'Password is valid!';
-// } else {
-//     echo 'Invalid password.';
-// }
 
 ?>
 <!DOCTYPE html>
@@ -60,14 +28,16 @@ session_start();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" /> <!-- <link rel="stylesheet" href="../CSS/popular_products.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-        #home{
+        #home {
             padding-top: 100px;
         }
+
         .popular-container,
         .recent-container,
         .recommend-container {
             display: flex;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Adjust as needed */
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            /* Adjust as needed */
             grid-gap: 10px;
             margin-top: 2rem;
             background: #ffffffff;
@@ -75,6 +45,7 @@ session_start();
             white-space: nowrap;
             height: 250px;
         }
+
         .productcard {
             background-color: #fff;
             border-radius: 20px;
@@ -84,12 +55,13 @@ session_start();
             width: 200px;
             display: inline-block;
         }
-        .productcard:hover{
+
+        .productcard:hover {
             transform: scale(1.05);
         }
-        .pro_cont{
-           
-        }
+
+        .pro_cont {}
+
         .productcard h3,
         .productcard .product_name {
             padding-left: 10px;
@@ -100,7 +72,7 @@ session_start();
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            overflow-wrap: break-word; 
+            overflow-wrap: break-word;
             font-size: 16px;
             width: 100%;
             align-items: center;
@@ -113,7 +85,8 @@ session_start();
             height: 100px;
             object-fit: contain;
             object-position: center;
-            border-radius: 5px; /* Add rounded corners */
+            border-radius: 5px;
+            /* Add rounded corners */
             margin-bottom: 10px;
         }
 
@@ -128,11 +101,9 @@ session_start();
         } */
 
         .productcard .product_details .product_quantity,
+        .productcard .product_details .product_price {}
+
         .productcard .product_details .product_price {
-            
-            
-        }
-        .productcard .product_details .product_price{
             margin-left: 5px;
             padding-right: 200px;
             margin-top: 10px;
@@ -142,26 +113,28 @@ session_start();
             width: 100px;
             display: inline-block
         }
-        
-        .productcard a{
+
+        .productcard a {
             margin-left: 150px;
             padding-bottom: 20px;
             border-radius: 10px;
-           
+
         }
-        .productcard a span{
+
+        .productcard a span {
             color: #eee;
             border: 1px solid green;
             padding: 5px;
             border-radius: 20px;
             background: green;
         }
-        .productcard a span:hover{
+
+        .productcard a span:hover {
             color: green;
             border: 1px solid green;
             background: #eee;
         }
-       
+
 
         a.fab {
             position: fixed;
@@ -198,7 +171,7 @@ session_start();
             max-height: 600px;
             overflow-y: auto;
         }
-        
+
 
         #chat-content {
             flex-grow: 1;
@@ -240,31 +213,41 @@ session_start();
         }
     </style>
     <!-- header -->
-    <?php include_once '../header.php';?>
+    <?php include_once '../header.php'; ?>
 </head>
 
 <body>
-    
-    
+
+
     <?php
     $chat_header = isset($_SESSION['ticket_id']) ? "Ticket# " . $_SESSION['ticket_id'] : "Live Chat";
+    if (isset($_COOKIE['user_id'])) :
+        $user = $_COOKIE['user_id'];
+        $sql = 'SELECT account_status FROM user WHERE id =  "' . $user . '"';
+        $stmt = DatabaseHelper::runQuery($conn, $sql);
+        $freeze = $stmt->fetchColumn();
+        if ($freeze != "freeze") :
     ?>
-    <a href="#" class="fab" id="fab"><span class="material-symbols-outlined" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">support_agent</span></a>
-    <div id="chat-popup" class="chat-popup" style="display: none;">
-        <h2 id="chat_header"><?= $chat_header ?></h2>
-        <div id="chat-content"></div>
-        <div id="chat_footer">
-            <input type="text" id="chat-input" placeholder="Type your message here..." oninput="validateInput()">
-            <button id="send-button" disabled>Send</button>
-        </div>
-    </div>
-
+            <a href="#" class="fab" id="fab"><span class="material-symbols-outlined" style="text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);">support_agent</span></a>
+            <div id="chat-popup" class="chat-popup" style="display: none;">
+                <h2 id="chat_header"><?= $chat_header ?></h2>
+                <div id="chat-content"></div>
+                <div id="chat_footer">
+                    <input type="text" id="chat-input" placeholder="Type your message here..." oninput="validateInput()">
+                    <button id="send-button" disabled>Send</button>
+                </div>
+            </div>
+    <?php endif;
+    endif; ?>
     <script>
         // prevent sending empty messages
         function validateInput() {
             var input = document.getElementById('chat-input');
             var button = document.getElementById('send-button');
-            button.disabled = !input.value;
+            if (input.value.trim() === '') {
+                button.disabled = true;
+                return;
+            }
         }
 
         $(document).ready(function() {
@@ -356,12 +339,26 @@ session_start();
             <div class="swiper-slide container">
                 <div class="home-text">
                     <span>Shop Smart</span>
-                    <h1>Compare between <br>Many Offers <br> --><-- </h1>
-                            <a href="#" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
-                                    arrow_forward
-                                </span></a>
+                    <h1>Compare between <br>Many Offers <br> <span class="material-symbols-outlined">
+                            compare_arrows
+                        </span></h1>
+                    <!-- <a href="#" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
+                                    compare_arrows
+                                </span></a> -->
+                    <p>Find you favorite products to start!</p>
                 </div>
                 <img src="../../pics/Compare Symbol.G03.watermarked.2k.png" alt="">
+            </div>
+            <!--Slide 3-->
+            <div class="swiper-slide container">
+                <div class="home-text">
+                    <span>Shop Smart</span>
+                    <h1>Track the price of your<br>Favorite Product! <br></h1>
+                    <a href="http://localhost:3000/PHP/shopping_list/shoppinglist.php" class="btn">Shop Now <span class="material-symbols-outlined" id="R-arrow">
+                            arrow_forward
+                        </span></a>
+                </div>
+                <img src="../../pics/Symbol Graph Red Green.G03.watermarked.2k.png" alt="">
             </div>
         </div>
         <div class="swiper-button-next"></div>
@@ -373,9 +370,9 @@ session_start();
     <section class="categories" id="categories">
         <div class="heading">
             <h1>Browse Our <br><span>Categories</span></h1>
-            <a href="#" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+            <!-- <a href="#" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
-                </span></a>
+                </span></a> -->
         </div>
         <!--Categories Container-->
         <div class="categories-container">
@@ -425,49 +422,52 @@ session_start();
     </section>
 
     <?php
-    // Query to count the number of orders for the current user
-    $sql = "SELECT COUNT(*) as order_count FROM `order` WHERE user_id = :user_id";
-    $stmt = DatabaseHelper::runQuery($conn, $sql, array(":user_id" => $_COOKIE['user_id']));
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
     // sections are only displayed if user logged in and has at least one order already
-    // Check if the user is logged in and has at least one order
-    if (isset($_COOKIE['user_id']) && $result['order_count'] > 0) : ?> <!-- Displayed only if user logged in -->
-        <!--Buy Again-->
-        <section class="products" id="products">
-            <div class="heading">
-                <h1>Buy <br><span>Again</span></h1>
-                <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+    // Check if the user is logged in
+    if (isset($_COOKIE['user_id'])) :
+        // Query to count the number of orders for the current user
+        $sql = "SELECT COUNT(*) as order_count FROM `order` WHERE user_id = :user_id";
+        $stmt = DatabaseHelper::runQuery($conn, $sql, array(":user_id" => $_COOKIE['user_id']));
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // Check if the user has at least one order
+        if ($result['order_count'] > 0) : ?> <!-- Displayed only if user logged in -->
+            <!--Buy Again-->
+            <section class="products" id="products">
+                <div class="heading">
+                    <h1>Buy <br><span>Again</span></h1>
+                    <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
                 </span></a> -->
-            </div>
-            <!--Products Container-->
-            <div class="recent-container">
-                <?php include_once("buy_again.php");
-                echo get_recent_products($conn, 8, $_COOKIE['user_id']);
-                ?>
-            </div>
-        </section>
+                </div>
+                <!--Products Container-->
+                <div class="recent-container">
+                    <?php include_once("buy_again.php");
+                    echo get_recent_products($conn, 8, $_COOKIE['user_id']);
+                    ?>
+                </div>
+            </section>
 
-        <!--You May Also Like-->
-        <section class="products" id="products">
-            <div class="heading">
-                <h1>You May Also <br><span>Like</span></h1>
-                <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
+            <!--You May Also Like-->
+            <section class="products" id="products">
+                <div class="heading">
+                    <h1>You May Also <br><span>Like</span></h1>
+                    <!-- <a href="../PHP/popular_products.php" class="btn">See All <span class="material-symbols-outlined" id="R-arrow">
                     arrow_forward
                 </span></a> -->
-            </div>
-            <!--Products Container-->
-            <div class="recommend-container">
-                <?php include_once("recommended_products.php");
-                echo $products;
-                ?>
-            </div>
-        </section>
-    <?php endif; ?>
+                </div>
+                <!--Products Container-->
+                <div class="recommend-container">
+                    <?php include_once("recommended_products.php");
+                    echo $products;
+                    ?>
+                </div>
+            </section>
+    <?php endif;
+    endif; ?>
 
-<!--Footer Section-->
-<?php include_once '../footer.php'; ?>
+    <!--Footer Section-->
+    <?php include_once '../footer.php'; ?>
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

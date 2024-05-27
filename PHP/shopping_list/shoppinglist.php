@@ -18,13 +18,10 @@ include_once '../responseModal.inc.php';
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!-- Google Material Symbols -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" />
     <!-- jQuery AJAX -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-
-        
-        
-
         .container {
 
             padding: 20px;
@@ -93,6 +90,8 @@ include_once '../responseModal.inc.php';
         }
 
         .modal-content {
+            max-width: 800px;
+            border-radius: 20px;
             background-color: #fefefe;
             margin: auto;
             padding: 20px;
@@ -227,46 +226,67 @@ include_once '../responseModal.inc.php';
             /* Change this line */
             /* padding: 10px; */
         }
-        .product .indicator-class{
-            display: flex;
-            padding: 10px 20px; 
-        }
-        .product .indicator-class button{
-            padding: 10px 20px; 
-        }
-        @media (max-width: 768px) {
-        /* Adjust the breakpoint as needed for small screens */
-        .container {
-            width: 100%;
-            flex-direction: row; /* Change to row layout for horizontal card on small screens */
-            
-        }
-        h1,
-        .list_item
-         {
-            width: 100%;
-            flex: 1; /* Make header, body, and add item section fill available space horizontally */
-        }
-        .add_button{
-            flex: 1;
-            margin-right: 30%;
-        }
-        .product{
-            display: flex;
-  flex-wrap: wrap;
-  justify-content: center; /* Center the items horizontally */
-        }
+
         .product .indicator-class {
             display: flex;
-            align-items: center;
+            padding: 10px 20px;
         }
-        .product .price_indicator p{
-            margin-right: 10px;
+
+        .product .indicator-class button {
+            padding: 10px 20px;
+        }
+
+        #searchBar {
             width: 100%;
+            border-radius: 20px;
+            box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            border: none;
+            outline: none;
         }
-        .other_product{
-            margin: 0;
-        }
+
+        @media (max-width: 768px) {
+
+            /* Adjust the breakpoint as needed for small screens */
+            .container {
+                width: 100%;
+                flex-direction: row;
+                /* Change to row layout for horizontal card on small screens */
+
+            }
+
+            h1,
+            .list_item {
+                width: 100%;
+                flex: 1;
+                /* Make header, body, and add item section fill available space horizontally */
+            }
+
+            .add_button {
+                flex: 1;
+                margin-right: 30%;
+            }
+
+            .product {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                /* Center the items horizontally */
+            }
+
+            .product .indicator-class {
+                display: flex;
+                align-items: center;
+            }
+
+            .product .price_indicator p {
+                margin-right: 10px;
+                width: 100%;
+            }
+
+            .other_product {
+                margin: 0;
+            }
         }
     </style>
 </head>
@@ -316,15 +336,17 @@ include_once '../responseModal.inc.php';
                 if ($result['supermarket_rating'] !== null) {
                     echo ' <div class="rating">';
                     for ($i = 1; $i <= 5; $i++) {
-                        if ($i <= ceil($result['supermarket_rating'])) {
-                            echo '<span class="star" style="color: yellow;">&#9733;</span>'; // Full star
+                        if ($i <= floor($result['supermarket_rating'])) {
+                            echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star</span>'; // Full star
+                        } else if ($i - 1 < $result['supermarket_rating'] && $result['supermarket_rating'] < $i) {
+                            echo '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star_half</span>'; // Half star
                         } else {
-                            echo '<span class="star" style="color: gray;">&#9734;</span>'; // Empty star
+                            echo '<span class="star material-symbols-outlined" style="color: gray; font-size: 20px;">star</span>'; // Empty star
                         }
                     }
-                    if ($result['supermarket_rating'] - floor($result['supermarket_rating']) > 0) { // display the rating if it is decimal
-                        echo ' (' . $result['supermarket_rating'] . ')';
-                    }
+                    // if ($result['supermarket_rating'] - floor($result['supermarket_rating']) > 0) { // display the rating if it is decimal
+                    //     echo ' (' . $result['supermarket_rating'] . ')';
+                    // }
                     echo '</div>';
                 }
                 echo '</div>';
@@ -384,8 +406,8 @@ include_once '../responseModal.inc.php';
         <!-- Search bar -->
         <form action="#">
             <input type="search" id="searchBar" name="searchBar" placeholder="Search...">
-            <div id="search_results" style="display: none;">Search results will appear here</div>
-            <button type="submit"><span class="material-symbols-outlined">search</span></button>
+            <div id="search_results_list" style="display: none;">Search results will appear here</div>
+            <!-- <button type="submit"><span class="material-symbols-outlined">search</span></button> -->
         </form>
         <div class="products"></div>
     </div>
@@ -426,11 +448,11 @@ include_once '../responseModal.inc.php';
                 },
                 success: function(result) {
                     if (result) { // if there are results
-                        $("#search_results").css("display", "block"); // show the search results
+                        $("#search_results_list").css("display", "block"); // show the search results
                     } else {
-                        $("#search_results").css("display", "none"); // hide the search results
+                        $("#search_results_list").css("display", "none"); // hide the search results
                     }
-                    $("#search_results").html(result);
+                    $("#search_results_list").html(result);
 
                     // Add click event to search cards
                     $(".search_card").click(function() {
@@ -453,7 +475,7 @@ include_once '../responseModal.inc.php';
                         });
 
                         // Hide the search results after clicking a result
-                        $("#search_results").css("display", "none");
+                        $("#search_results_list").css("display", "none");
                     });
                 }
             });

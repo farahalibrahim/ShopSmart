@@ -6,7 +6,7 @@ var buttons = $('.add_to_cart');
 buttons.each(function () {
     $(this).on('click', function () {
         if (!userId) {
-            alert('Please login to add items to cart.');
+            showResponseModal('Please login to add items to cart.');
             return;
         }
 
@@ -14,7 +14,7 @@ buttons.each(function () {
         var supermarketId = $(this).data('supermarket-id');
 
         $.ajax({
-            url: '../products/addtocart.php',
+            url: 'addtocart.php',
             type: 'POST',
             data: {
                 barcode: barcode,
