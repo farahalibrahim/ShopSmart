@@ -303,8 +303,52 @@ nav .search {
     font-size: 15px;
     color: green;
 }
+@media (max-width: 1080px){
+    header{
+        padding: 18px 60px;
+    }
+}
 @media screen and (max-width: 768px) {
     .footer {
       flex-direction: column;
     }
   }
+  @media (max-width: 852px){
+    header {
+        padding: 12px 4%;
+    }
+  }
+  @media (max-width: 991px){
+    header{
+        padding: 18px 4%;
+    }
+}
+@media (max-width: 450px){
+    .header{
+        padding: 10px 4%;
+    }
+    .navbar {
+        position: absolute;
+        top: -570px;
+        left: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        background: var(--background);
+        box-shadow: 4px 4px 0 4px rgb(14 55 54 / 15%);
+        transition: 0.2s all linear;
+        text-align: left;
+        display: hidden;
+    }
+    .navbar a{
+        padding: 1rem;
+        margin: 1rem;
+        display: block;
+    }
+    .footer-container{
+        display: grid;
+        width: 48%;
+        
+    }
+    
+}

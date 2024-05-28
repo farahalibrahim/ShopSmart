@@ -133,4 +133,9 @@ search_results_container {
       width: 100%; /* Make the card full width on smaller screens */
     }
   }
+  @media (max-width: 450px) {
+    .container{
+      display: grid;
+    }
+  }
   

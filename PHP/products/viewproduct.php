@@ -240,6 +240,19 @@ $barcode = $_GET['barcode'];
                 font-size: 16px;
             }
         }
+        @media  (max-width: 450px){
+            .flex-container{
+                width: 70%;
+                margin: 0;
+            }
+            .product_details table{
+                width: 20%;
+            }
+            .product_container h2{
+                margin-right: 100px;
+                width: 20%;
+            }
+        }
         
 
     </style>
