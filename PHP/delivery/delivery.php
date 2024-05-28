@@ -44,47 +44,56 @@ setcookie('user_name', $user_name, time() + 86400, '/');
         // });
     </script>
     <style>
-        .header .navbar{
+        .header .navbar {
             margin-right: 20%;
         }
-        .header .user{
+
+        .header .user {
             margin-right: 5%;
             display: flex;
         }
-        .header .user .cart_account a{
+
+        .header .user .cart_account a {
             color: green;
             padding-bottom: 10px;
         }
-        .header .user .cart_account .logout{
+
+        .header .user .cart_account .logout {
             border: 1px solid;
             border-radius: 10px;
             padding: 5px 10px;
             background: green;
             color: #eee;
         }
+
         div[id^='mapid'] {
             height: 200px !important;
             width: 200px !important;
             border-radius: 20px !important;
         }
-        #content{
+
+        #content {
             padding: 100px 0 0 30px;
         }
-        #content form input{
+
+        #content form input {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
             background: green;
             padding: 10px 20px;
         }
-        .card-body{
+
+        .card-body {
             font-size: 20px;
             margin-bottom: 10px;
         }
-        .card-body h5{
+
+        .card-body h5 {
             color: green;
         }
-        .card-body button{
+
+        .card-body button {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
@@ -92,7 +101,8 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             padding: 10px 20px;
 
         }
-        .card-body input#update_status{
+
+        .card-body input#update_status {
             border: 1px solid;
             border-radius: 15px;
             padding: 10px 20px;
@@ -131,10 +141,13 @@ setcookie('user_name', $user_name, time() + 86400, '/');
             width: 80%;
             /* Could be more or less, depending on screen size */
             z-index: 10;
-            position: absolute; /* Make the popup absolute positioned */
-  top: 100px; /* Position the popup 100px from the top of the viewport */
-  left: 50%; /* Center the popup horizontally */
-  transform: translateX(-40%);
+            position: absolute;
+            /* Make the popup absolute positioned */
+            top: 100px;
+            /* Position the popup 100px from the top of the viewport */
+            left: 50%;
+            /* Center the popup horizontally */
+            transform: translateX(-40%);
         }
 
         /* The Close Button */
@@ -162,6 +175,11 @@ setcookie('user_name', $user_name, time() + 86400, '/');
     <button id="out_for_delivery_orders">Out for Delivery Orders</button> -->
     <div id="content">
         <!-- Content will be loaded here based on button click -->
+        <script>
+            $(document).ready(function() {
+                $("#packed_orders").click(); //initial content
+            });
+        </script>
     </div>
 </body>
 

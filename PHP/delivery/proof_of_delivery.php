@@ -1,12 +1,12 @@
 <?php
-include_once('../PHP/connection.inc.php');
-include_once('../PHP/dbh.class.inc.php');
+include_once('../connection.inc.php');
+include_once('../dbh.class.inc.php');
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['fileToUpload'])) {
         $order_nb = $_POST['order_nb'];
-        $target_dir = "../uploadedFiles/";
+        $target_dir = "../../uploadedFiles/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         $newfilename = $order_nb . "." . $imageFileType;

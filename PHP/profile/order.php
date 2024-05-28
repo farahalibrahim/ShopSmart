@@ -26,7 +26,6 @@ $role = $stmt->fetchColumn();
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style>
-       
         .order_items {
             border: 2px solid #ccc;
             padding: 10px;
@@ -35,24 +34,42 @@ $role = $stmt->fetchColumn();
             /* Add rounded corners */
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
             /* Add shadow */
-            
+
         }
-        .order_items .supermarket_items{
+
+        .order_items .supermarket_items {
             padding: 0 5% 0 5%;
-            
+
         }
-        .order_items .supermarket_items .stars{
+
+        .order_items .supermarket_items .stars {
             margin-bottom: 10px;
         }
-        .order_items h3 span{
-            padding-left: 45%;
+
+        .order_items h3 span {
+            padding-left: 30%;
             color: green;
+            padding-right: 3%;
         }
-        .card{
+
+        h3#orderItems {
+            display: flex;
+            flex-direction: row;
+            padding-right: 8%;
+        }
+
+        .order_items_header {
+            display: flex;
+            flex-direction: row;
+            align-items: baseline;
+        }
+
+        .card {
             padding: 0 5% 0 5%;
-            
+
         }
-        .card-header{
+
+        .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -61,26 +78,32 @@ $role = $stmt->fetchColumn();
             background: green;
             color: #eee;
         }
-        .card-header h3{
+
+        .card-header h3 {
             padding-right: 5%;
             font-weight: 0;
         }
-        .card-header h2{
+
+        .card-header h2 {
             padding-left: 5%;
         }
-        .status{
+
+        .status {
             border-radius: none;
             padding: 0;
             background: lightgray;
             padding-left: 2%;
         }
-        .status i{
+
+        .status i {
             font-size: 30px;
         }
+
         .status p {
             font-size: 20px;
         }
-        .address_contact{
+
+        .address_contact {
             border-radius: none;
             padding: 10px;
             /* background: linear-gradient(to bottom, #7CE200 0%, #4c4c4c 100%); */
@@ -138,12 +161,12 @@ $role = $stmt->fetchColumn();
         }
 
         .status,
-        .address
-         {
+        .address {
             display: flex;
             align-items: center;
         }
-        .payment_method{
+
+        .payment_method {
             display: flex;
             margin: 0;
         }
@@ -153,22 +176,25 @@ $role = $stmt->fetchColumn();
         .payment_icon {
             margin-right: 10px;
         }
-        .payment .payment_method{
+
+        .payment .payment_method {
             border: 1px solid;
             border-radius: none;
             background: green;
             padding: 5px;
+            color: white;
         }
-        .payment .payment_method p{
+
+        .payment .payment_method p {
             margin-left: 5%;
             font-size: 20px;
             font-weight: 400;
         }
+
         .payment .payment_method span {
             margin-left: 5%;
             margin-top: 20px;
         }
-        
     </style>
 </head>
 
@@ -227,9 +253,9 @@ $role = $stmt->fetchColumn();
 
     echo '<div class="order_items">'; // Parent card
 
-    echo '<h3 id="orderItems"> <span>Order</span> Items</h3>';
+    echo '<div class="order_items_header"><h3 id="orderItems"> <span>Order</span> Items</h3>';
 
-    echo '<span>(' . $orderDetails[0]["nb_products"] . ' items)</span>';
+    echo '<span>(' . $orderDetails[0]["nb_products"] . ' items)</span></div>';
 
     // Loop over the supermarkets
     foreach ($groupedItems as $supermarketName => $supermarketData) {

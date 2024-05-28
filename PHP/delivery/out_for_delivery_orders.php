@@ -1,41 +1,75 @@
 <head>
     <style>
-        body{
+        body {
             padding: 20px;
         }
-        .card{
+
+        .card {
             font-size: 20px;
             margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding-inline: 10px;
         }
-        .card-title{
+
+        .card-title {
             color: Green;
             font-size: 25px;
+            margin-bottom: 5%;
         }
-        #myModal{
+
+        .card-text {
+            font-size: large;
+        }
+
+        .card-details {
+            margin-left: 5%;
+        }
+
+        .modal-content {
+            border-radius: 20px;
+            width: 80%;
+            max-width: 700px;
+        }
+
+        #myModal {
             font-size: 20px;
             font-weight: bold;
+            z-index: 1000;
         }
-        .card-body button{
+
+        .card-body {
+            font-size: 20px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-body button {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
             background: green;
-            padding: 10px 20px;
+            padding: 10px;
+            height: fit-content;
 
         }
-        .card-body button:hover{
+
+        .card-body button:hover {
             background: #eee;
             color: green;
             cursor: pointer;
         }
-        .modal .modal-content form input{
+
+        .modal .modal-content form input {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
             background: green;
             padding: 10px 20px;
         }
-        
     </style>
 </head>
 
@@ -62,21 +96,23 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
             while ($shipment = $shipmentStmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="/*width: 18rem;*/">
                     <?php
                     include_once('../address_map.php');
                     echo getAddressMap($shipment['street_address'], $shipment['city'], 'mapid' . $shipment['order_nb']);
                     ?>
                     <div class="card-body">
-                        <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
-                        <p class="card-text">
-                            Payment Method: <?= $shipment['payment_method'] ?><br>
-                            Status: <?= $shipment['status'] ?><br>
-                            Address: <?= $shipment['street_address'] . ', ' . $shipment['city'] ?><br>
-                            Phone: <?= $shipment['user_phone'] ?><br>
-                            Payment Status: <?= $shipment['payment_status'] ?><br>
-                            Payment Card: <?= $shipment['payment_card'] ?>
-                        </p>
+                        <div class="card-details">
+                            <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
+                            <p class="card-text">
+                                Payment Method: <?= $shipment['payment_method'] ?><br>
+                                Status: <?= $shipment['status'] ?><br>
+                                Address: <?= $shipment['street_address'] . ', ' . $shipment['city'] ?><br>
+                                Phone: <?= $shipment['user_phone'] ?><br>
+                                Payment Status: <?= $shipment['payment_status'] ?><br>
+                                Payment Card: <?= $shipment['payment_card'] ?>
+                            </p>
+                        </div>
                         <button type="button" onclick="openPopup(<?= $shipment['order_nb'] ?>)">Upload Proof of Delivery</button>
 
                     </div>
@@ -97,7 +133,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             <input type="file" name="fileToUpload" id="fileToUpload" accept="image/*">
             <input type="submit" value="Upload Image" name="submit">
         </form>
-        <div id="uploadStatus"></div>
+        <div id="uploadStatus" style="font-size: medium;font-weight: normal;"></div>
     </div>
 </div>
 

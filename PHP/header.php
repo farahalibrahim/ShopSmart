@@ -2,7 +2,7 @@
 if (isset($_COOKIE['user_id'])) {
     // User ID cookie exists, hide login button
     echo '<style>.profile #login_btn{ display: none; }
-    .profile .cart_account{ display: block; }</style>';
+    .profile .cart_account{ display: inline-flex; }</style>';
     // echo '<style>.profile { display: none; }</style>';
 } else {
     // User ID cookie does not exist, make login button visible
@@ -88,7 +88,7 @@ if (isset($_COOKIE['user_id'])) {
     <div class="profile">
         <a href="../login.php" target="_blank" id="login_btn">Login</a>
         <!-- user profile, cart, shopping list, inventory -->
-        <button class="logout"><span class="material-symbols-outlined">logout</span></button>
+        <!-- <button class="logout"><span class="material-symbols-outlined">logout</span></button>
         <script>
             $(document).ready(function() {
                 $('.logout').click(function() {
@@ -97,21 +97,21 @@ if (isset($_COOKIE['user_id'])) {
                     });
                 });
             });
-        </script>
+        </script> -->
         <span class="cart_account">
             <a href="http://localhost:3000/PHP/shopping_list/shoppinglist.php" id="shopping_list"><i class='bx bx-list-check'></i></a>
             <a href="http://localhost:3000/PHP/cart_checkout/cart.php" id="cart"><i class='bx bx-cart-alt'></i></a>
-            | <!-- seperator between account and the others icons -->
+
             <?php $userName = '';
             if (isset($_COOKIE['user_id'])) {
                 $query = "SELECT name FROM user WHERE id = {$_COOKIE['user_id']}";
                 $stmt = DatabaseHelper::runQuery($conn, $query);
                 $result = $stmt->fetch(PDO::FETCH_ASSOC);
                 $userName = explode(' ', $result['name'])[0]; // Get the first name
-            }
+            } ?>
 
-            echo '<a href="#" id="account">' . $userName . '</a>'; ?>
-            <a href="http://localhost:3000/PHP/profile/profile.php" id="account"><i class='bx bx-user'></i></a>
+            <a href="http://localhost:3000/PHP/profile/profile.php" id="account" style="display: flex; flex-direction:row; align-items:center; justify-content:space-between">|<span style="padding-inline: 10%;"> <?= $userName ?></span><i class='bx bx-user'></i> </a>
+            <!-- <a href="http://localhost:3000/PHP/profile/profile.php" id="account"></a> -->
         </span>
 
 

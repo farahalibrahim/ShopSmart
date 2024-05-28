@@ -1,17 +1,29 @@
 <head>
     <style>
-        form{
+        form {
             padding: 20px;
         }
-        .card{
+
+        .card {
             font-size: 20px;
             margin-bottom: 20px;
+            border-radius: 20px;
+            box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px 20px;
+            width: 70%;
         }
-        .card-title{
+
+        .card-title {
             color: Green;
             font-size: 25px;
+            margin-bottom: 5%;
         }
-        form input{
+
+        .card-text {
+            font-size: large;
+        }
+
+        form input {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
@@ -19,13 +31,14 @@
             padding: 10px 20px;
 
         }
-        .card-body{
+
+        .card-body {
             display: flex;
         }
-        .card-text{
+
+        .card-text {
             margin-left: 20px;
         }
-        
     </style>
 </head>
 <?php
@@ -51,10 +64,10 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 
             while ($shipment = $shipmentStmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
-                <div class="card" style="width: 18rem;">
-                <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
+                <div class="card" style="/*width: 18rem;*/">
+                    <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
                     <div class="card-body">
-                    <input  type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
+                        <input type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
                         <p class="card-text">
                             Payment Method: <?= $shipment['payment_method'] ?><br>
                             Status: <?= $shipment['status'] ?><br>
@@ -65,7 +78,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
                                 echo "Payment Card: {$shipment['payment_card']}";
                             } ?>
                         </p>
-                        
+
                     </div>
                 </div>
     <?php
