@@ -1,4 +1,5 @@
 <?php
+var_dump($_POST);
 include_once '../../connection.inc.php';
 include_once '../../dbh.class.inc.php';
 $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
@@ -29,7 +30,7 @@ $attr = [
 $stmt = DatabaseHelper::runQuery($conn, $sql, $attr);
 $result = $stmt->rowCount();
 
-if ($result > 0) {
+if ($stmt instanceof PDOStatement) {
     echo "success";
 } else {
     echo "fail";

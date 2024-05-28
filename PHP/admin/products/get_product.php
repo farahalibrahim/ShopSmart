@@ -9,12 +9,12 @@ $supermarket_id = $_POST['supermarket_id'];
 $sql = "SELECT * FROM product WHERE barcode = :barcode AND supermarket_id = :supermarket_id";
 $stmt = DatabaseHelper::runQuery($conn, $sql, ['barcode' => $barcode, 'supermarket_id' => $supermarket_id]);
 
-$product = $stmt->fetch();
+$product = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if ($product) {
     // If the product was found, encode it as JSON
     echo json_encode($product);
 } else {
-    // If the product was not found, return an empty JSON object or some error message
-    echo json_encode([]);
+    // If the product was not found, return a JSON object with an error message
+    echo json_encode(['error' => 'No product found']);
 }
