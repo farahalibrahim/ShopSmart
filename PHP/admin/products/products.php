@@ -566,34 +566,43 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         $('#productActionsModal').show();
 
         // $.ajax({
-        // url: 'products/get_product.php',
-        // type: 'POST',
-        // data: {
-        // barcode: barcode,
-        // supermarket_id: supermarketId
-        // },
-        // success: function(data) {
-        // var product = JSON.parse(data);
+        //     url: 'products/get_product.php',
+        //     type: 'POST',
+        //     data: {
+        //         barcode: barcode,
+        //         supermarket_id: supermarketId
+        //     },
+        //     success: function(data) {
+        //         var product = JSON.parse(data);
 
-        // if (product) {
-        // // Fill the form fields with the product data
-        // $('#edit_product_name').val(product.product_name);
-        // $('#edit_manufacturer').val(product.manufacturer);
-        // $('#edit_quantity_type').val(product.quantity_type);
-        // $('#edit_quantity').val(product.quantity);
-        // $('#edit_price').val(product.price);
-        // $('#edit_expiry_date').val(product.expiry_date);
-        // $('#edit_category').val(product.category);
-        // $('#edit_tag').val(product.tag);
+        //         if (product.error) {
+        //             alert(product.error);
+        //         } else {
+        //             if (product) {
+        //                 // Fill the form fields with the product data
+        //                 $('#edit_product_name').val(product.product_name);
+        //                 $('#edit_manufacturer').val(product.manufacturer);
+        //                 $('#edit_quantity_type').val(product.quantity_type);
+        //                 $('#edit_quantity').val(product.quantity);
+        //                 $('#edit_price').val(product.price);
+        //                 $('#edit_expiry_date').val(product.expiry_date);
+        //                 $('#edit_category').val(product.category);
+        //                 $('#edit_tag').val(product.tag);
 
-        // $('#editForm').show();
-        // } else {
-        // alert('No product found with the given barcode and supermarket ID.');
-        // }
-        // },
-        // error: function(jqXHR, textStatus, errorThrown) {
-        // console.error('Error:', textStatus, errorThrown);
-        // }
+        //                 $('#offerForm').hide();
+        //                 $('#editForm').show();
+
+        //                 $('#productActionsModal').show();
+        //             } else {
+        //                 alert('No product found with the given barcode and supermarket ID.');
+        //             }
+        //         }
+
+
+        //     },
+        //     error: function(jqXHR, textStatus, errorThrown) {
+        //         console.error('Error:', textStatus, errorThrown);
+        //     }
         // });
     });
     $(document).on('click', '.offer-button', function() {
@@ -816,15 +825,9 @@ include_once '../../accountFreezeModal.inc.php'; ?>
                 },
                 success: function(response) {
                     $('#productActionsModal').hide();
-                    if (response === 'success') {
-                        showResponseModal('Offer added successfully', function() {
-                            $('#product_search_input').trigger('keyup');
-                        });
-                    } else {
-                        showResponseModal('Failed to add offer', function() {
-                            $('#productActionsModal').show();
-                        });
-                    }
+                    showResponseModal('Product Updated successfully', function() {
+                        $('#product_search_input').trigger('keyup');
+                    });
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error('Error:', textStatus, errorThrown);

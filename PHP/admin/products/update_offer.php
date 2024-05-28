@@ -15,8 +15,8 @@ try {
 
     $new_price = $original_price - ($original_price * ($offer_percent / 100));
 
-    $sql = "UPDATE product SET offer = 1, offer_percent = :offer_percent, offer_expiry = :offer_expiry, price = :price WHERE barcode = :barcode AND supermarket_id = :supermarket_id";
-    $stmt = DatabaseHelper::runQuery($conn, $sql, ['offer_percent' => $offer_percent, 'offer_expiry' => $offer_expiry, 'price' => $new_price, 'barcode' => $barcode, 'supermarket_id' => $supermarket_id]);
+    $sql = "UPDATE product SET offer = 1, offer_percent = :offer_percent, offer_expiry = :offer_expiry, price = :price, original_price= :original_price WHERE barcode = :barcode AND supermarket_id = :supermarket_id";
+    $stmt = DatabaseHelper::runQuery($conn, $sql, ['offer_percent' => $offer_percent, 'offer_expiry' => $offer_expiry, 'price' => $new_price, 'original_price' => $original_price, 'barcode' => $barcode, 'supermarket_id' => $supermarket_id]);
     if ($stmt->rowCount() > 0) {
         echo 'success';
     } else {
