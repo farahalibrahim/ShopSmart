@@ -556,6 +556,20 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-size: 12px;
             color: #4C4C4C;
         }
+        .search_field input{
+            margin-bottom: 30px;
+            margin-left: 20px;
+        }
+        .search_field button{
+            margin-right: 30px;
+            margin-top: 20px;
+            background: none;
+        }
+        .search_method{
+            border: 2px solid gray;
+            border-radius: 20px;
+            
+        }
 
         #filters {
             display: flex;
