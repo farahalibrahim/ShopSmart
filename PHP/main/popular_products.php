@@ -37,7 +37,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
             padding: 10px;
-            width: 200px;
+            width: 300px;
             display: inline-block;
         }
 
@@ -81,7 +81,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]); ?>
             font-size: 14px;
             color: black;
             padding-left: 20px;
-            width: 100px;
+            width: 200px;
             display: inline-block
         }
 

@@ -161,6 +161,7 @@ session_start();
             font-size: 24px;
             box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.40);
             z-index: 900;
+            transition: all 0.5s ease;
         }
 
         .chat-popup {

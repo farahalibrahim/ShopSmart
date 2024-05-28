@@ -24,7 +24,7 @@ img {
 
 body {
     color: var(--text-color);
-    padding: 0 5% 0 5%;
+    
 }
 
 .profile {
@@ -146,6 +146,7 @@ nav a:hover {
     justify-content: space-between;
     column-gap: 0.5rem;
     max-width: 160px;
+    z-index: 100;
 }
 
 
@@ -413,6 +414,15 @@ nav a:hover {
     body {
         max-width: 768px;
     }
+    .home-text {
+        flex-direction: column;
+      }
+      .chat-popup {
+        bottom: 20px;
+        right: auto;
+        left: 50%;
+        transform: translateX(-50%);
+      }
 }
  @media (max-width: 370px){
     .logo{
@@ -420,7 +430,7 @@ nav a:hover {
     }
     .profile{
         width: 100%;
-        
+
     }
     .profile img{
         width: 30px;
