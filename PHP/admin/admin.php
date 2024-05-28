@@ -344,7 +344,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #ticket-clear-search>span.material-symbols-outlined {
             font-size: 12px;
             font-weight: bold;
-            color: lightslategray;
+            padding: 0;
+        }
+        #ticket-search-bar button{
+            color: green;
         }
         
 
@@ -730,6 +733,26 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             border: none;
             background: none;
         }
+         .product_section_top, .product_section_top #product_search_bar {
+            display: flex;
+        }
+        .products_section #product_section_header{
+            margin-right: 20px;
+        }
+        .products_section {
+            display: grid;
+        }
+        #product_search_bar {
+            margin-bottom: 20px;
+            align-items: center;
+            justify-content: flex-start;
+            
+        }
+        #product_search_bar, #product_search_type{
+            margin-right: 20px;
+        }
+        
+        
         @media (max-width: 915px){
             .dashboard #chat-section {
                 width: 90%;
