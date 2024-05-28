@@ -115,6 +115,7 @@ nav a:hover {
     /* Add padding for content */
     text-align: left;
     /* Align the text to the left */
+    margin-left: 100px;
 }
 
 .home-text h1 span {
@@ -366,7 +367,7 @@ nav a:hover {
     }
 
     .home-text {
-        padding: 0 100px;
+        /* padding: 0 100px; */
     }
 
     .container img {
@@ -461,8 +462,9 @@ nav a:hover {
     }
 
     .container img {
-        /* right: 100px; */
+        right: 0;
         width: 700px;
+        top: 100px;
     }
 }
 
@@ -511,7 +513,8 @@ nav a:hover {
     }
 
     .container img {
-        /* right: 100px; */
+        right: 0;
         width: 300px;
+        top: 100px;
     }
 }
