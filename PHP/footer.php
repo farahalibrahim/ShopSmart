@@ -14,20 +14,27 @@
         </div>
         <div class="footer-box">
             <h2>Categories</h2>
-            <a href="http://localhost:3000/PHP/main/index.php#category">Fruits & Vegetables</a>
-            <a href="http://localhost:3000/PHP/main/index.php#category">Bakery</a>
-            <a href="http://localhost:3000/PHP/main/index.php#category">Personal Care</a>
-            <a href="http://localhost:3000/PHP/main/index.php#category">Cleaning Supplies</a>
+            <a href="http://localhost:3000/PHP/main/index.php#categories">Fruits & Vegetables</a>
+            <a href="http://localhost:3000/PHP/main/index.php#categories">Bakery</a>
+            <a href="http://localhost:3000/PHP/main/index.php#categories">Personal Care</a>
+            <a href="http://localhost:3000/PHP/main/index.php#categories">Cleaning Supplies</a>
         </div>
         <div class="footer-box">
             <h2>To partner with us</h2>
             <p>Submit your email for partnerships <br>Here</p>
-            <form action="">
+            <form id="emailForm" action="#">
                 <i class="bx bx-envelope"></i>
-                <input type="email" placeholder="Enter your email">
-                <i class="bx bx-right-arrow-alt"></i>
+                <input id="footerEmailInput" type="email" placeholder="Enter your email">
+                <i id="footerSubmitEmail" class="bx bx-right-arrow-alt"></i>
             </form>
         </div>
+
+        <script>
+            document.getElementById('footerSubmitEmail').addEventListener('click', function() {
+                var email = document.getElementById('footerEmailInput').value;
+                window.location.href = `mailto:${email}`;
+            });
+        </script>
     </div>
 
     </div>
