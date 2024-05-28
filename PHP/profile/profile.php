@@ -677,6 +677,13 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #content .header .add_button #addCardButton{
             padding-right: 50%;
         }
+        .no-order a {
+            color: #eee;
+            border: 1px solid;
+            border-radius: 20px;
+            padding: 10px 20px;
+            background: green;
+        }
     </style>
 </head>
 

@@ -414,3 +414,38 @@ nav a:hover {
         max-width: 768px;
     }
 }
+ @media (max-width: 370px){
+    .logo{
+        font-size: 1rem;
+    }
+    .profile{
+        width: 100%;
+        
+    }
+    .profile img{
+        width: 30px;
+        height: 30px;
+    }
+    .profile span{
+        font-size: 10px;
+    }
+    .home-text{
+        padding-bottom: 17rem;
+    }
+    .home-text span{
+        font-size: 0.8rem;
+    }
+    .home-text h1{
+        font-size: 1.4rem;
+    }
+    .heading{
+        flex-direction: column;
+        text-align: center;
+    }
+    .heading .btn{
+        margin-top: 1rem;
+    }
+    .categories-container {
+        gap: 1.5rem;
+    }
+ }

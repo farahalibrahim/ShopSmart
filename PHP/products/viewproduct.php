@@ -96,14 +96,7 @@ $barcode = $_GET['barcode'];
             padding: 40px 10% 0 10%;
         }
 
-        @media (max-width: 768px) {
-            .product_container .flex-container {
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                /* Adjust min-width for smaller screens */
-
-            }
-        }
-
+       
         .product_container .flex-container .product_image {
             width: 100%;
             /* Image spans the full card width */
@@ -226,6 +219,23 @@ $barcode = $_GET['barcode'];
             border: 1px solid green;
             background: #eee;
         }
+        @media  (max-width: 400px) {
+            /* Styles for small screens */
+            .product_container{
+                
+            }
+            .flex-container {
+                width: 100%;
+                display: grid;
+            }
+            .flex-container img {
+                width: 50%;
+            }
+            .text-content {
+                font-size: 16px;
+            }
+        }
+
     </style>
 </head>
 
