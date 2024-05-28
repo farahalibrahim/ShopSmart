@@ -387,6 +387,10 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         var searchSelectDiv = document.querySelector('.search_select');
         var searchSelect = document.querySelector('#product_search_select');
 
+        $('#product_search_input').trigger('input');
+        $('#product_search_select').trigger('change');
+
+
         if (this.value === 'category') {
             searchField.style.display = 'none';
             searchSelectDiv.style.display = 'block';
@@ -423,6 +427,8 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             searchField.style.display = 'block';
             searchSelectDiv.style.display = 'none';
 
+            console.log(this.value);
+
             // apply a pattern that only allows 16 digits
             // searchField.setAttribute('type', 'text');
             searchInput.setAttribute('pattern', '[0-9]{1,16}');
@@ -434,7 +440,8 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             // pattern that allows letters, digits, parentheses, +, ., x only
             // searchInput.setAttribute('type', 'text');
 
-            // searchInput.setAttribute('pattern', '[A-Za-z0-9\(\)\.\sx]{1,60}');
+
+            searchInput.setAttribute('pattern', '^[a-zA-Z0-9()+.x\\s]{1,60}$');
             searchInput.setAttribute('title', 'Please enter up to 60 characters. Allowed characters: letters, digits, parentheses, +, ., x');
         } else if (this.value === 'supermarket_name') {
             searchField.style.display = 'block';
@@ -454,6 +461,12 @@ include_once '../../accountFreezeModal.inc.php'; ?>
             searchInput.removeAttribute('title');
         }
     });
+
+    //trigger select to load initial content
+    $(document).ready(function() {
+        $('#product_search_type').trigger('change');
+    });
+
 
     // prevent entering character that doesn't match pattern
     $('#product_search_input').on('keypress paste', function(event) {
@@ -553,34 +566,34 @@ include_once '../../accountFreezeModal.inc.php'; ?>
         $('#productActionsModal').show();
 
         // $.ajax({
-        //     url: 'products/get_product.php',
-        //     type: 'POST',
-        //     data: {
-        //         barcode: barcode,
-        //         supermarket_id: supermarketId
-        //     },
-        //     success: function(data) {
-        //         var product = JSON.parse(data);
+        // url: 'products/get_product.php',
+        // type: 'POST',
+        // data: {
+        // barcode: barcode,
+        // supermarket_id: supermarketId
+        // },
+        // success: function(data) {
+        // var product = JSON.parse(data);
 
-        //         if (product) {
-        //             // Fill the form fields with the product data
-        //             $('#edit_product_name').val(product.product_name);
-        //             $('#edit_manufacturer').val(product.manufacturer);
-        //             $('#edit_quantity_type').val(product.quantity_type);
-        //             $('#edit_quantity').val(product.quantity);
-        //             $('#edit_price').val(product.price);
-        //             $('#edit_expiry_date').val(product.expiry_date);
-        //             $('#edit_category').val(product.category);
-        //             $('#edit_tag').val(product.tag);
+        // if (product) {
+        // // Fill the form fields with the product data
+        // $('#edit_product_name').val(product.product_name);
+        // $('#edit_manufacturer').val(product.manufacturer);
+        // $('#edit_quantity_type').val(product.quantity_type);
+        // $('#edit_quantity').val(product.quantity);
+        // $('#edit_price').val(product.price);
+        // $('#edit_expiry_date').val(product.expiry_date);
+        // $('#edit_category').val(product.category);
+        // $('#edit_tag').val(product.tag);
 
-        //             $('#editForm').show();
-        //         } else {
-        //             alert('No product found with the given barcode and supermarket ID.');
-        //         }
-        //     },
-        //     error: function(jqXHR, textStatus, errorThrown) {
-        //         console.error('Error:', textStatus, errorThrown);
-        //     }
+        // $('#editForm').show();
+        // } else {
+        // alert('No product found with the given barcode and supermarket ID.');
+        // }
+        // },
+        // error: function(jqXHR, textStatus, errorThrown) {
+        // console.error('Error:', textStatus, errorThrown);
+        // }
         // });
     });
     $(document).on('click', '.offer-button', function() {

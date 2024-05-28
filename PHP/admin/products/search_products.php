@@ -10,7 +10,7 @@ if (isset($_POST['searchSelectValue'])) {
 }
 
 if ($search_attr == 'barcode') {
-    $sql = "SELECT product.*, MIN(price) as min_price, MAX(price) as max_price FROM product WHERE barcode = :barcode GROUP BY barcode";
+    $sql = "SELECT product.*, MIN(price) as min_price, MAX(price) as max_price FROM product WHERE barcode LIKE :barcode GROUP BY barcode";
     $attr = ["barcode" => $search_value . "%"];
 } else if ($search_attr == 'product_name') {
     $sql = "SELECT product.*, MIN(price) as min_price, MAX(price) as max_price FROM product WHERE product_name LIKE :product_name GROUP BY barcode";
