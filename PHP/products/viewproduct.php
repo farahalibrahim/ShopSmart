@@ -219,13 +219,18 @@ $barcode = $_GET['barcode'];
             border: 1px solid green;
             background: #eee;
         }
-        @media  (max-width: 400px) {
+        @media  (max-width: 768px) {
             /* Styles for small screens */
-            .product_container{
+            .product_container h2{
+                width: 30%;
                 
             }
+            .product_details table{
+                width: 30%;
+                margin-right: 20%;
+            }
             .flex-container {
-                width: 100%;
+                width: 30%;
                 display: grid;
             }
             .flex-container img {
@@ -235,6 +240,7 @@ $barcode = $_GET['barcode'];
                 font-size: 16px;
             }
         }
+        
 
     </style>
 </head>

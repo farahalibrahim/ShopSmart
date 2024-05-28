@@ -287,6 +287,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         button>* {
             margin-right: 10px;
         }
+        .header h1, .card-header, .header h2{
+            color: #eee;
+        }
 
         .form_header,
         .modal_header {
