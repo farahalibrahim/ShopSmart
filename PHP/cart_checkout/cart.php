@@ -5,6 +5,9 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
 if (isset($_COOKIE['user_id'])) {
     $user_id = $_COOKIE['user_id'];
 }
+if (isset($_COOKIE['user_id'])) {
+    $user_id = $_COOKIE['user_id'];
+}
 session_start();
 
 ?>
@@ -22,12 +25,20 @@ session_start();
         <title>Login Please</title>
     <?php endif; ?>
 
+    <?php if ($_COOKIE['user_id']) : ?>
+        <title><?php $nameParts = explode(' ', trim($_COOKIE["user_name"]));
+                echo $nameParts[0]; ?>'s Cart</title>
+    <?php else : ?>
+        <title>Login Please</title>
+    <?php endif; ?>
+
     <!-- header and footer's css -->
     <link rel="stylesheet" href="../../CSS/header_footer.css">
     <!--link to box icons-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <?php include_once '../accountFreezeModal.inc.php' ?>
     <?php include_once '../accountFreezeModal.inc.php' ?>
 
     <style>
@@ -40,6 +51,11 @@ session_start();
         .Container-for-all {
             margin: 30px 60px 30px 30px;
             padding: 50px 5% 0 5%;
+
+            background: #fbfbf9;
+
+
+
 
 
         }
@@ -258,8 +274,11 @@ session_start();
             height: 30px;
             font-size: 15px;
             background: green;
-            color: white;
+
             border-radius: 20px;
+            color: #eee;
+
+
         }
 
         .productcard .productdetails .weight {
@@ -367,10 +386,13 @@ session_start();
 
         .cart_summary .coupon button {
             border-radius: 20px;
-            color: white;
+
+            color: #eee;
+
             background: green;
             padding: 5px;
             font-weight: 100;
+
         }
 
         .cart_summary .total {

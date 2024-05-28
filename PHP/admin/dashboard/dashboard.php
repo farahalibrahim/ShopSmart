@@ -61,8 +61,16 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
         padding-left: 30px;
         font-size: 20px;
         padding-top: 40px;
-        font-weight: bold;
+        
     }
+    table button{
+        color: #eee;
+        border: 1px solid;
+        border-radius: 5px;
+        background: green;
+        padding: 2px;
+    }
+    
 </style>
 <div class="dashboard">
     <section id="tickets-section">

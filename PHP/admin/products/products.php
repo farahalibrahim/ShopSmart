@@ -197,7 +197,7 @@ include_once '../../accountFreezeModal.inc.php'; ?>
     });
 </script>
 <section class="products_section">
-    <h2 id="product_section_header">Manage Products</h2>
+    <h2 id="product_section_header"><span>Manage</span> Products</h2>
     <div class="product_section_top">
         <div id="product_search_bar">
             <select id="product_search_type">

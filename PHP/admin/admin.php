@@ -239,6 +239,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #tickets-section {
             flex: 2;
         }
+        .dashboard #tickets-section h2{
+            color: #eee;
+        }
 
         #chat-section {
             /* flex: 1; */
@@ -343,6 +346,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-weight: bold;
             color: lightslategray;
         }
+        
 
         .modal {
             display: none;
@@ -665,6 +669,74 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         table td {
             border: 1px solid black;
         }
+        .products_section h2{
+            color: green;
+        }
+        .products_section h2 span{
+            color: gray;
+        }
+        .modal-content form h3{
+            color: green;
+        }
+         .main-content #addModal .modal-content form table{
+             border: none;
+             
+        }
+        #product_search_type,#add_product_button,#sales_analytics, #analysis_duration{
+            color: #eee;
+            border: 1px solid;
+            border-radius: 10px;
+            padding: 10px;
+            background: green;
+        }
+        .modal-content{
+            border-radius: 20px;
+        }
+        #add_product_popup{
+            margin-top: 10px;
+        }
+        .supermarket_analytics h2, .supermarket_managment h2{
+            color: green;
+        }
+        .supermarket_analytics h2 span, .supermarket_managment h2 span {
+            color: gray;
+        }
+        h1{
+            color: #eee;
+            border: 1px solid green;
+            border-radius: 20px;
+            padding: 15px;
+            background: green;
+        }
+        .products_section #search_results .card .card-top {
+            display: flex;
+            width: 500px;
+        }
+        .products_section #search_results .card{
+            display: grid;
+            grid-template-columns: column;
+        }
+        .card-bottom .product_options summary{
+            margin-bottom: 20px;
+        }
+        .product_options_table button span, .supermarket_table button span, .orders .card .card-body a span{
+            border: 1px solid;
+            border-radius: 20px;
+            color: #eee;
+            background: green;
+            padding: 5px;
+        }
+        .product_options_table button, .supermarket_table button{
+            border: none;
+            background: none;
+        }
+        @media (max-width: 915px){
+            .dashboard #chat-section {
+                width: 90%;
+                z-index: 10;
+            }
+        }
+
     </style>
     <script>
         $(document).ready(function() {

@@ -45,9 +45,17 @@
         {
             color: #eee;
             border: 1px solid;
-            border-radius: 10px;
+            border-radius: 20px;
             background: green;
-            padding: 10px 20px;
+            padding:  5px;
+        }
+        #freezeModal .modal-content button,
+        #users-search-bar #users-search-type,
+        #users-search-bar button,
+        .user-actions button,
+        .user-actions .edit-button,
+        .user-actions .user-select:hover{
+            cursor: pointer;
         }
         #users-search-bar input{
             padding: 10px;
@@ -93,8 +101,8 @@
             <option value="account_status">Account Status</option>
             <option value="order_nb">Order#</option>
         </select>
-        <input type="text" id="users-search-input" placeholder="Search...">
-        <button id="user-clear-search"><span class='material-symbols-outlined'>close</span></button>
+        <input type="text" id="users-search-input" placeholder="Search..."> <button id="user-clear-search"><span class='material-symbols-outlined'>close</span></button>
+       
     </div>
     <section class="users_section">
         <?php

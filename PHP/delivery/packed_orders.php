@@ -19,6 +19,13 @@
             padding: 10px 20px;
 
         }
+        .card-body{
+            display: flex;
+        }
+        .card-text{
+            margin-left: 20px;
+        }
+        
     </style>
 </head>
 <?php
@@ -45,8 +52,9 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
             while ($shipment = $shipmentStmt->fetch(PDO::FETCH_ASSOC)) {
     ?>
                 <div class="card" style="width: 18rem;">
+                <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
                     <div class="card-body">
-                        <h5 class="card-title">Order# <?= $shipment['order_nb'] ?></h5>
+                    <input  type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
                         <p class="card-text">
                             Payment Method: <?= $shipment['payment_method'] ?><br>
                             Status: <?= $shipment['status'] ?><br>
@@ -57,7 +65,7 @@ $conn = DatabaseHelper::connect([DBCONNSTRING, DBUSER, DBPASS]);
                                 echo "Payment Card: {$shipment['payment_card']}";
                             } ?>
                         </p>
-                        <input  type="checkbox" name="orders[]" value="<?= $shipment['order_nb'] ?>">
+                        
                     </div>
                 </div>
     <?php
