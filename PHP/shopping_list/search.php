@@ -52,7 +52,7 @@ foreach ($results as $product) {
     echo '</div>';
 }
 echo '<style>
-#search_results .search_card {
+#search_results_list .search_card {
     display: flex;
     /* border: 1px solid #ccc; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -62,7 +62,7 @@ echo '<style>
     align-items: center;
 }
 
-#search_results .search_card img {
+#search_results_list .search_card img {
     width: 50px;
     height: 50px;
     object-fit: contain;
@@ -70,12 +70,12 @@ echo '<style>
     margin-right: 10px;
 }
 
-#search_results .search_card .product-details {
+#search_results_list .search_card .product-details {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-#search_results .search_card .product-details > * {
+#search_results_list .search_card .product-details > * {
     margin: 5px 0; 
 }
 </style>';

@@ -1,3 +1,10 @@
+<head>
+    <style>
+        .navbar{
+            cursor: pointer;
+        }
+    </style>
+</head>
 <?php
 if (isset($_COOKIE['user_id'])) {
     // User ID cookie exists, hide login button

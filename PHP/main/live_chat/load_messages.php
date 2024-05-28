@@ -12,7 +12,12 @@ if (isset($_SESSION['ticket_id'])) {
     $ticket_id = '';
 }
 if (!isset($_COOKIE['user_id'])) {
-    header('Location: http://localhost:3000/PHP/login.php');
+    // echo 'Login to start chatting with customer support!';
+    echo "<div class='no_ticket' style='display: flex; justify-content: center; flex-direction: column; align-items: center; height: 100%;'>";
+    echo "<span class='material-symbols-outlined'>error</span>";
+    echo "<strong>Do you have an issue?</strong>";
+    echo "<p style='text-align: center; font-size:smaller;'>Login to start chatting with customer support!</p></div>";
+
     exit;
 }
 $user_id = $_COOKIE['user_id'];

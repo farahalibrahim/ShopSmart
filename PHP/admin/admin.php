@@ -239,6 +239,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #tickets-section {
             flex: 2;
         }
+        .dashboard #tickets-section h2{
+            color: #eee;
+        }
 
         #chat-section {
             /* flex: 1; */
@@ -343,6 +346,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-weight: bold;
             color: lightslategray;
         }
+        
 
         .modal {
             display: none;
@@ -703,6 +707,34 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             border-radius: 20px;
             padding: 15px;
             background: green;
+        }
+        .products_section #search_results .card .card-top {
+            display: flex;
+            width: 500px;
+        }
+        .products_section #search_results .card{
+            display: grid;
+            grid-template-columns: column;
+        }
+        .card-bottom .product_options summary{
+            margin-bottom: 20px;
+        }
+        .product_options_table button span, .supermarket_table button span, .orders .card .card-body a span{
+            border: 1px solid;
+            border-radius: 20px;
+            color: #eee;
+            background: green;
+            padding: 5px;
+        }
+        .product_options_table button, .supermarket_table button{
+            border: none;
+            background: none;
+        }
+        @media (max-width: 915px){
+            .dashboard #chat-section {
+                width: 90%;
+                z-index: 10;
+            }
         }
 
     </style>

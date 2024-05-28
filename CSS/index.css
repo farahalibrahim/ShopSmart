@@ -112,6 +112,16 @@ nav a:hover {
   padding: 10px; /* Add padding for content */
   text-align: left; /* Align the text to the left */
 }
+.home-text h1 span{
+    color: green;
+    font-size: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.home-text p{
+    color: #4C4C4C;
+    font-size: 30px;
+}
 
 .home-text span {
     font-weight: 500;

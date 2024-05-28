@@ -52,14 +52,13 @@ foreach ($results as $product) {
     if ($product['rating'] !== null) {
         $product_html .= '<div class="rating">';
         for ($i = 1; $i <= 5; $i++) {
-            if ($i <= ceil($product['rating'])) {
-                $product_html .= '<span class="star" style="color: yellow;">&#9733;</span>'; // Full star
+            if ($i <= floor($product['rating'])) {
+                $product_html .= '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star</span>'; // Full star
+            } else if ($i - 1 < $product['rating'] && $product['rating'] < $i) {
+                $product_html .= '<span class="star material-symbols-rounded" style="color: yellow; font-size: 20px;">star_half</span>'; // Half star
             } else {
-                $product_html .= '<span class="star" style="color: gray;">&#9734;</span>'; // Empty star
+                $product_html .= '<span class="star material-symbols-outlined" style="color: gray; font-size: 20px;">star</span>'; // Empty star
             }
-        }
-        if ($product['rating'] - floor($product['rating']) > 0) { // display the rating if it is decimal
-            $product_html .= ' (' . $product['rating'] . ')';
         }
         $product_html .= '</div>';
     }
