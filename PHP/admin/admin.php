@@ -239,14 +239,15 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #tickets-section {
             flex: 2;
         }
-        .dashboard #tickets-section h2{
+
+        .dashboard #tickets-section h2 {
             color: #eee;
         }
 
         #chat-section {
             /* flex: 1; */
             /* border-left: #4C4C4C 1px solid; */
-            height: 100vh;
+            height: 90vh;
             display: flex;
             flex-direction: column;
             width: 37px;
@@ -346,10 +347,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-weight: bold;
             padding: 0;
         }
-        #ticket-search-bar button{
+
+        #ticket-search-bar button {
             color: green;
         }
-        
+
 
         .modal {
             display: none;
@@ -662,104 +664,155 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
+            max-width: 700px;
         }
 
         table {
             border-collapse: collapse;
             width: 100%;
+            border-radius: 30px;
+            font-size: medium;
+
         }
 
+        /* table th {
+            background-color: green;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        } */
+
         table td {
-            border: 1px solid black;
+            border: 4px solid white;
+            background-color: #eee;
+            text-align: center;
         }
-        .products_section h2{
+
+        .products_section h2 {
             color: green;
         }
-        .products_section h2 span{
+
+        .products_section h2 span {
             color: gray;
         }
-        .modal-content form h3{
+
+        #closed-tickets-details {
+            margin-bottom: 20px;
+        }
+
+        .modal-content form h3 {
             color: green;
         }
-         .main-content #addModal .modal-content form table{
-             border: none;
-             
+
+        .main-content #addModal .modal-content form table {
+            border: none;
+
         }
-        #product_search_type,#add_product_button,#sales_analytics, #analysis_duration{
+
+        #product_search_type,
+        #add_product_button,
+        #sales_analytics,
+        #analysis_duration {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
             padding: 10px;
             background: green;
         }
-        .modal-content{
+
+        .modal-content {
             border-radius: 20px;
         }
-        #add_product_popup{
+
+        #add_product_popup {
             margin-top: 10px;
         }
-        .supermarket_analytics h2, .supermarket_managment h2{
+
+        .supermarket_analytics h2,
+        .supermarket_managment h2 {
             color: green;
         }
-        .supermarket_analytics h2 span, .supermarket_managment h2 span {
+
+        .supermarket_analytics h2 span,
+        .supermarket_managment h2 span {
             color: gray;
         }
-        h1{
+
+        h1 {
             color: #eee;
             border: 1px solid green;
             border-radius: 20px;
             padding: 15px;
             background: green;
         }
+
         .products_section #search_results .card .card-top {
             display: flex;
             width: 500px;
         }
-        .products_section #search_results .card{
+
+        .products_section #search_results .card {
             display: grid;
             grid-template-columns: column;
         }
-        .card-bottom .product_options summary{
+
+        .card-bottom .product_options summary {
             margin-bottom: 20px;
         }
-        .product_options_table button span, .supermarket_table button span, .orders .card .card-body a span{
+
+        .product_options_table button span,
+        .supermarket_table button span,
+        .orders .card .card-body a span {
             border: 1px solid;
             border-radius: 20px;
             color: #eee;
             background: green;
             padding: 5px;
         }
-        .product_options_table button, .supermarket_table button{
+
+        .product_options_table button,
+        .supermarket_table button {
             border: none;
             background: none;
         }
-         .product_section_top, .product_section_top #product_search_bar {
+
+        .product_section_top,
+        .product_section_top #product_search_bar {
             display: flex;
         }
-        .products_section #product_section_header{
+
+        .products_section #product_section_header {
             margin-right: 20px;
         }
+
         .products_section {
             display: grid;
         }
+
         #product_search_bar {
             margin-bottom: 20px;
             align-items: center;
             justify-content: flex-start;
-            
+
         }
-        #product_search_bar, #product_search_type{
+
+        #product_search_bar,
+        #product_search_type {
             margin-right: 20px;
         }
-        
-        
-        @media (max-width: 915px){
+
+
+        @media (max-width: 915px) {
             .dashboard #chat-section {
+                width: 5%;
+                z-index: 10;
+            }
+
+            .dashboard #chat-section.open {
                 width: 90%;
                 z-index: 10;
             }
         }
-
     </style>
     <script>
         $(document).ready(function() {
