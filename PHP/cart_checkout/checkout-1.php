@@ -274,6 +274,8 @@ $user_id = $_COOKIE["user_id"];
             border-radius: 30px;
         }
     </style>
+    <?php include_once '../header.php';
+        ?>
 </head>
 
 <body>

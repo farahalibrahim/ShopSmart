@@ -41,8 +41,8 @@ $user_id = $_COOKIE["user_id"];
                 background: #888;
                 padding: 20px;
             } */
-        body h1 {
-            padding-left: 5%;
+        body  {
+            padding-top: 5%;
         }
 
         .container1 {
@@ -52,6 +52,9 @@ $user_id = $_COOKIE["user_id"];
             justify-content: space-between;
             /* Horizontally space sections */
             padding: 20px;
+        }
+        .container0 h1{
+            padding: 0;
         }
 
         .container0 hr {
@@ -69,10 +72,9 @@ $user_id = $_COOKIE["user_id"];
             align-items: center;
             border-radius: 30px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: max-content;
-            padding-inline: 3%;
-            margin-left: 2%;
-            margin-bottom: 15px;
+            width: 100%;
+        
+            
         }
 
         .shipping_address span {
@@ -94,13 +96,13 @@ $user_id = $_COOKIE["user_id"];
 
         .shipping_address a {
             background-color: green;
-            padding-inline: 3%;
-            padding-block: 2%;
+            padding: 10px;
             color: white;
             text-decoration: none;
             /* padding: 5px; */
             border-radius: 20px;
             font-size: 14px;
+            margin-left: 70%;
         }
 
         .order_summary {
@@ -115,7 +117,7 @@ $user_id = $_COOKIE["user_id"];
         /* .place_order {} */
 
         .payment {
-            margin-left: 5%;
+            margin-left: 2%;
             display: flex;
             flex-direction: column;
             margin-bottom: 1rem;
@@ -274,12 +276,14 @@ $user_id = $_COOKIE["user_id"];
             border-radius: 30px;
         }
     </style>
+    <?php include_once '../header.php';
+        ?>
 </head>
 
 <body>
     <?php include_once('../responseModal.inc.php'); ?>
     <div class="container0">
-        <h1>Checkout</h1>
+        
         <div class="container1">
             <div class="shipping_address">
                 <!-- <span class="material-symbols-outlined shipping_address_icon">local_shipping</span> -->
@@ -295,6 +299,7 @@ $user_id = $_COOKIE["user_id"];
                     ?></p>
                 <a href="../profile/profile.php?section=address">Change</a>
             </div>
+            <h1>Checkout</h1>
             <div class="order_summary">
                 <?php
                 $coupon = $_GET['coupon'];
