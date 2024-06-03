@@ -81,6 +81,11 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 $(this).addClass('active');
                 loadContent('settings.php');
             });
+            $('#admin').click(function() {
+                $('a').removeClass('active');
+                $(this).addClass('active');
+                window.location.href = 'http://localhost:3000/PHP/admin/admin.php';
+            });
 
             $('#logout').click(function() {
                 $.ajax({
@@ -163,7 +168,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             text-decoration: none;
             cursor: pointer;
         }
-        .card .card_details .delete_button{
+
+        .card .card_details .delete_button {
             background: red;
         }
 
@@ -220,14 +226,16 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             align-items: center;
             justify-content: flex-start;
         }
-        .address-card .address-card-body{
-            margin-left: 20px;
-        }
-        .address-card .changeAddressButton{
+
+        .address-card .address-card-body {
             margin-left: 20px;
         }
 
-        #content .header{
+        .address-card .changeAddressButton {
+            margin-left: 20px;
+        }
+
+        #content .header {
             font-weight: bold;
             margin-bottom: 10px;
             color: #000;
@@ -287,7 +295,10 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         button>* {
             margin-right: 10px;
         }
-        .header h1, .card-header, .header h2{
+
+        .header h1,
+        .card-header,
+        .header h2 {
             color: #eee;
         }
 
@@ -670,16 +681,20 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-size: 50px;
             /* Make the span large */
         }
-        #content{
+
+        #content {
             width: 100%;
             padding: 2% 2% 0 2%;
         }
-        #content .header h2{
+
+        #content .header h2 {
             padding-left: 10%;
         }
-        #content .header .add_button #addCardButton{
+
+        #content .header .add_button #addCardButton {
             padding-right: 50%;
         }
+
         .no-order a {
             color: #eee;
             border: 1px solid;
@@ -719,6 +734,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <a href="#" id="orders"><span class="material-symbols-outlined">list_alt</span><span class="nav-text"> Orders</span></a>
             <a href="#" id="address"><span class="material-symbols-outlined">home</span><span class="nav-text"> Address </span></a>
             <a href="#" id="credit_cards"><span class="material-symbols-outlined">credit_card</span><span class="nav-text"> Credit Cards</span></a>
+            <?php if ($user['role'] == 'admin') : ?>
+                <a href="#" id="admin"><span class="material-symbols-outlined">manage_accounts</span><span class="nav-text"> Admin Portal</span></a>
+            <?php endif; ?>
             <a href="#" id="settings"><span class="material-symbols-outlined">settings</span><span class="nav-text"> Settings</span></a>
             <a href="#" id="logout"><span class="material-symbols-outlined">logout</span><span class="nav-text"> Logout</span></a>
         </nav>

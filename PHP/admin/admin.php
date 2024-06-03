@@ -556,20 +556,37 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             font-size: 12px;
             color: #4C4C4C;
         }
-        .search_field input{
+
+        /* .search_field input {
             margin-bottom: 30px;
             margin-left: 20px;
-        }
-        .search_field button{
-            margin-right: 30px;
-            margin-top: 20px;
+        } */
+
+        .search_field button {
+            /* margin-right: 30px;
+            margin-top: 20px; */
             background: none;
         }
-        .search_method{
+
+        .search_field button>span {
+            color: #4C4C4C;
+            font-size: small;
+        }
+
+        .search_field {
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px 10px;
+        }
+
+        /* .search_method {
             border: 2px solid gray;
             border-radius: 20px;
-            
-        }
+
+        } */
 
         #filters {
             display: flex;
@@ -723,10 +740,17 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         }
 
+        .top_section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         #product_search_type,
         #add_product_button,
         #sales_analytics,
-        #analysis_duration {
+        #analysis_duration,
+        #product_search_select {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
@@ -803,18 +827,48 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             display: grid;
         }
 
-        #product_search_bar {
+        /* #product_search_bar {
             margin-bottom: 20px;
             align-items: center;
             justify-content: flex-start;
 
-        }
+        }*/
 
         #product_search_bar,
         #product_search_type {
             margin-right: 20px;
         }
 
+        #product_search_bar {
+            display: flex;
+            align-items: center;
+        }
+
+        table {
+            border-collapse: collapse;
+            /* width: 100%; */
+            border-radius: 30px;
+            font-size: medium;
+
+        }
+
+        td>* {
+            display: flex;
+            /* align-items: center; */
+            justify-content: center;
+        }
+
+        td>a {
+            color: green;
+        }
+
+        td>a>span {
+            font-size: 18px !important;
+        }
+
+        .sidebar {
+            z-index: 1000;
+        }
 
         @media (max-width: 915px) {
             .dashboard #chat-section {
@@ -826,6 +880,21 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 width: 90%;
                 z-index: 10;
             }
+        }
+
+        #form-submit-button,
+        button[type="submit"],
+        #addUser,
+        #addSupermarket,
+        #add_product_button {
+            border-radius: 10px;
+            padding: 5px 10px;
+            background-color: green;
+            color: white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
     <script>

@@ -244,7 +244,7 @@ session_start();
                 <div id="chat-content"></div>
                 <div id="chat_footer">
                     <input type="text" id="chat-input" placeholder="Type your message here..." oninput="validateInput()">
-                    <button id="send-button" disabled>Send</button>
+                    <button id="send-button">Send</button>
                 </div>
             </div>
     <?php endif;

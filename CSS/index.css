@@ -401,9 +401,9 @@ nav a:hover {
         padding: 12px 4%;
     }
 
-    #menuicon {
+    /* #menuicon {
         display: initial;
-    }
+    } */
 
     .navbar {
         position: absolute;

@@ -76,55 +76,69 @@ $category = str_replace('_', ' & ', $_GET['category']);
         }
     </style> -->
     <style>
-        .container{
+        .container {
             padding: 0 5% 5% 5%;
             margin-top: 50px;
         }
+
         .productcard {
-            background-color: #fff; /* White background */
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-            border-radius: 5px; /* Rounded corners */
-            margin: 10px; /* Spacing between cards */
-            display: flex; /* Arrange content in rows */
-            flex-direction: column; /* Stack elements vertically */
-            width: 300px; /* Adjust width as needed */
-            text-align: center; /* Center text within the card */
+            background-color: #fff;
+            /* White background */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow for depth */
+            border-radius: 5px;
+            /* Rounded corners */
+            margin: 10px;
+            /* Spacing between cards */
+            display: flex;
+            /* Arrange content in rows */
+            flex-direction: column;
+            /* Stack elements vertically */
+            width: 300px;
+            /* Adjust width as needed */
+            text-align: center;
+            /* Center text within the card */
             height: 300px;
         }
-        .productcard a{
-            width: 110px; /* Image spans the full card width */
-            height: 100px; /* Adjust height as needed */
-            object-fit: cover; 
-            transition: transform 0.3s ease-in-out; /* Smooth hover effect */
-            margin-left: 25%;
+
+        .productcard a {
+            width: 110px;
+            /* Image spans the full card width */
+            height: 100px;
+            /* Adjust height as needed */
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
         }
-        .product_details a{
+
+        .product_details a {
             width: 100px;
-            
-            
+
+
         }
-        .product_details{
+
+        .product_details {
             padding-top: 40px;
         }
-        .product_details a .product_quantity{
+
+        .product_details a .product_quantity {
             width: 100px;
             padding-top: 20px;
             font-weight: 0;
         }
-        .product_details a .product_price{
+
+        .product_details a .product_price {
             padding-top: 10px;
         }
-        .product_details a #arrow{
-            
-        }
+
+        .product_details a #arrow {}
     </style>
 </head>
 
 <body>
     <!-- header -->
-    <?php //include_once '../header.php'; 
+    <?php include_once '../header.php';
     ?>
-    <!-- <br><br><br><br><br><br><br><br> -->
+    <br><br><br><br><br>
     <h1 class="catname"><?php echo $category ?></h1>
     <div class="container">
         <?php

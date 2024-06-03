@@ -1,34 +1,42 @@
 <head>
     <style>
-        body{
+        body {
             padding: 20px;
         }
-        .modal-content span{
+
+        .modal-content span.close {
             font-size: 40px;
         }
-        .modal-content span:hover{
+
+        .modal-content span.close:hover {
             cursor: pointer;
             color: red;
         }
-        .modal-content h2{
+
+        .modal-content h2 {
             font-size: 30px;
             color: green;
         }
-        .modal-content #freezeReason{
+
+        .modal-content #freezeReason {
             padding: 20px 40px;
             border-radius: 20px;
         }
-        .users h2{
+
+        .users h2 {
             font-size: 30px;
             color: green;
         }
-        .users h2 span{
+
+        .users h2 span {
             color: gray;
         }
-        .users_section{
+
+        .users_section {
             padding-top: 20px;
         }
-        .user-card{
+
+        .user-card {
             padding: 20px;
             margin-bottom: 10px;
             border-radius: 10px;
@@ -36,36 +44,46 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
             font-size: 20px;
         }
+
         #freezeModal .modal-content button,
         #users-search-bar #users-search-type,
-        #users-search-bar button,
         .user-actions button,
         .user-actions .edit-button,
-        .user-actions .user-select
-        {
+        .user-actions .user-select {
             color: #eee;
             border: 1px solid;
             border-radius: 20px;
             background: green;
-            padding:  5px;
+            padding: 5px;
         }
+
+        #users-search-bar button {
+            background-color: transparent;
+        }
+
+        #users-search-bar button>span {
+            font-size: small;
+        }
+
         #freezeModal .modal-content button,
         #users-search-bar #users-search-type,
         #users-search-bar button,
         .user-actions button,
         .user-actions .edit-button,
-        .user-actions .user-select:hover{
+        .user-actions .user-select:hover {
             cursor: pointer;
         }
-        #users-search-bar input{
+
+        #users-search-bar input {
             padding: 10px;
             border-radius: 20px;
         }
+
         @media (max-width: 768px) {
-            body{
+            body {
                 width: 100%;
             }
-  }
+        }
     </style>
 </head>
 <!-- redirected user -->
@@ -83,26 +101,48 @@
         <h2>Edit User Details</h2>
         <form id="editForm">
             <div class="editStatus"></div>
-            <input type="hidden" id="editId">
-            <input type="text" id="editName" placeholder="Name" required>
-            <input type="email" id="editEmail" placeholder="Email" required>
-            <input type="tel" id="editPhone" placeholder="Phone" required>
-            <input type="text" id="editStreet" placeholder="Street" required>
-            <input type="text" id="editCity" placeholder="City" required>
-            <button id="updateUserButton" type="submit">Submit</button>
+            <input type="hidden" id="editId" class="form-input">
+            <input type="text" id="editName" class="form-input" placeholder="Name" required>
+            <input type="email" id="editEmail" class="form-input" placeholder="Email" required>
+            <input type="tel" id="editPhone" class="form-input" placeholder="Phone" required>
+            <input type="text" id="editStreet" class="form-input" placeholder="Street" required>
+            <input type="text" id="editCity" class="form-input" placeholder="City" required>
+            <button id="updateUserButton" type="submit"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+    </div>
+</div>
+<div id="addUserModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span id="closeModalButton" class="close">&times;</span>
+        <h2>Add User</h2>
+        <p>You can add packing/delivery or admin only. Normal users have to signup instead.</p>
+        <form id="addForm">
+            <div class="addStatus"></div>
+            <input type="text" id="addName" class="form-input" placeholder="Name" required>
+            <input type="email" id="addEmail" class="form-input" placeholder="Email" required>
+            <input type="tel" id="addPhone" class="form-input" placeholder="Phone" required>
+            <input type="password" id="addPassword" class="form-input" placeholder="Password" required>
+            <input type="text" id="addStreet" class="form-input" placeholder="Street" required>
+            <input type="text" id="addCity" class="form-input" placeholder="City" required>
+            <select id="addRole" class="form-input">
+                <?php include 'get_user_roles.php'; ?>
+            </select>
+            <button id="addUserButton" type="submit"><span class="material-symbols-outlined">save</span><span>Save</span></button>
         </form>
     </div>
 </div>
 <div class="users">
     <h2 class="users_header"><span>Manage</span> Users</h2>
-    <div id="users-search-bar">
-        <select id="users-search-type">
-            <option value="email">Email</option>
-            <option value="account_status">Account Status</option>
-            <option value="order_nb">Order#</option>
-        </select>
-        <input type="text" id="users-search-input" placeholder="Search..."> <button id="user-clear-search"><span class='material-symbols-outlined'>close</span></button>
-       
+    <div class="top_section">
+        <div id="users-search-bar">
+            <select id="users-search-type">
+                <option value="email">Email</option>
+                <option value="account_status">Account Status</option>
+                <option value="order_nb">Order#</option>
+            </select>
+            <input type="text" id="users-search-input" placeholder="Search..."> <button id="user-clear-search"><span class='material-symbols-outlined'>close</span></button>
+        </div>
+        <button id="addUser"><span class="material-symbols-outlined">add</span><span>Add</span></button>
     </div>
     <section class="users_section">
         <?php
@@ -134,6 +174,15 @@
     </section>
 </div>
 <script>
+    $(document).ready(function() {
+        $('#addUserModal .close').click(function() {
+            $('#addUserModal').hide();
+        });
+    });
+    // add user modal
+    $('#addUser').click(function() {
+        $('#addUserModal').show();
+    });
     // freeze account modal, enable button when textarea has at least 20 characters
     $(document).ready(function() {
         // Initially disable the button
@@ -255,9 +304,85 @@
             }
         });
     });
+    // user add submit
+    $('#addUserButton').click(function(event) {
+        console.log('Form submitted');
+        event.preventDefault();
+
+        // Get the updated details
+        // var userId = $('#addId').val();
+        var adduserName = $('#addName').val();
+        var adduserEmail = $('#addEmail').val();
+        var adduserPhone = $('#addPhone').val();
+        var adduserPass = $('#addPassword').val();
+        var adduserStreet = $('#addStreet').val();
+        var adduserCity = $('#addCity').val();
+        var adduserRole = $('#addRole').val();
+
+
+        var addnameRegex = /^[a-zA-Z\s]+$/;
+        var addemailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var addphoneRegex = /^1?[-.\s]?\(?(\d{3})\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+        var addpassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/; // At least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long
+        var addstreetRegex = /^[a-zA-Z0-9\s,+-.]+$/;
+        var addcityRegex = /^[a-zA-Z\s]+$/;
+
+        // Validate the input fields
+        if (!addnameRegex.test(adduserName)) {
+            $('.addStatus').text('Invalid name. Only letters and spaces are allowed.');
+            return;
+        }
+        if (!addemailRegex.test(adduserEmail)) {
+            $('.addStatus').text('Invalid email.');
+            return;
+        }
+        if (!addphoneRegex.test(adduserPhone)) {
+            $('.addStatus').text('Phone must match either (XXX) XXX-XXXX or 1-XXX-XXX-XXXX format');
+            return;
+        }
+        if (!addpassRegex.test(adduserPass)) {
+            $('.addStatus').text('Password must have 1 upper, 1 lower, 1 digit, min 8 chars');
+            return;
+        }
+        if (!addstreetRegex.test(adduserStreet)) {
+            $('.addStatus').text('Invalid street. Only letters, numbers, spaces, +/- signs and commas are allowed.');
+            return;
+        }
+        if (!addcityRegex.test(adduserCity)) {
+            $('.addStatus').text('Invalid city. Only letters and spaces are allowed.');
+            return;
+        }
+
+
+        // Send an AJAX request to add new user
+        $.ajax({
+            url: 'users/add_user.php',
+            type: 'POST',
+            data: {
+                name: adduserName,
+                email: adduserEmail,
+                phone: adduserPhone,
+                pass: adduserPass,
+                street: adduserStreet,
+                city: adduserCity,
+                role: adduserRole
+            },
+            success: function(data) {
+                if (data.includes("Email already exists.") || data.includes("Phone already exists.")) {
+                    $('.addStatus').text(data);
+                } else {
+                    console.log(data);
+                    $('#addUserModal').hide();
+                    showResponseModal('User added successfully', function() {
+                        $('#users').click();
+                    });
+                }
+            }
+        });
+    });
     // auto-format phone input contents based on number format for db contents for phone
     $(document).ready(function() {
-        $('#phone').on('input', function() {
+        $('#editPhone, #addPhone').on('input', function() {
             var number = $(this).val().replace(/[^\d]/g, '');
             if (number.length > 11) {
                 number = number.slice(0, 11);
@@ -272,7 +397,7 @@
             $(this).val(number);
         });
 
-        $('#phone').on('keypress', function(e) {
+        $('#editPhone, #addPhone').on('keypress', function(e) {
             if (e.which < 48 || e.which > 57) { //prevent other than number 0-9
                 e.preventDefault();
             }

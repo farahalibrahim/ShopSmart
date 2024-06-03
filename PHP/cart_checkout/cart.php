@@ -18,14 +18,14 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php if ($_COOKIE['user_id']) : ?>
+    <?php if (isset($_COOKIE['user_id'])) : ?>
         <title><?php $nameParts = explode(' ', trim($_COOKIE["user_name"]));
                 echo $nameParts[0]; ?>'s Cart</title>
     <?php else : ?>
         <title>Login Please</title>
     <?php endif; ?>
 
-    <?php if ($_COOKIE['user_id']) : ?>
+    <?php if (isset($_COOKIE['user_id'])) : ?>
         <title><?php $nameParts = explode(' ', trim($_COOKIE["user_name"]));
                 echo $nameParts[0]; ?>'s Cart</title>
     <?php else : ?>
@@ -58,6 +58,15 @@ session_start();
 
 
 
+        }
+
+        .not-logged-in {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            /* Optional: Change this to the height you want */
         }
 
         .Container-for-all hr {}
@@ -496,9 +505,9 @@ session_start();
 
 
                 $sql = "SELECT DISTINCT product.tag , cart.product_barcode
-        FROM cart 
-        INNER JOIN product ON cart.product_barcode = product.barcode 
-        WHERE cart.user_id = :user_id";
+                        FROM cart 
+                        INNER JOIN product ON cart.product_barcode = product.barcode 
+                        WHERE cart.user_id = :user_id";
 
                 $stmt = DatabaseHelper::runQuery($conn, $sql, ['user_id' => $user_id]);
 
@@ -663,6 +672,14 @@ session_start();
 
                 <br>
                 <button class="checkout_btn">Checkout</button>
+            <?php
+        else :
+            ?>
+                <div class="not-logged-in">
+                    <span class="material-symbols-outlined" style="font-size: 40px;">person_off </span>
+                    <h3>Login or Signup to check your cart</h3>
+                    <a href="http://localhost:3000/PHP/login.php" style="color: green; font-weight: bold;">Login/Signup</a>
+                </div>
             <?php
         endif; ?>
     </div>

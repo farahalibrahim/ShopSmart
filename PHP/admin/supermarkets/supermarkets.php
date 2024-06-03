@@ -9,20 +9,24 @@
 <div class="supermarkets">
     <section class="supermarket_analytics">
         <h2 class="supermarket_analytics_header"><span>Sales</span> Analytics</h2>
-        <div id="analytics_filters">
-            <select id="sales_analytics">
-                <option value="total_sales">Total Sales</option>
-                <option value="top_selling_products">Top Selling Products</option>
-                <option value="number_of_orders">Number of Orders</option>
-                <option value="average_order_value">Average Order Value</option>
-            </select>
 
-            <select id="analysis_duration">
-                <option value="current_month">Current Month</option>
-                <option value="3_months">3 Months</option>
-                <option value="6_months">6 Months</option>
-                <option value="1_year">1 Year</option>
-            </select>
+        <div class="top_section">
+            <div id="analytics_filters">
+                <select id="sales_analytics">
+                    <option value="total_sales">Total Sales</option>
+                    <option value="top_selling_products">Top Selling Products</option>
+                    <option value="number_of_orders">Number of Orders</option>
+                    <option value="average_order_value">Average Order Value</option>
+                </select>
+
+                <select id="analysis_duration">
+                    <option value="current_month">Current Month</option>
+                    <option value="3_months">3 Months</option>
+                    <option value="6_months">6 Months</option>
+                    <option value="1_year">1 Year</option>
+                </select>
+            </div>
+            <button id="addSupermarket"><span class="material-symbols-outlined">add</span><span>Add</span></button>
         </div>
         <div class="chart"></div>
     </section>
@@ -214,10 +218,115 @@
         </form>
     </div>
 </div>
+
+<div id="addSupermarketModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span id="closeModalButton" class="close">&times;</span>
+        <h2>Add Partner Supermarket</h2>
+        <!-- <p>You can add packing/delivery or admin only. Normal users have to signup instead.</p> -->
+        <form id="addForm">
+            <div class="addStatus"></div>
+            <input type="text" id="addName" class="form-input" placeholder="Name" required>
+            <input type="email" id="addEmail" class="form-input" placeholder="Email" required>
+            <input type="tel" id="addPhone" class="form-input" placeholder="Phone" required>
+            <input type="text" id="addWebsite" class="form-input" placeholder="Website" required>
+            <button id="addSuperButton" type="submit"><span class="material-symbols-outlined">save</span><span>Save</span></button>
+        </form>
+    </div>
+</div>
 <script>
+    // add supermarket modal
+    $('#addSupermarket').click(function() {
+        $('#addSupermarketModal').show();
+    });
+    $('#addSuperButton').click(function(event) {
+        console.log('Form submitted');
+        event.preventDefault();
+
+        // Get the updated details
+        // var userId = $('#addId').val();
+        var addsuperName = $('#addName').val();
+        var addsuperEmail = $('#addEmail').val();
+        var addsuperPhone = $('#addPhone').val();
+        var addsuperWebsite = $('#addWebsite').val();
+
+
+        var addnameRegex = /^[a-zA-Z\s]+$/;
+        var addemailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        var addphoneRegex = /^1?[-.\s]?\(?(\d{3})\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+        var addwebsiteRegex = /^(https?:\/\/)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/;
+
+        // Validate the input fields
+        if (!addnameRegex.test(addsuperName)) {
+            $('.addStatus').text('Invalid name. Only letters and spaces are allowed.');
+            return;
+        }
+        if (!addemailRegex.test(addsuperEmail)) {
+            $('.addStatus').text('Invalid email.');
+            return;
+        }
+        if (!addphoneRegex.test(addsuperPhone)) {
+            $('.addStatus').text('Phone must match either (XXX) XXX-XXXX or 1-XXX-XXX-XXXX format');
+            return;
+        }
+        if (!addwebsiteRegex.test(addsuperWebsite)) {
+            $('.addStatus').text('Invalid website. Please enter a valid URL.');
+            return;
+        }
+
+
+        // Send an AJAX request to add new user
+        $.ajax({
+            url: 'supermarkets/add_supermarket.php',
+            type: 'POST',
+            data: {
+                name: addsuperName,
+                email: addsuperEmail,
+                phone: addsuperPhone,
+                website: addsuperWebsite,
+            },
+            success: function(data) {
+                if (data.includes("Email already exists.") || data.includes("Phone already exists.")) {
+                    $('.addStatus').text(data);
+                } else {
+                    console.log(data);
+                    $('#addSupermarketModal').hide();
+                    showResponseModal('Partner Supermarket added successfully, You can start adding products at the new supermarket', function() {
+                        $('#supermarkets').click();
+                    });
+                }
+            }
+        });
+    });
+    // auto-format phone input contents based on number format for db contents for phone
+    $(document).ready(function() {
+        $('#addPhone').on('input', function() {
+            var number = $(this).val().replace(/[^\d]/g, '');
+            if (number.length > 11) {
+                number = number.slice(0, 11);
+            }
+            if (number.length == 7) {
+                number = number.replace(/(\d{3})(\d{4})/, "$1-$2"); // 123-4567 format
+            } else if (number.length == 10) {
+                number = number.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"); // (123) 456-7890 format
+            } else if (number.length == 11) {
+                number = number.replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, "$1-$2-$3-$4"); // 1-123-456-7890 format
+            }
+            $(this).val(number);
+        });
+
+        $('#addPhone').on('keypress', function(e) {
+            if (e.which < 48 || e.which > 57) { //prevent other than number 0-9
+                e.preventDefault();
+            }
+        });
+    });
     $(document).ready(function() {
         $('#supermarket_modal .close').click(function() {
             $('#supermarket_modal').hide();
+        });
+        $('#addSupermarketModal .close').click(function() {
+            $('#addSupermarketModal').hide();
         });
     });
 </script>

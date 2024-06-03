@@ -96,7 +96,7 @@ $barcode = $_GET['barcode'];
             padding: 40px 10% 0 10%;
         }
 
-       
+
         .product_container .flex-container .product_image {
             width: 100%;
             /* Image spans the full card width */
@@ -219,46 +219,54 @@ $barcode = $_GET['barcode'];
             border: 1px solid green;
             background: #eee;
         }
-        @media  (max-width: 768px) {
+
+        @media (max-width: 768px) {
+
             /* Styles for small screens */
-            .product_container h2{
+            .product_container h2 {
                 width: 30%;
-                
+
             }
-            .product_details table{
+
+            .product_details table {
                 width: 30%;
                 margin-right: 20%;
             }
+
             .flex-container {
                 width: 30%;
                 display: grid;
             }
+
             .flex-container img {
                 width: 50%;
             }
+
             .text-content {
                 font-size: 16px;
             }
         }
-        @media  (max-width: 450px){
-            .flex-container{
+
+        @media (max-width: 450px) {
+            .flex-container {
                 width: 70%;
                 margin: 0;
             }
-            .product_details table{
+
+            .product_details table {
                 width: 20%;
             }
-            .product_container h2{
+
+            .product_container h2 {
                 margin-right: 100px;
                 width: 20%;
             }
         }
-        
-
     </style>
 </head>
 
 <body>
+
 
     <!-- <br><br><br><br><br><br><br><br> -->
     <!-- header -->
