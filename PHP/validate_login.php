@@ -28,7 +28,7 @@ if (!$user) {
 
 // Verify password
 if (!password_verify($pass, $user['password'])) {
-    echo json_encode(['status' => 'error', 'message' => "Wrong password."]);
+    echo json_encode(['status' => 'error', 'message' => "Wrong password. <a id='forget_password' href='#'>Reset Password</a>"]);
     exit;
 }
 

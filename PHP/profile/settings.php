@@ -14,7 +14,7 @@ $user = DatabaseHelper::runQuery($conn, $sql, ['user' => $user_id])->fetchAll(PD
 
 <?php include '../responseModal.inc.php'; ?>
 <!-- for forget password -->
-<?php //include '../forget_password/forget_password.inc.php'; 
+<?php include '../forget_password/forget_password.inc.php';
 ?>
 <div class="header">
     <h1>Settings</h1>
@@ -110,8 +110,8 @@ $user = DatabaseHelper::runQuery($conn, $sql, ['user' => $user_id])->fetchAll(PD
             <!-- New Password field -->
             <div class="newPasswordDiv">
                 <!-- <label for="newPassword">New Password:</label> -->
-                <input type="password" id="newPassword" name="newPassword" placeholder="New Password"><br>
-                <button class="pass_visibility" type="button" onclick="togglePasswordVisibility('newPassword')"><span class="material-symbols-outlined" id="newPasswordIcon">visibility</span></button><br>
+                <input type="password" id="pass" name="newPassword" placeholder="New Password"><br>
+                <button class="pass_visibility" type="button" onclick="togglePasswordVisibility('pass')"><span class="material-symbols-outlined" id="passIcon">visibility</span></button><br>
             </div>
 
             <!-- Paragraph for status -->
@@ -152,7 +152,7 @@ $user = DatabaseHelper::runQuery($conn, $sql, ['user' => $user_id])->fetchAll(PD
     }
     // Dynamic validation of new password
     window.onload = function() {
-        var newPasswordInput = document.getElementById('newPassword');
+        var newPasswordInput = document.getElementById('pass');
         var passStatus = document.getElementById('pass_status');
 
         newPasswordInput.addEventListener('input', function() {
@@ -309,9 +309,10 @@ $user = DatabaseHelper::runQuery($conn, $sql, ['user' => $user_id])->fetchAll(PD
 
             var oldPassword = $('#oldPassword').val();
             var repeatOldPassword = $('#repeatOldPassword').val();
-            var newPassword = $('#newPassword').val();
+            var newPassword = $('#pass').val();
             var passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/; // At least one uppercase letter, one lowercase letter, one digit, and be at least 8 characters long
 
+            console.log(newPassword);
             if (!passwordRegex.test(newPassword)) {
                 // If the password does not match the regex, display an alert
                 $('#userModal').hide();

@@ -6,8 +6,6 @@ if ($_POST['type'] === 'email') {
     // Send the verification code to the new email address
     // mail($_POST['email'], 'Verification Code', 'Your verification code is: ' . $verificationCode);
 } else if ($_POST['type'] === 'phone') {
-    // Store the new phone number in a session variable
-    $_SESSION['newPhone'] = $_POST['phone'];
     // Send the verification code to the new phone number, needs SMS gateway to send the SMS
     // sms_send($_POST['phone'], 'Your verification code is: ' . $verificationCode);
 }

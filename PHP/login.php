@@ -14,9 +14,17 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <!--link to google symbols-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <style>
+        #btn {
+            margin-left: 0;
+            color: white;
+        }
+    </style>
 </head>
 
-<?php // include_once 'responseModal.inc.php' 
+<?php include_once 'responseModal.inc.php';
+include_once 'forget_password/forget_password.inc.php';
+
 ?>
 
 <body>
@@ -28,7 +36,7 @@
                 <div class="input-group">
                     <div class="input-field">
                         <i class="fa-solid fa-envelope"></i>
-                        <input name="email" type="email" placeholder="name@example.com" required>
+                        <input name="email" id="email" type="email" placeholder="name@example.com" required>
                     </div>
                     <div class="input-field" id="namefield">
                         <i class="fa-solid fa-user"></i>
@@ -162,7 +170,7 @@
                                     break;
                             }
                         } else {
-                            $('#status').css('display', 'block').text(res.message);
+                            $('#status').css('display', 'block').html(res.message);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
