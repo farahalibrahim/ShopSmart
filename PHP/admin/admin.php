@@ -407,7 +407,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             margin-top: 10px;
         }
 
-        .user-card {
+        .user-card,
+        .coupon_card {
             display: flex;
             justify-content: flex-start;
             padding: 20px;
@@ -416,41 +417,66 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             position: relative;
         }
 
-        /* 
-        .user-card {
-            display: flex;
-            justify-content: flex-start;
-        } */
+        .coupon_card {
+            padding: 20px;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            /* Add rounded corners */
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            font-size: 16px;
+        }
 
-        .user-icon {
+        .coupon_actions>* {
+            color: #eee;
+            border: 1px solid;
+            border-radius: 20px;
+            background: green;
+            padding: 5px;
+        }
+
+        .coupon_actions>* {
+            cursor: pointer;
+        }
+
+        .top_section {
+            margin-bottom: 10px;
+        }
+
+        .user-icon,
+        .coupon_icon {
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
-        .user-icon>* {
+        .user-icon>*,
+        .coupon_icon>* {
             font-size: 50px;
         }
 
-        .user-info {
+        .user-info,
+        .coupon_info {
             display: flex;
             flex-direction: column;
             justify-content: center;
             padding: 0 20px;
         }
 
-        .user-info>* {
+        .user-info>*,
+        .coupon_info>* {
             margin: 0;
         }
 
-        .user-actions {
+        .user-actions,
+        .coupon_actions {
             display: none;
             position: absolute;
             right: 20px;
             top: 0;
         }
 
-        .user-card:hover .user-actions {
+        .user-card:hover .user-actions,
+        .coupon_card:hover .coupon_actions {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -750,7 +776,9 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         #add_product_button,
         #sales_analytics,
         #analysis_duration,
-        #product_search_select {
+        #product_search_select,
+        #coupons-search-type,
+        #addCoupon {
             color: #eee;
             border: 1px solid;
             border-radius: 10px;
@@ -835,11 +863,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         }*/
 
         #product_search_bar,
-        #product_search_type {
+        #product_search_type,
+        #coupons-search-bar,
+        #coupons-search-type {
             margin-right: 20px;
         }
 
-        #product_search_bar {
+        #product_search_bar,
+        #coupons-search-bar {
             display: flex;
             align-items: center;
         }
@@ -886,7 +917,8 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
         button[type="submit"],
         #addUser,
         #addSupermarket,
-        #add_product_button {
+        #add_product_button,
+        #addCoupon {
             border-radius: 10px;
             padding: 5px 10px;
             background-color: green;
@@ -895,6 +927,14 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             display: flex;
             align-items: center;
             justify-content: center;
+        }
+
+        .coupons_header {
+            color: green
+        }
+
+        .coupons_header span {
+            color: gray
         }
     </style>
     <script>
@@ -951,6 +991,12 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
                 loadContent('supermarkets/supermarkets.php');
             });
 
+            $('#coupons').click(function() {
+                $('a').removeClass('active');
+                $(this).addClass('active');
+                loadContent('coupons/coupons.php');
+            });
+
             $('#logout').click(function() {
                 $.ajax({
                     url: '../logout.php',
@@ -994,6 +1040,7 @@ $user = $stmt->fetch(PDO::FETCH_ASSOC);
             <!-- <a href="#" id="orders" title="Orders"><span class="material-symbols-outlined" data-label="Orders">shopping_cart</span><span class="nav-text"> Orders</span></a> -->
             <a href="#" id="products" title="Products"><span class="material-symbols-outlined" data-label="Products">inventory_2</span><span class="nav-text"> Products</span></a>
             <a href="#" id="supermarkets" title="Supermarkets"><span class="material-symbols-outlined" data-label="Supermarkets">store</span><span class="nav-text"> Supermarkets</span></a>
+            <a href="#" id="coupons" title="Coupons"><span class="material-symbols-outlined" data-label="Coupons">confirmation_number</span><span class="nav-text"> Coupons</span></a>
             <a href="#" id="logout" title="Logout"><span class="material-symbols-outlined" data-label="Logout">logout</span><span class="nav-text"> Logout</span></a>
         </nav>
     </div>
